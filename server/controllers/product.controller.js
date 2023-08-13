@@ -1,6 +1,7 @@
-import catchAsyncError from "../middlewares/catchAsyncError.middleware.js"
+import catchAsyncError from "../middlewares/catchAsyncError.middleware.js";
 import productModel from "../models/product.model.js";
 import AppError from "../utils/error.util.js";
+import Feature from "../utils/features.util.js";
 
 const createProduct = catchAsyncError(async (req, res, next) => {
   const product = await productModel.create(req.body);
@@ -13,7 +14,16 @@ const createProduct = catchAsyncError(async (req, res, next) => {
 });
 
 const getAllProducts = catchAsyncError(async (req, res, next) => {
-  const products = await productModel.find();
+  
+  const productCount = await productModel.countDocuments();  
+  const resultPerPage = 5;
+
+  const apiFeature = new Feature(productModel.find(), req.query)
+    .search()
+    .filter()
+    .pagination(resultPerPage);
+
+  const products = await apiFeature.query;
 
   if (!products || products.length === 0) {
     return next(new AppError(404, "Oops! Products not found"));
@@ -23,6 +33,7 @@ const getAllProducts = catchAsyncError(async (req, res, next) => {
     success: true,
     message: "All products fetched successfully",
     products,
+    productCount
   });
 });
 
