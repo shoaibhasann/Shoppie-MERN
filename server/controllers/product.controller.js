@@ -1,114 +1,90 @@
-import productModel from "../models/product.model..js";
+import catchAsyncError from "../middlewares/catchAsyncError.middleware.js"
+import productModel from "../models/product.model.js";
 import AppError from "../utils/error.util.js";
 
-// controller function to create a new product
-const createProduct = async (req, res, next) => {
-  try {
-    const { name, description, price, category, stock } = req.body;
+const createProduct = catchAsyncError(async (req, res, next) => {
+  const product = await productModel.create(req.body);
 
-    if (!name || !description || !price || !category || !stock) {
-      return next(new AppError(400, "All fields are required"));
-    }
+  res.status(201).json({
+    success: true,
+    message: "Product created successfully",
+    product,
+  });
+});
 
-    const product = await productModel.create(req.body);
+const getAllProducts = catchAsyncError(async (req, res, next) => {
+  const products = await productModel.find();
 
-    res.status(201).json({
-      success: true,
-      message: "Product created successfully",
-      product,
-    });
-  } catch (error) {
-    return next(new AppError(500, "Internal Server Error" || error.message));
+  if (!products || products.length === 0) {
+    return next(new AppError(404, "Oops! Products not found"));
   }
-};
 
-// controller function to get all products
-const getAllProducts = async (req, res, next) => {
-  try {
-    const products = await productModel.find();
+  res.status(200).json({
+    success: true,
+    message: "All products fetched successfully",
+    products,
+  });
+});
 
-    if (!products) {
-      return next(new AppError("Oops! products not fetched"));
-    }
+const updateProduct = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
 
-    res.status(200).json({
-      success: true,
-      message: "All products fetched successfully",
-      products,
-    });
-  } catch (error) {
-    return next(new AppError(500, "Internal Server Error" || error.message));
+  const product = await productModel.findById(id);
+
+  if (!product) {
+    return next(new AppError(404, "Product not found"));
   }
-};
 
-// controller function to update product
-const updateProduct = async (req, res, next) => {
-  try {
-    const { id } = req.params;
+  const updatedProduct = await productModel.findByIdAndUpdate(id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
 
-    const product = await productModel.findById(id);
+  res.status(200).json({
+    success: true,
+    message: "Product updated successfully",
+    updatedProduct,
+  });
+});
 
-    if (!product) {
-      return next(new AppError(400, "Product not found"));
-    }
+const deleteProduct = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
 
-    const updatedProduct = await productModel.findByIdAndUpdate(id, req.body, {
-      new: true,
-      runValidators: true,
-      useFindAndModify: false,
-    });
+  const product = await productModel.findById(id);
 
-    res.status(200).json({
-      success: true,
-      message: "Product updated successfully",
-      updatedProduct,
-    });
-  } catch (error) {
-    return next(new AppError(500, "Internal Server Error" || error.message));
+  if (!product) {
+    return next(new AppError(404, "Product not found"));
   }
-};
 
-// controller function to delete product
-const deleteProduct = async (req, res, next) => {
-  try {
-    const { id } = req.params;
+  await productModel.findByIdAndDelete(id);
 
-    const product = await productModel.findById(id);
+  res.status(200).json({
+    success: true,
+    message: "Product deleted successfully",
+  });
+});
 
-    if (!product) {
-      return next(new AppError(400, "Product not found"));
-    }
+const productDetails = catchAsyncError(async (req, res, next) => {
+  const { id } = req.params;
 
-    const deleteProduct = await productModel.findByIdAndDelete(id);
+  const product = await productModel.findById(id);
 
-    res.status(200).json({
-      success: true,
-      message: "Product deleted successfully",
-    });
-  } catch (error) {
-    return next(new AppError(500, "Internal Server Error" || error.message));
+  if (!product) {
+    return next(new AppError(404, "Product not found"));
   }
+
+  res.status(200).json({
+    success: true,
+    message: "Product fetched successfully",
+    product,
+  });
+});
+
+export {
+  createProduct,
+  getAllProducts,
+  updateProduct,
+  deleteProduct,
+  productDetails,
 };
-
-// controller function to get product details
-const productDetails = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-
-    const product = await productModel.findById(id);
-
-    if (!product) {
-      return next(new AppError(400, "Product not found"));
-    }
-
-    res.status(200).json({
-      success: true,
-      message: "Product fetched successfully",
-      product
-    });
-  } catch (error) {
-    return next(new AppError(500, "Internal Server Error" || error.message));
-  }
-};
-
-export { createProduct, getAllProducts, updateProduct, deleteProduct, productDetails };
