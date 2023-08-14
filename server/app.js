@@ -2,12 +2,16 @@ import express from 'express';
 import productRoutes from './routes/product.route.js';
 import userRoutes from './routes/user.route.js';
 import errorMiddleware from "./middlewares/error.middleware.js";
+import cookieParser from 'cookie-parser';
 
 // create an instance of express app
 const app = express();
 
 // Middleware for Parsing request body 
 app.use(express.json());
+
+// Middleware for parsing cookie
+app.use(cookieParser());
 
 // Middleware for url decode
 app.use(express.urlencoded({
