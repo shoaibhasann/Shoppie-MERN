@@ -2,6 +2,7 @@ import { Schema, model } from "mongoose";
 import validator from "validator";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import crypto from "crypto";
 
 const userSchema = new Schema(
   {
@@ -35,8 +36,8 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ['User', 'Admin'],
-      default: 'User',
+      enum: ["User", "Admin"],
+      default: "User",
     },
     resetPasswordToken: String,
     resetPasswordExpire: Date,
@@ -64,33 +65,48 @@ userSchema.pre("save", async function (next) {
 });
 
 // jwt token authentication
-userSchema.methods.generateToken = async function(){
-    try {
-        return jwt.sign(
-            {
-                id: this._id,
-                email: this.email,
-                name: this.name,
-                role: this.role,
-            },
-            process.env.JWT_SECRET,
-            {
-                expiresIn: process.env.JWT_EXPIRY
-            },
-        );
-    } catch (error) {
-        throw error
-    }
-}
+userSchema.methods.generateToken = async function () {
+  try {
+    return jwt.sign(
+      {
+        id: this._id,
+        email: this.email,
+        name: this.name,
+        role: this.role,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: process.env.JWT_EXPIRY,
+      }
+    );
+  } catch (error) {
+    throw error;
+  }
+};
 
 // method to compare password
-userSchema.methods.comparePassword = async function(enteredPassword){
-    try {
-        return bcrypt.compare(enteredPassword, this.password);
-    } catch (error) {
-        throw error
-    }
-}
+userSchema.methods.comparePassword = async function (enteredPassword) {
+  try {
+    return bcrypt.compare(enteredPassword, this.password);
+  } catch (error) {
+    throw error;
+  }
+};
+
+// method to generate forgot password token
+userSchema.methods.GenerateForgotPasswordToken = function () {
+  const resetToken = crypto.randomBytes(20).toString("hex");
+
+  // Hashing buffer reset token
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+
+  this.resetPasswordExpire = Date.now() + 15 * 24 * 1000; // 15 minutes from now
+
+  return resetToken;
+};
 const userModel = model("User", userSchema);
 
 export default userModel;
