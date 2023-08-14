@@ -1,3 +1,4 @@
+// function to send JWT Token in cookie along with response
 const sendToken = async (user, statusCode, message, res) => {
     const token = await user.generateToken();
 
@@ -9,10 +10,8 @@ const sendToken = async (user, statusCode, message, res) => {
 
     return res.status(statusCode).cookie('token', token, cookieOptions).json({
         success: true,
-        message,
-        user,
-        token
-    })
+        message
+    });
 
 }
 
