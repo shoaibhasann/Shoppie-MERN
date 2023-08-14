@@ -64,6 +64,11 @@ const productSchema = new Schema(
         },
       },
     ],
+    user: {
+      type: Schema.ObjectId,
+      ref: 'User',
+
+    },
   },
   {
     timestamps: true,
