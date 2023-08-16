@@ -1,20 +1,35 @@
 import { Router } from "express";
-import { createProduct, deleteProduct, getAllProducts, productDetails, productReview, updateProduct } from "../controllers/product.controller.js";
+import {
+  createProduct,
+  deleteProduct,
+  deleteReview,
+  getAllProducts,
+  getAllReviews,
+  productDetails,
+  productReview,
+  updateProduct,
+} from "../controllers/product.controller.js";
 import { authorizedRoles, isLoggedIn } from "../middlewares/auth.middleware.js";
-
 
 const router = Router();
 
-router.post('/admin', isLoggedIn, authorizedRoles('Admin'), createProduct);
-
-router.get("/", getAllProducts);
-
+// Admin Routes
+router.post("/admin", isLoggedIn, authorizedRoles("Admin"), createProduct);
 router.put("/admin/:id", isLoggedIn, authorizedRoles("Admin"), updateProduct);
+router.delete(
+  "/admin/:id",
+  isLoggedIn,
+  authorizedRoles("Admin"),
+  deleteProduct
+);
 
-router.put('/review', isLoggedIn, productReview);
+// Review Routes
+router.put("/review", isLoggedIn, productReview);
+router.delete("/review", isLoggedIn, deleteReview);
 
-router.delete("/admin/:id", isLoggedIn, authorizedRoles("Admin"), deleteProduct);
-
-router.get('/:id', productDetails);
+// Public Routes
+router.get("/", getAllProducts);
+router.get("/product/:id", productDetails);
+router.get("/reviews", getAllReviews);
 
 export default router;
