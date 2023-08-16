@@ -112,10 +112,60 @@ const productDetails = async (req, res, next) => {
   }
 };
 
+// controller function to create and update review
+const productReview = async (req, res, next) => {
+  try {
+    const { rating, comment, productId } = req.body;
+    const { name, id } = req.user;
+
+    const newReview = {
+      user: id,
+      name,
+      rating: Number(rating),
+      comment,
+    };
+
+    const product = await productModel.findById(productId);
+
+    let reviewed = false;
+
+    for (const review of product.reviews) {
+      if (review.user.toString() === id.toString()) {
+        review.rating = rating;
+        review.comment = comment;
+        reviewed = true;
+        break;
+      }
+    }
+
+    if (!reviewed) {
+      product.reviews.push(newReview);
+      product.numberOfReviews = product.reviews.length;
+    }
+
+    const totalRatings = product.reviews.reduce(
+      (sum, review) => sum + review.rating,
+      0
+    );
+    product.ratings = totalRatings / product.reviews.length;
+
+    await product.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Thanks for the feedback!",
+    });
+  } catch (error) {
+    return next(new AppError(500, error.message || "Internal Server Error"));
+  }
+};
+
+
 export {
   createProduct,
   getAllProducts,
   updateProduct,
   deleteProduct,
   productDetails,
+  productReview
 };
