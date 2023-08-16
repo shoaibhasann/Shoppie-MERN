@@ -2,7 +2,7 @@ import userModel from "../models/user.model.js";
 import sendEmail from "../utils/email.util.js";
 import AppError from "../utils/error.util.js";
 import sendToken from "../utils/jwt.util.js";
-import crypto from 'crypto';
+import crypto from "crypto";
 
 // controller function to register user
 const registerUser = async (req, res, next) => {
@@ -89,7 +89,46 @@ const logoutUser = async (req, res, next) => {
   }
 };
 
-// controller function to forgot password
+// controller function to get user profile details
+const getProfile = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+
+    const user = await userModel.findById(userId);
+
+    res.status(200).json({
+      success: true,
+      message: "User details fetched successfully",
+      user,
+    });
+  } catch (error) {
+    return next(new AppError(500, "Internal Server Error" || error.message));
+  }
+};
+
+// controller function to update profile
+const updateProfile = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+
+    const user = await userModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    });
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+    });
+  } catch (error) {
+    return next(new AppError(500, "Internal Server Error" || error.message));
+  }
+};
+
+// controller function to initiate forgot password process
 const forgotPassword = async (req, res, next) => {
   try {
     const { email } = req.body;
@@ -190,10 +229,142 @@ const resetPassword = async (req, res, next) => {
       success: true,
       message: "Password changed successfully",
     });
-
   } catch (error) {
     return next(new AppError(500, "Internal Server Error" || error.message));
   }
 };
 
-export { registerUser, loginUser, logoutUser, forgotPassword, resetPassword };
+// controller function to change or update password
+const changePassword = async (req, res, next) => {
+  try {
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      return next(new AppError(400, "All fields are required"));
+    }
+
+    if (newPassword !== confirmPassword) {
+      return next(new AppError(400, `Password doesn't match`));
+    }
+
+    const { id } = req.user;
+
+    const user = await userModel.findById(id).select("+password");
+
+    if (!user) {
+      return next(new AppError(404, `User doesn't exist`));
+    }
+
+    const isPasswordMatch = await user.comparePassword(oldPassword);
+
+    if (!isPasswordMatch) {
+      return next(new AppError(400, "Old password is incorrect"));
+    }
+
+    user.password = newPassword;
+
+    await user.save();
+
+    user.password = undefined;
+
+    res.status(200).json({
+      success: true,
+      message: "Password changed successfully",
+    });
+  } catch (error) {
+    return next(new AppError(500, "Internal Server Error" || error.message));
+  }
+};
+
+// controller function to get all users details -- (Admin)
+const getAllUsers = async (req, res, next) => {
+  try {
+    const users = await userModel.find();
+
+    res.status(200).json({
+      success: true,
+      message: "Users fetched successfully",
+      users,
+    });
+  } catch (error) {
+    return next(new AppError(500, "Internal Server Error" || error.message));
+  }
+};
+
+// controller function to get user detail -- (Admin)
+const getUserDetails = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const user = await userModel.findById(id);
+
+    if (!user) {
+      return next(new AppError(400, `User doesn't exists`));
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "User details fetched succesfully",
+      user,
+    });
+  } catch (error) {
+    return next(new AppError(500, "Internal Server Error" || error.message));
+  }
+};
+
+// controller function to update user role -- (Admin)
+const updateRole = async(req,res,next) => {
+  try {
+    const { role } = req.body;
+    const { id } = req.params;
+
+    // Validate the provided role against allowed values (Admin, User)
+    if (!["Admin", "User"].includes(role)) {
+      return next(new AppError(400, "Invalid role value"));
+    }
+
+    const user = await userModel.findByIdAndUpdate(id, { role }, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Role updated successfully",
+    });
+
+  } catch (error) {
+    return next(new AppError(500, "Internal Server Error" || error.message));
+  }
+}
+
+// controller function to delete user -- (Admin)
+const deleteUser = async(req,res,next) => {
+  try {
+    const { id } = req.params;
+    
+    const user = await userModel.findByIdAndDelete(id);
+
+    res.status(200).json({
+      success: true,
+      message: 'User deleted successfully'
+    })
+  } catch (error) {
+    return next(new AppError(500, "Internal Server Error" || error.message));
+  }
+}
+export {
+  registerUser,
+  loginUser,
+  logoutUser,
+  getProfile,
+  updateProfile,
+  forgotPassword,
+  resetPassword,
+  changePassword,
+  getAllUsers,
+  getUserDetails,
+  updateRole,
+  deleteUser
+};
