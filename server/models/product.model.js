@@ -6,7 +6,7 @@ const productSchema = new Schema(
       type: String,
       required: [true, "Please enter product name"],
       trim: true,
-      unique: true
+      unique: true,
     },
     description: {
       type: String,
@@ -17,7 +17,7 @@ const productSchema = new Schema(
       required: [true, "Please enter product price"],
       maxLength: [10, "Price cannot exceed 10 characters"],
     },
-    rating: {
+    ratings: {
       type: Number,
       default: 0,
       max: 5,
@@ -42,7 +42,7 @@ const productSchema = new Schema(
       type: Number,
       required: [true, "Please enter product stock"],
       maxLength: [5, "Stock cannot exceed 5 characters"],
-      default: 1
+      default: 1,
     },
     numberOfReviews: {
       type: Number,
@@ -50,6 +50,10 @@ const productSchema = new Schema(
     },
     reviews: [
       {
+        user: {
+          type: Schema.ObjectId,
+          ref: "User",
+        },
         name: {
           type: String,
           required: true,
@@ -66,8 +70,7 @@ const productSchema = new Schema(
     ],
     user: {
       type: Schema.ObjectId,
-      ref: 'User',
-
+      ref: "User",
     },
   },
   {
