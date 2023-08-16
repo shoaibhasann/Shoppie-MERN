@@ -4,42 +4,42 @@ import Feature from "../utils/features.util.js";
 
 const createProduct = async (req, res, next) => {
   try {
-      req.body.user = req.user.id;
+    req.body.user = req.user.id;
 
-      const product = await productModel.create(req.body);
+    const product = await productModel.create(req.body);
 
-      res.status(201).json({
-        success: true,
-        message: "Product created successfully",
-        product,
-      });
+    res.status(201).json({
+      success: true,
+      message: "Product created successfully",
+      product,
+    });
   } catch (error) {
-    return next(new AppError(500, 'Internal Server Error' || error.message));
+    return next(new AppError(500, "Internal Server Error" || error.message));
   }
 };
 
 const getAllProducts = async (req, res, next) => {
   try {
-      const productCount = await productModel.countDocuments();
-      const resultPerPage = 5;
+    const productCount = await productModel.countDocuments();
+    const resultPerPage = 5;
 
-      const apiFeature = new Feature(productModel.find(), req.query)
-        .search()
-        .filter()
-        .pagination(resultPerPage);
+    const apiFeature = new Feature(productModel.find(), req.query)
+      .search()
+      .filter()
+      .pagination(resultPerPage);
 
-      const products = await apiFeature.query;
+    const products = await apiFeature.query;
 
-      if (!products || products.length === 0) {
-        return next(new AppError(404, "Oops! Products not found"));
-      }
+    if (!products || products.length === 0) {
+      return next(new AppError(404, "Oops! Products not found"));
+    }
 
-      res.status(200).json({
-        success: true,
-        message: "All products fetched successfully",
-        products,
-        productCount,
-      });
+    res.status(200).json({
+      success: true,
+      message: "All products fetched successfully",
+      products,
+      productCount,
+    });
   } catch (error) {
     return next(new AppError(500, "Internal Server Error" || error.message));
   }
@@ -73,20 +73,20 @@ const updateProduct = async (req, res, next) => {
 
 const deleteProduct = async (req, res, next) => {
   try {
-      const { id } = req.params;
+    const { id } = req.params;
 
-      const product = await productModel.findById(id);
+    const product = await productModel.findById(id);
 
-      if (!product) {
-        return next(new AppError(404, "Product not found"));
-      }
+    if (!product) {
+      return next(new AppError(404, "Product not found"));
+    }
 
-      await productModel.findByIdAndDelete(id);
+    await productModel.findByIdAndDelete(id);
 
-      res.status(200).json({
-        success: true,
-        message: "Product deleted successfully",
-      });
+    res.status(200).json({
+      success: true,
+      message: "Product deleted successfully",
+    });
   } catch (error) {
     return next(new AppError(500, "Internal Server Error" || error.message));
   }
@@ -94,19 +94,19 @@ const deleteProduct = async (req, res, next) => {
 
 const productDetails = async (req, res, next) => {
   try {
-      const { id } = req.params;
+    const { id } = req.params;
 
-      const product = await productModel.findById(id);
+    const product = await productModel.findById(id);
 
-      if (!product) {
-        return next(new AppError(404, "Product not found"));
-      }
+    if (!product) {
+      return next(new AppError(404, "Product not found"));
+    }
 
-      res.status(200).json({
-        success: true,
-        message: "Product fetched successfully",
-        product,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Product fetched successfully",
+      product,
+    });
   } catch (error) {
     return next(new AppError(500, "Internal Server Error" || error.message));
   }
@@ -160,6 +160,71 @@ const productReview = async (req, res, next) => {
   }
 };
 
+// controller function to get all reviews of product
+const getAllReviews = async (req, res, next) => {
+  try {
+    const { id } = req.query;
+
+    if(!id){
+      return next(new AppError(400, 'Product id is required'));
+    }
+
+    const product = await productModel.findById(id);
+
+    if (!product) {
+      return next(new AppError(404, "Product not found"));
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Reviews fetched successfully",
+      reviews: product.reviews,
+    });
+  } catch (error) {
+    return next(new AppError(500, error.message || "Internal Server Error"));
+  }
+};
+
+const deleteReview = async (req, res, next) => {
+  try {
+    const { productId, id } = req.query;
+
+    const product = await productModel.findById(productId);
+
+    if (!product) {
+      return next(new AppError(404, "Product not found"));
+    }
+
+    const reviews = product.reviews.filter((review) => review._id.toString() !== id.toString());
+
+    const totalRatings = product.reviews.reduce(
+      (sum, review) => sum + review.rating,
+      0
+    );
+
+    let ratings = reviews.length > 0 ? totalRatings / reviews.length : 0;
+
+
+    let numberOfReviews = reviews.length;
+
+    await productModel.findByIdAndUpdate(productId, {
+      reviews,
+      ratings,
+      numberOfReviews
+    },{
+      new: true,
+      runValidators: true,
+      useFindAndModify: false
+    });
+
+    res.status(200).json({
+      success: true,
+      message: 'Review deleted successfully'
+    });
+  } catch (error) {
+    return next(new AppError(500, error.message || "Internal Server Error"));
+  }
+};
 
 export {
   createProduct,
@@ -167,5 +232,7 @@ export {
   updateProduct,
   deleteProduct,
   productDetails,
-  productReview
+  productReview,
+  getAllReviews,
+  deleteReview
 };
