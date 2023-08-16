@@ -1,6 +1,7 @@
 import express from 'express';
 import productRoutes from './routes/product.route.js';
 import userRoutes from './routes/user.route.js';
+import orderRoutes from './routes/order.route.js';
 import errorMiddleware from "./middlewares/error.middleware.js";
 import cookieParser from 'cookie-parser';
 
@@ -21,8 +22,11 @@ app.use(express.urlencoded({
 // Handling product routes
 app.use('/api/v1/products', productRoutes);
 
-// Handling user routers
+// Handling user routes
 app.use('/api/v1', userRoutes);
+
+// Handle order  routes
+app.use('/api/v1/orders', orderRoutes);
 
 // Handling not defined routes
 app.use("*", (req,res) => {
