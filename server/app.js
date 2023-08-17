@@ -4,9 +4,14 @@ import userRoutes from './routes/user.route.js';
 import orderRoutes from './routes/order.route.js';
 import errorMiddleware from "./middlewares/error.middleware.js";
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
 
 // create an instance of express app
 const app = express();
+
+app.use(cors({
+    origin: [process.env.CLIENT_URL]
+}))
 
 // Middleware for Parsing request body 
 app.use(express.json());
