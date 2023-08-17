@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *{
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+  }
+  html {
+    font-family: 'Blinker', sans-serif;
+  }
+
+  body{
+    background-color: #faf9f8;
+    color: #222222;
+  }
+}
