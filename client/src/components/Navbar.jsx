@@ -17,7 +17,7 @@ const Navbar = () => {
         <li className="p-4">Home</li>
         <li className="p-4">Product</li>
         <li className="p-4">Account</li>
-        <li className="p-4">Shopping Bag</li>
+        <li className="p-4">Shopping Bag (0)</li>
         
         <button className="w-28 h-9 ml-4 text-center rounded font-medium bg-[#222222] text-[#fff] hover:bg-[#faf9f8] hover:border hover:border-[#222222] hover:text-[#222222]">
           Sign In
