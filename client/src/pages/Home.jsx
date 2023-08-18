@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import MetaData from "../components/MetaData";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "./features/productSlice";
+import { fetchProducts, STATUSES } from "../features/productSlice";
 import Hero from "../components/Hero";
+import Loader from "../components/Loader";
+import { Alert } from "flowbite-react";
+import ErrorHandler from "../components/ErrorHandler";
 
 function Home() {
   const dispatch = useDispatch();
 
-  const { data: products, status } = useSelector((state) => state.products);
+  const { data: { products, productCount }, status } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
+
+  if(status === STATUSES.FAIL){
+    return <ErrorHandler/>
+  }
+
 
   return (
     <>
@@ -21,8 +29,18 @@ function Home() {
       <h1 className="text-3xl text-center border-b border-[#222222] w-[300px] mx-auto my-20">
         Featured Products
       </h1>
-      <div id="container"  className="flex items-center justify-center flex-wrap gap-5">
-        
+      <div
+        id="container"
+        className="flex items-center justify-center flex-wrap gap-5"
+      >
+        {status === STATUSES.LOADING ? (
+          <Loader />
+        ) : (
+          products &&
+          products.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))
+        )}
       </div>
     </>
   );
