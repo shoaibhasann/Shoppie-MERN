@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from 'axios';
 
-const statuses = Object.freeze({
+export const STATUSES = Object.freeze({
   IDLE: "idle",
-  ERROR: "error",
+  FAIL: "error",
   LOADING: "loading",
 });
 
@@ -13,7 +13,7 @@ const productSlice = createSlice({
 
     initialState: {
         data: [],
-        status: statuses.IDLE
+        status: STATUSES.IDLE
     },
 
     reducers: {
@@ -22,29 +22,30 @@ const productSlice = createSlice({
             state.data = action.payload;
         },
         setStatus(state,action){
-
             state.status = action.payload;
         }
     }
 });
 
-const server = "http://localhost:8080/api/v1";
+const server = "http://localhost:8080/api/v1/products";
 
 export function fetchProducts(){
 
     return async function fetchProductsThunk(dispatch, getState){
-        try {
-            dispatch(setStatus(statuses.LOADING));
 
-            const { data } = await axios.get(`${server}/products`);
+        dispatch(setStatus(STATUSES.LOADING));
+
+        try {
+
+            const { data } = await axios.get(`${server}`);
 
             dispatch(setProducts(data));
 
-            dispatch(setStatus(statuses.IDLE));
+            dispatch(setStatus(STATUSES.IDLE));
 
         } catch (error) {
             console.log(error);
-            dispatch(setStatus(statuses.ERROR));
+            return dispatch(setStatus(STATUSES.FAIL));
         }
     }
 }
