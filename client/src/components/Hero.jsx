@@ -3,7 +3,7 @@ import React from 'react'
 function Hero() {
   return (
     <>
-      <div className="bg-[#f4eddd] w-full h-[70vh] flex flex-col items-center justify-center gap-12">
+      <div className="bg-[#f4eddd] mt-14 max-w-[1240px] h-[70vh] mx-auto flex flex-col items-center justify-center gap-12">
         <p className="text-2xl md:text-4xl font-bold ">Welcome to Shoppie</p>
         <h1 className="text-3xl md:text-5xl font-extrabold">
           Find Amazing Products Below
