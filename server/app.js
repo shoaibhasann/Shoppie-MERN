@@ -10,8 +10,8 @@ import cors from 'cors';
 const app = express();
 
 app.use(cors({
-    origin: [process.env.CLIENT_URL]
-}))
+    origin: '*'
+}));
 
 // Middleware for Parsing request body 
 app.use(express.json());
@@ -35,7 +35,7 @@ app.use('/api/v1/orders', orderRoutes);
 
 // Handling not defined routes
 app.use("*", (req,res) => {
-    res.send("Oops: 404 Page not Found!")
+    res.status(404).send("Oops! page not found");
 });
 
 // Middleware for error handling
