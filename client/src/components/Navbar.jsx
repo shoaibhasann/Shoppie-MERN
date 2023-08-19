@@ -12,7 +12,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className=" flex justify-between items-center h-24 max-w-[1240px] mx-auto px-4">
+    <div className=" flex border-b-2 border-gray justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-base lg:text-lg">
       <img className="w-36" src={Logo} alt="Logo" />
       <ul className=" hidden md:flex items-center cursor-pointer">
         <Link to={"/"} className="p-4">
@@ -30,7 +30,7 @@ const Navbar = () => {
 
         <Link
           to={"/login"}
-          className="w-28 h-9 ml-4 flex items-center justify-center rounded font-medium bg-[#222222] text-[#fff] hover:bg-[#faf9f8] hover:border hover:border-[#222222] hover:text-[#222222]"
+          className="w-28 h-9 ml-4 flex items-center justify-center font-medium bg-[#222222] text-[#fff] hover:bg-[#faf9f8] hover:border hover:border-[#222222] hover:text-[#222222]"
         >
           Sign In
         </Link>
@@ -46,7 +46,7 @@ const Navbar = () => {
         }
       >
         <img className="w-36 mt-9 ml-4" src={Logo} alt="Logo" />
-        <ul className="p-4 uppercase font-semibold cursor-pointer">
+        <div className=" flex flex-col items-center justify-center p-4 gap-5 font-semibold cursor-pointer text-base lg:text-lg">
           <Link to={"/"} className="p-4">
             Home
           </Link>
@@ -61,11 +61,11 @@ const Navbar = () => {
           </Link>
           <Link
             to={"/login"}
-            className="w-28 h-9 ml-4 text-center rounded font-medium bg-[#222222] text-[#fff] hover:bg-[#faf9f8] hover:border hover:border-[#222222] hover:text-[#222222]"
+            className="w-28 h-9 flex items-center justify-center font-medium bg-[#222222] text-[#fff] hover:bg-[#faf9f8] hover:border hover:border-[#222222] hover:text-[#222222]"
           >
             Sign In
           </Link>
-        </ul>
+        </div>
       </div>
     </div>
   );
