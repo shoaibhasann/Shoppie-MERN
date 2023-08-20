@@ -7,7 +7,7 @@ import { numberWithCommas } from '../utils/utility';
 
 function ProductCard({ product }) {
 
-  const options = {
+ const options = {
     edit: false,
     color: "rgba(20,20,20,0.1)",
     activeColor: "#faca15",
@@ -26,7 +26,7 @@ function ProductCard({ product }) {
         </div>
         <div className="flex items-center gap-5 mx-4 mb-4">
           <span className="text-xl font-semibold">
-            {numberWithCommas(product.price)}
+            {"₹ " + numberWithCommas(product.price)}
           </span>
           <button className="text-2xl px-4 py-2 text-[#222222]">
             <AiOutlineShoppingCart />
