@@ -30,14 +30,14 @@ function ProductDetailCard({product}) {
     }
   };
 
-//    const options = {
-//      edit: false,
-//      color: "rgba(20,20,20,0.1)",
-//      activeColor: "#faca15",
-//      size: 20,
-//      value: product.ratings,
-//      isHalf: true,
-//    };
+   const options = {
+     edit: false,
+     color: "rgba(20,20,20,0.1)",
+     activeColor: "#faca15",
+     size: window.innerWidth < 600 ? 20 : 25,
+     value: product.ratings,
+     isHalf: true,
+   };
 
   return (
     <section className="max-w-6xl lg:mt-10  mx-auto grid grid-cols-1 lg:grid-cols-2">
@@ -83,21 +83,32 @@ function ProductDetailCard({product}) {
         </h2>
 
         <h1 className="text-slate-900 mb-10 font-bold text-3xl lg:text-5xl">
-          {product?.name}
+          {product.name}
         </h1>
 
         <p className="text-slate-800 mb-10 font-semi-bold text-lg lg:text-xl leading-loose">
-          {product?.description}
+          {product.description}
         </p>
+
+        <b
+          className={
+            product.stock < 1
+              ? "text-red-600 font-semibold text-lg"
+              : "text-green-600 font-semibold text-lg"
+          }
+        >
+          {product.stock < 1 ? "Out Of Stock" : "In Stock"}
+        </b>
+
+        <div className="flex items-center gap-5 mb-10">
+          <ReactStars {...options} />{" "}
+          <span>({product.numberOfReviews + " Reviews"})</span>
+        </div>
 
         <div className="flex items-center justify-between flex-wrap ">
           <ul className="flex items-center gap-5">
-            {/* <li className="block">
-              <ReactStars {...options} />
-              <span>({product?.numberOfReviews + " Reviews"})</span>
-            </li> */}
             <li className="text-slate-900 font-bold text-2xl lg:text-3xl">
-              {"₹ " + numberWithCommas(product?.price)}
+              {"₹ " + numberWithCommas(product.price)}
             </li>
             <li className="bg-[#f4eddd] py-1 px-2 text-[#ed0010] tracking-wide text-sm lg:text-base font-bold inline-block rounded shadow ">
               50% off
@@ -130,7 +141,7 @@ function ProductDetailCard({product}) {
           <div className="mt-8">
             <button className="flex  items-center justify-center gap-4 text-xl bg-[#ed0010] p-4 text-white font-bold mt-5 w-full hover:text-[#ed0010] hover:bg-[#faf9f8] hover:border-2 hover:border-[#e50010]">
               <AiOutlineShoppingCart />
-              Add to cart
+              { product.stock > 1 ? 'Add to cart' : 'Notify me'}
             </button>
           </div>
         </div>
