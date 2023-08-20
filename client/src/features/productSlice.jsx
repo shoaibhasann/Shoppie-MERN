@@ -5,6 +5,7 @@ export const STATUSES = Object.freeze({
   IDLE: "idle",
   FAIL: "error",
   LOADING: "loading",
+  SUCCESS: "success"
 });
 
 
@@ -41,7 +42,7 @@ export function fetchProducts(){
 
             dispatch(setProducts(data));
 
-            dispatch(setStatus(STATUSES.IDLE));
+            dispatch(setStatus(STATUSES.SUCCESS));
 
         } catch (error) {
             console.log(error);
