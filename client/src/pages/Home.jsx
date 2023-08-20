@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, STATUSES } from "../features/productSlice";
 import Hero from "../components/Hero";
 import Loader from "../components/Loader";
-import { Alert } from "flowbite-react";
 import ErrorHandler from "../components/ErrorHandler";
 
 function Home() {
@@ -33,14 +32,14 @@ function Home() {
         id="container"
         className="flex items-center justify-center flex-wrap gap-5"
       >
-        {status === STATUSES.LOADING ? (
-          <Loader />
-        ) : (
+       {
+        status === STATUSES.SUCCESS ?  (
           products &&
           products.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))
-        )}
+        ) : <Loader/>
+       }
       </div>
     </>
   );
