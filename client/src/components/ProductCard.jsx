@@ -8,13 +8,13 @@ import { numberWithCommas } from '../utils/utility';
 function ProductCard({ product }) {
 
  const options = {
-    edit: false,
-    color: "rgba(20,20,20,0.1)",
-    activeColor: "#faca15",
-    size: 20,
-    value: product.ratings,
-    isHalf: true,
-  };
+   edit: false,
+   color: "rgba(20,20,20,0.1)",
+   activeColor: "#faca15",
+   size: window.innerWidth < 600 ? 20 : 25,
+   value: product.ratings,
+   isHalf: true,
+ };
 
   return (
     <Link to={`/product/${product._id}`}>
@@ -22,7 +22,7 @@ function ProductCard({ product }) {
         <img src={product.images[0]} alt={product.name} />
         <p className="text-2xl font-bold mx-4">{product.name}</p>
         <div className="flex items-center gap-5 mx-4">
-          <ReactStars {...options} /> <span>{product.numberOfReviews}</span>
+          <ReactStars {...options} /> <span>({product.numberOfReviews})</span>
         </div>
         <div className="flex items-center gap-5 mx-4 mb-4">
           <span className="text-xl font-semibold">
