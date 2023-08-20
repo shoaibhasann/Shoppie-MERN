@@ -24,7 +24,7 @@ function ProductDetail() {
 
   const [productImage, setProductImage] = useState(data);
   const [value, setValue] = useState(0);
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const { url } = productImage[value];
 
@@ -109,7 +109,7 @@ function ProductDetail() {
           <div className="flex items-center text-lg text-black cursor-pointer font-semibold">
             <div
               onClick={() =>
-                setQuantity(quantity === 0 ? quantity : quantity - 1)
+                setQuantity(quantity === 1 ? quantity : quantity - 1)
               }
               className="border bg-[#f4eddd] border-slate-950 p-4  h-12 text-black"
             >
