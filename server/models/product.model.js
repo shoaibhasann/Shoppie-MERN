@@ -17,6 +17,12 @@ const productSchema = new Schema(
       required: [true, "Please enter product price"],
       maxLength: [10, "Price cannot exceed 10 characters"],
     },
+    discount: {
+      type: Number,
+      startDate: Date,
+      endDate: Date,
+      default: 0,
+    },
     ratings: {
       type: Number,
       default: 0,
@@ -43,6 +49,7 @@ const productSchema = new Schema(
       required: [true, "Please enter product stock"],
       maxLength: [5, "Stock cannot exceed 5 characters"],
       default: 1,
+      min: 1
     },
     numberOfReviews: {
       type: Number,
