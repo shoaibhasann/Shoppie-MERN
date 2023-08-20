@@ -32,7 +32,7 @@ export function fetchProduct(id) {
 
       dispatch(setProduct(data));
 
-      dispatch(setStatus(STATUSES.IDLE));
+      dispatch(setStatus(STATUSES.SUCCESS));
     } catch (error) {
       console.log(error);
       dispatch(setStatus(STATUSES.FAIL));
