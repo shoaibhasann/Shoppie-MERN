@@ -141,7 +141,7 @@ function ProductDetailCard({product}) {
               </div>
             </div>
             <div className="mt-8">
-              <button className="flex  items-center justify-center gap-4 text-xl bg-[#ed0010] p-4 text-white font-bold mt-5 w-full hover:text-[#ed0010] hover:bg-[#faf9f8] hover:border-2 hover:border-[#e50010]">
+              <button className="flex  items-center justify-center gap-4 text-xl bg-[#ed0010] p-4 text-white font-bold mt-5 w-full border-2 border-transparent hover:text-[#ed0010] hover:bg-[#faf9f8] hover:border-[#e50010]">
                 <AiOutlineShoppingCart />
                 {product.stock >= 1 ? "Add to cart" : "Notify me"}
               </button>
