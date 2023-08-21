@@ -18,7 +18,7 @@ function ProductCard({ product }) {
 
   return (
     <Link to={`/product/${product._id}`}>
-      <div className="flex flex-col gap-3 my-6 w-[280px] hover:shadow-xl border border-slate-950">
+      <div className="flex flex-col gap-3 my-6 w-[280px] bg-white border border-gray-200 rounded-lg shadow">
         <img src={product.images[0]} alt={product.name} />
         <p className="text-2xl font-bold mx-4">{product.name}</p>
         <div className="flex items-center gap-5 mx-4">
