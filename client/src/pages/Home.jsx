@@ -25,21 +25,23 @@ function Home() {
     <>
       <MetaData title="Shoppie: Where Shopping Meets Convenience and Style" />
       <Hero />
-      <h1 className="text-3xl text-center border-b border-[#222222] w-[300px] mx-auto my-20">
-        Featured Products
-      </h1>
-      <div
-        id="container"
-        className="flex items-center justify-center flex-wrap gap-5"
-      >
-       {
-        status === STATUSES.SUCCESS ?  (
-          products &&
-          products.map((product) => (
-            <ProductCard key={product._id} product={product} />
-          ))
-        ) : <Loader/>
-       }
+      <div>
+        <h1 className="text-3xl text-center border-b border-[#222222] w-[300px] mx-auto my-20">
+          Featured Products
+        </h1>
+        <div
+          id="container"
+          className="flex items-center justify-center flex-wrap gap-5"
+        >
+          {status === STATUSES.SUCCESS ? (
+            products &&
+            products.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))
+          ) : (
+            <Loader />
+          )}
+        </div>
       </div>
     </>
   );
