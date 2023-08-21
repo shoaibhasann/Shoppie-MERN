@@ -7,6 +7,7 @@ import {
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { numberWithCommas } from "../utils/utility";
 import ReactStars from "react-rating-stars-component";
+import Reviews from "./Reviews";
 
 function ProductDetailCard({product}) {
 
@@ -35,35 +36,36 @@ function ProductDetailCard({product}) {
      color: "rgba(20,20,20,0.1)",
      activeColor: "#faca15",
      size: window.innerWidth < 600 ? 20 : 25,
-     value: product.ratings,
+     value: 4.5,
      isHalf: true,
    };
 
   return (
-    <section className="max-w-6xl lg:mt-10  mx-auto grid grid-cols-1 lg:grid-cols-2">
-      <article>
-        <div>
-          {/* <img src={url} alt="" className="w-full h-9/12" /> */}
-          <ul className="block lg:hidden">
-            <li>
-              <button
-                onClick={previousSlide}
-                className="bg-white cursor-pointer rounded-full p-5 shadow absolute top-1/2 left-4 -translate-y-1/2"
-              >
-                <FaChevronLeft />
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={nextSlide}
-                className="bg-white cursor-pointer rounded-full p-5 shadow absolute top-1/2 right-4 -translate-y-1/2"
-              >
-                <FaChevronRight />
-              </button>
-            </li>
-          </ul>
-        </div>
-        {/* <ul className=" hidden lg:flex items-center justify-between flex-wrap mt-8 px-4">
+    <>
+      <section className="max-w-6xl lg:mt-10  mx-auto grid grid-cols-1 lg:grid-cols-2">
+        <article>
+          <div>
+            {/* <img src={url} alt="" className="w-full h-9/12" /> */}
+            <ul className="block lg:hidden">
+              <li>
+                <button
+                  onClick={previousSlide}
+                  className="bg-white cursor-pointer rounded-full p-5 shadow absolute top-1/2 left-4 -translate-y-1/2"
+                >
+                  <FaChevronLeft />
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={nextSlide}
+                  className="bg-white cursor-pointer rounded-full p-5 shadow absolute top-1/2 right-4 -translate-y-1/2"
+                >
+                  <FaChevronRight />
+                </button>
+              </li>
+            </ul>
+          </div>
+          {/* <ul className=" hidden lg:flex items-center justify-between flex-wrap mt-8 px-4">
           {product.image.map((item, index) => (
             <li
               onClick={() => setValue(index)}
@@ -76,77 +78,79 @@ function ProductDetailCard({product}) {
             </li>
           ))}
         </ul> */}
-      </article>
-      <article className=" p-8 pb-10">
-        <h2 className=" py-1 px-2 text-[#ed0010] uppercase tracking-wide text-sm font-bold inline-block mb-10">
-          Shoppie Company
-        </h2>
+        </article>
+        <article className=" p-8 pb-10">
+          <h2 className=" py-1 px-2 text-[#ed0010] uppercase tracking-wide text-sm font-bold inline-block mb-10">
+            Shoppie Company
+          </h2>
 
-        <h1 className="text-slate-900 mb-10 font-bold text-3xl lg:text-5xl">
-          {product.name}
-        </h1>
+          <h1 className="text-slate-900 mb-10 font-bold text-3xl lg:text-5xl">
+            {product.name}
+          </h1>
 
-        <p className="text-slate-800 mb-10 font-semi-bold text-lg lg:text-xl leading-loose">
-          {product.description}
-        </p>
+          <p className="text-slate-800 mb-10 font-semi-bold text-lg lg:text-xl leading-loose">
+            {product.description}
+          </p>
 
-        <b
-          className={
-            product.stock < 1
-              ? "text-red-600 font-semibold text-lg"
-              : "text-green-600 font-semibold text-lg"
-          }
-        >
-          {product.stock < 1 ? "Out Of Stock" : "In Stock"}
-        </b>
+          <b
+            className={
+              product.stock < 1
+                ? "text-red-600 font-semibold text-lg"
+                : "text-green-600 font-semibold text-lg"
+            }
+          >
+            {product.stock < 1 ? "Out Of Stock" : "In Stock"}
+          </b>
 
-        <div className="flex items-center gap-5 mb-10">
-          <ReactStars {...options} />{" "}
-          <span>({product.numberOfReviews + " Reviews"})</span>
-        </div>
-
-        <div className="flex items-center justify-between flex-wrap ">
-          <ul className="flex items-center gap-5">
-            <li className="text-slate-900 font-bold text-2xl lg:text-3xl">
-              {"₹ " + numberWithCommas(product.price)}
-            </li>
-            <li className="bg-[#f4eddd] py-1 px-2 text-[#ed0010] tracking-wide text-sm lg:text-base font-bold inline-block rounded shadow ">
-              50% off
-            </li>
-          </ul>
-        </div>
-        <p className="text-slate-600 text-base lg:text-xl mt-4">
-          <s>₹250.00</s>
-        </p>
-        <div className="mt-8">
-          <div className="flex items-center text-lg text-black cursor-pointer font-semibold">
-            <div
-              onClick={() =>
-                setQuantity(quantity === 1 ? quantity : quantity - 1)
-              }
-              className="border bg-[#f4eddd] border-slate-950 p-4  h-12 text-black"
-            >
-              <AiOutlineMinus />
-            </div>
-            <div className="border border-slate-950 border-r-0 border-l-0 p-4 w-12 h-12 flex items-center justify-center">
-              {quantity}
-            </div>
-            <div
-              onClick={() => setQuantity(quantity + 1)}
-              className="border bg-[#f4eddd] border-slate-950 p-4 h-12 text-black"
-            >
-              <AiOutlinePlus />
-            </div>
+          <div className="flex items-center gap-5 mb-10">
+            <ReactStars {...options} />{" "}
+            <span>({product.numberOfReviews + " Reviews"})</span>
           </div>
+
+          <div className="flex items-center justify-between flex-wrap ">
+            <ul className="flex items-center gap-5">
+              <li className="text-slate-900 font-bold text-2xl lg:text-3xl">
+                {"₹ " + numberWithCommas(product.price)}
+              </li>
+              <li className="bg-[#f4eddd] py-1 px-2 text-[#ed0010] tracking-wide text-sm lg:text-base font-bold inline-block rounded shadow ">
+                50% off
+              </li>
+            </ul>
+          </div>
+          <p className="text-slate-600 text-base lg:text-xl mt-4">
+            <s>₹250.00</s>
+          </p>
           <div className="mt-8">
-            <button className="flex  items-center justify-center gap-4 text-xl bg-[#ed0010] p-4 text-white font-bold mt-5 w-full hover:text-[#ed0010] hover:bg-[#faf9f8] hover:border-2 hover:border-[#e50010]">
-              <AiOutlineShoppingCart />
-              { product.stock >= 1 ? 'Add to cart' : 'Notify me'}
-            </button>
+            <div className="flex items-center text-lg text-black cursor-pointer font-semibold">
+              <div
+                onClick={() =>
+                  setQuantity(quantity === 1 ? quantity : quantity - 1)
+                }
+                className="border bg-[#f4eddd] border-slate-950 p-4  h-12 text-black"
+              >
+                <AiOutlineMinus />
+              </div>
+              <div className="border border-slate-950 border-r-0 border-l-0 p-4 w-12 h-12 flex items-center justify-center">
+                {quantity}
+              </div>
+              <div
+                onClick={() => setQuantity(quantity + 1)}
+                className="border bg-[#f4eddd] border-slate-950 p-4 h-12 text-black"
+              >
+                <AiOutlinePlus />
+              </div>
+            </div>
+            <div className="mt-8">
+              <button className="flex  items-center justify-center gap-4 text-xl bg-[#ed0010] p-4 text-white font-bold mt-5 w-full hover:text-[#ed0010] hover:bg-[#faf9f8] hover:border-2 hover:border-[#e50010]">
+                <AiOutlineShoppingCart />
+                {product.stock >= 1 ? "Add to cart" : "Notify me"}
+              </button>
+            </div>
           </div>
-        </div>
-      </article>
-    </section>
+        </article>
+      </section>
+      <Reviews />
+    </>
   );
 }
 
