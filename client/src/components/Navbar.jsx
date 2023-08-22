@@ -18,8 +18,8 @@ const Navbar = () => {
         <Link to={"/"} className="p-4">
           Home
         </Link>
-        <Link to={"/product"} className="p-4">
-          Product
+        <Link to={"/products"} className="p-4">
+          Products
         </Link>
         <Link to={"/account"} className="p-4">
           Account
@@ -50,8 +50,8 @@ const Navbar = () => {
           <Link onClick={() => setNav(true)} to={"/"} className="p-4">
             Home
           </Link>
-          <Link onClick={() => setNav(true)} to={"/product"} className="p-4">
-            Product
+          <Link onClick={() => setNav(true)} to={"/products"} className="p-4">
+            Products
           </Link>
           <Link onClick={() => setNav(true)} to={"/account"} className="p-4">
             Account
