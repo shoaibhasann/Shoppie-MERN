@@ -26,7 +26,7 @@ function Home() {
       <MetaData title="Shoppie: Where Shopping Meets Convenience and Style" />
       <Hero />
       <div>
-        <h1 className="text-3xl text-center border-b border-[#222222] w-[300px] mx-auto my-20">
+        <h1 className="text-3xl text-center mx-auto my-20">
           Featured Products
         </h1>
         <div
