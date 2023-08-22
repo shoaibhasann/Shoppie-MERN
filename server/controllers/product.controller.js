@@ -20,7 +20,7 @@ const createProduct = async (req, res, next) => {
 
 const getAllProducts = async (req, res, next) => {
   try {
-    const productCount = await productModel.countDocuments();
+    const productsCount = await productModel.countDocuments();
     const resultPerPage = 5;
 
     const apiFeature = new Feature(productModel.find(), req.query)
@@ -38,7 +38,7 @@ const getAllProducts = async (req, res, next) => {
       success: true,
       message: "All products fetched successfully",
       products,
-      productCount,
+      productsCount,
     });
   } catch (error) {
     return next(new AppError(500, "Internal Server Error" || error.message));

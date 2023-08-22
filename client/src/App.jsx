@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
+import Products from "./pages/Products";
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route exact path="/" element={<Home />} />
+        <Route exact path="/products" element={<Products />} />
         <Route exact path="/product/:id" element={<ProductDetail />} />
       </Routes>
     </Router>
