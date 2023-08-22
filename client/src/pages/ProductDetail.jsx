@@ -6,6 +6,7 @@ import { STATUSES } from '../features/productSlice';
 import ErrorHandler from '../components/ErrorHandler';
 import ProductDetailCard from '../components/ProductDetailCard';
 import Loader from '../components/Loader';
+import Reviews from '../components/Reviews';
 
 function ProductDetail() {
 
@@ -19,8 +20,6 @@ function ProductDetail() {
 
   const { data: { product}, status } = useSelector((state) => state.productDetail);
 
-  console.log(product);
-
   if(status === STATUSES.FAIL){
     return <ErrorHandler/>
   }
@@ -28,7 +27,10 @@ function ProductDetail() {
   return (
     <>
       {status === STATUSES.SUCCESS ? (
+        <>
         <ProductDetailCard product={product} />
+        <Reviews/>
+        </>
       ) : (
         <Loader/>
       )}
