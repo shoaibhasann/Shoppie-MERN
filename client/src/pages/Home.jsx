@@ -10,11 +10,11 @@ import ErrorHandler from "../components/ErrorHandler";
 function Home() {
   const dispatch = useDispatch();
 
-  const { data: { products, productCount }, status } = useSelector((state) => state.products);
+  const { data: { products, productsCount }, status } = useSelector((state) => state.products);
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, []);
+  }, [dispatch]);
 
   if(status === STATUSES.FAIL){
     return <ErrorHandler/>
