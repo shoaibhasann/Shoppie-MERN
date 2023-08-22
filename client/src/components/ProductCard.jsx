@@ -22,7 +22,8 @@ function ProductCard({ product }) {
         <img src={product.images[0]} alt={product.name} />
         <p className="text-2xl font-bold mx-4">{product.name}</p>
         <div className="flex items-center gap-5 mx-4">
-          <ReactStars {...options} /> <span>({product.numberOfReviews})</span>
+          <ReactStars {...options} />{" "}
+          <span>({product.numberOfReviews + " Reviews"})</span>
         </div>
         <div className="flex items-center gap-5 mx-4 mb-4">
           <span className="text-xl font-semibold">
