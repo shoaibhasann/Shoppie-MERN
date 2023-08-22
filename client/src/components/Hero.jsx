@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Hero() {
   return (
@@ -8,11 +9,11 @@ function Hero() {
         Find Amazing Products Below
       </h1>
       <div>
-        <a href="#container">
+        <Link to={'/products'}>
           <button className="text-[#fff] text-xl bg-[#222222] px-8 py-4 border-2 border-transparent hover:border-[#222222] hover:bg-[#f4eddd] hover:text-[#222222]">
-            Show Products
+            Show All Products
           </button>
-        </a>
+        </Link>
       </div>
     </div>
   );
