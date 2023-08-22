@@ -28,9 +28,10 @@ const productSlice = createSlice({
     }
 });
 
-const server = "http://localhost:8080/api/v1/products";
 
-export function fetchProducts(){
+export function fetchProducts(keyword=''){
+
+    const server = `http://localhost:8080/api/v1/products?keyword=${keyword}`;
 
     return async function fetchProductsThunk(dispatch, getState){
 
