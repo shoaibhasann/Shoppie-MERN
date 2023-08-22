@@ -95,8 +95,8 @@ function ProductDetailCard({product}) {
           <b
             className={
               product.stock < 1
-                ? "text-red-600 font-semibold text-lg"
-                : "text-green-600 font-semibold text-lg"
+                ? "text-red-600 font-semibold text-xl"
+                : "text-green-600 font-semibold text-xl"
             }
           >
             {product.stock < 1 ? "Out Of Stock" : "In Stock"}
@@ -149,7 +149,6 @@ function ProductDetailCard({product}) {
           </div>
         </article>
       </section>
-      <Reviews />
     </>
   );
 }
