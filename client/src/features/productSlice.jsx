@@ -14,12 +14,11 @@ const productSlice = createSlice({
 
     initialState: {
         data: [],
-        status: STATUSES.IDLE
+        status: STATUSES.IDLE,
     },
 
     reducers: {
         setProducts(state,action){
-
             state.data = action.payload;
         },
         setStatus(state,action){
@@ -29,9 +28,9 @@ const productSlice = createSlice({
 });
 
 
-export function fetchProducts(keyword=''){
+export function fetchProducts(keyword='', currentPage=1){
 
-    const server = `http://localhost:8080/api/v1/products?keyword=${keyword}`;
+    const server = `http://localhost:8080/api/v1/products?keyword=${keyword}&page=${currentPage}`;
 
     return async function fetchProductsThunk(dispatch, getState){
 
