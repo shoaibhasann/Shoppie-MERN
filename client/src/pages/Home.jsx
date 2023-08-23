@@ -17,7 +17,7 @@ function Home() {
   }, [dispatch]);
 
   if(status === STATUSES.FAIL){
-    return <ErrorHandler/>
+    return <ErrorHandler message='Page not found'/>
   }
 
 
