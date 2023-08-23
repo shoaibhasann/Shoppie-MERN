@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ErrorHandler() {
+function ErrorHandler({message}) {
   return (
     <section className="bg-white dark:bg-gray-900 ">
       <div className="container min-h-screen px-6 py-12 mx-auto lg:flex lg:items-center lg:gap-12">
@@ -9,7 +9,7 @@ function ErrorHandler() {
             OOPS! 404 ERROR
           </p>
           <h1 className="mt-3 text-3xl font-semibold text-gray-800 dark:text-white md:text-3xl">
-            Page not found
+            {message}
           </h1>
           <p className=" text-lg mt-4 text-gray-500 dark:text-gray-400">
             Sorry, the page you are looking for doesn't exist or may be lost.
