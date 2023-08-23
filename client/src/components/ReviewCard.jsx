@@ -16,6 +16,7 @@ function ReviewCard({ review }) {
     value: review.rating,
     isHalf: true,
   };
+  
   return (
     <div className="max-w-sm p-6 flex flex-col gap-5 bg-white border border-gray-200 rounded-lg shadow">
       <div className="flex items-center justify-between">
