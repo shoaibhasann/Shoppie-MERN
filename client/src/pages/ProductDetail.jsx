@@ -21,7 +21,7 @@ function ProductDetail() {
   const { data: { product}, status } = useSelector((state) => state.productDetail);
 
   if(status === STATUSES.FAIL){
-    return <ErrorHandler/>
+    return <ErrorHandler message="Page not found" />;
   }
 
   return (

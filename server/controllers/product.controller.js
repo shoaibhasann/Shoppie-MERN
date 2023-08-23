@@ -39,6 +39,7 @@ const getAllProducts = async (req, res, next) => {
       message: "All products fetched successfully",
       products,
       productsCount,
+      resultPerPage
     });
   } catch (error) {
     return next(new AppError(500, "Internal Server Error" || error.message));
