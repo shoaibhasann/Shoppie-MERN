@@ -7,6 +7,7 @@ import ErrorHandler from '../components/ErrorHandler';
 import ProductDetailCard from '../components/ProductDetailCard';
 import Loader from '../components/Loader';
 import Reviews from '../components/Reviews';
+import MetaData from '../components/MetaData';
 
 function ProductDetail() {
 
@@ -26,13 +27,16 @@ function ProductDetail() {
 
   return (
     <>
+      <MetaData
+        title={`${product?.name} - Elevate Your Experience with Modern Design`}
+      />
       {status === STATUSES.SUCCESS ? (
         <>
-        <ProductDetailCard product={product} />
-        <Reviews/>
+          <ProductDetailCard product={product} />
+          <Reviews />
         </>
       ) : (
-        <Loader/>
+        <Loader />
       )}
     </>
   );
