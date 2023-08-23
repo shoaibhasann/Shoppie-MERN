@@ -27,7 +27,7 @@ const Navbar = () => {
     <div className="flex border-b-2 border-gray justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-base lg:text-lg">
       <img className="w-36" src={Logo} alt="Logo" />
       <ul className=" hidden md:flex items-center cursor-pointer">
-        <button onClick={() => setSearch(true)} className="p-4">
+        <button onClick={() => setSearch(!search)} className="p-4">
           <AiOutlineSearch size={21} />
         </button>
         <div
@@ -47,10 +47,15 @@ const Navbar = () => {
               placeholder="Search products"
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button type="submit" className="absolute right-16">
+            <button
+              disabled={searchTerm.trim() === ""}
+              type="submit"
+              className="absolute right-16"
+            >
               <AiOutlineSearch />
             </button>
             <button
+              type="button"
               onClick={() => setSearch(!search)}
               className="absolute right-4"
             >
@@ -95,10 +100,15 @@ const Navbar = () => {
             placeholder="Search products"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button type="submit" className="absolute right-16">
+          <button
+            disabled={searchTerm.trim() === ""}
+            type="submit"
+            className="absolute right-16"
+          >
             <AiOutlineSearch />
           </button>
           <button
+            type="button"
             onClick={() => setSearch(!search)}
             className="absolute right-4"
           >
@@ -107,7 +117,7 @@ const Navbar = () => {
         </form>
       </div>
       <div className="flex items-center gap-2 md:hidden">
-        <button onClick={() => setSearch(true)} className="p-4">
+        <button onClick={() => setSearch(!search)} className="p-4">
           <AiOutlineSearch size={20} />
         </button>
         <div
