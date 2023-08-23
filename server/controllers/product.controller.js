@@ -20,7 +20,7 @@ const createProduct = async (req, res, next) => {
 
 const getAllProducts = async (req, res, next) => {
   try {
-    const productsCount = await productModel.countDocuments();
+    
     const resultPerPage = 5;
 
     const apiFeature = new Feature(productModel.find(), req.query)
@@ -33,6 +33,10 @@ const getAllProducts = async (req, res, next) => {
     if (!products || products.length === 0) {
       return next(new AppError(404, "Oops! Products not found"));
     }
+
+    const productsCount = await productModel.countDocuments(
+      apiFeature.query._conditions
+    );
 
     res.status(200).json({
       success: true,
