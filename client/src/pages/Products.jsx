@@ -8,6 +8,7 @@ import Loader from "../components/Loader";
 import { useParams } from "react-router-dom";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { Slider, Rating } from "@mui/material";
+import { BsFilter } from 'react-icons/bs'
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -46,14 +47,17 @@ const Products = () => {
     <>
       <MetaData title="All Products" />
       <h1 className="text-3xl text-center mx-auto my-10">
-        {keyword ? `Products related to: ${keyword}` : "All Products"}
+        {keyword ? `Showing results for : ${keyword}` : "All Products"}
       </h1>
       {status === STATUSES.SUCCESS ? (
         <div className="flex flex-col-reverse gap-8 lg:flex-row">
-          <div className="filter__box flex flex-col justify-between bg-[#faf9f8] lg:w-80 border border-transparent  border-r-slate-200 p-6 lg:p-8  m-5 lg:m-0 shadow-md">
-            <h1 className="text-2xl font-semibold">Filters</h1>
-            <div>
-              <p className="text-xl font-medium">Price</p>
+          <div className="filter__box flex flex-col justify-between bg-white lg:w-80 border border-transparent  border-r-slate-200 p-6 lg:p-8  m-5 lg:m-0 lg:mr-10 shadow-xl">
+            <div className="text-lg font-semibold flex gap-2 items-center border border-transparent border-b-slate-300 pb-5">
+              {" "}
+              <BsFilter className="text-2xl font-semibold" /> Filters
+            </div>
+            <div className=" border border-transparent border-b-slate-300 pb-5">
+              <p className="text-xl font-semibold">Price</p>
               <Slider
                 color="primary"
                 value={price}
@@ -65,22 +69,22 @@ const Products = () => {
                 max={5000}
               />
             </div>
-            <div>
-              <p className="text-xl font-medium">Category</p>
-              <ul>
+            <div className=" border border-transparent border-b-slate-300 pb-5">
+              <p className="text-xl font-semibold">Category</p>
+              <ul className="pl-2">
                 {categories.map((category, index) => (
                   <li
                     className="cursor-pointer"
                     onClick={() => setCategory(category)}
                     key={index}
                   >
-                    - {category}
+                      {category}
                   </li>
                 ))}
               </ul>
             </div>
-            <div>
-              <p className="text-xl font-medium">Ratings</p>
+            <div className=" border border-transparent border-b-slate-300 pb-5">
+              <p className="text-xl font-semibold">Ratings</p>
               <Rating
                 name="size-medium"
                 min={1}

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
 import Logo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [nav, setNav] = useState(true);
@@ -23,6 +24,8 @@ const Navbar = () => {
     setSearch(false);
   };
 
+  const { isAuthenticated } = useSelector((state) => state.user);
+
   return (
     <div className="flex border-b-2 border-gray justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-base lg:text-lg">
       <img className="w-36" src={Logo} alt="Logo" />
@@ -33,7 +36,7 @@ const Navbar = () => {
         <div
           className={
             search
-              ? "absolute left-0 w-full px-8 bg-[#faf9f8] flex items-center duration-200 ease-in-out"
+              ? "absolute left-0 w-full px-8 bg-white flex items-center duration-200 ease-in-out"
               : "hidden"
           }
         >
@@ -78,7 +81,11 @@ const Navbar = () => {
 
         <Link
           to={"/login"}
-          className="w-28 h-9 ml-4 flex items-center justify-center font-medium bg-[#222222] text-[#fff] hover:bg-[#faf9f8] hover:border-2 hover:border-[#222222] hover:text-[#222222]"
+          className={
+            isAuthenticated
+              ? "hidden"
+              : '"w-28 h-9 ml-4 flex items-center justify-center font-medium bg-[#222222] text-[#fff] hover:bg-white hover:border-2 hover:border-[#222222] hover:text-[#222222]"'
+          }
         >
           Sign In
         </Link>
@@ -86,7 +93,7 @@ const Navbar = () => {
       <div
         className={
           search
-            ? " z-50 absolute left-0 w-full px-4 lg:px-8 bg-[#faf9f8] flex items-center"
+            ? " z-50 absolute left-0 w-full px-4 lg:px-8 bg-white flex items-center"
             : "hidden"
         }
       >
@@ -130,7 +137,7 @@ const Navbar = () => {
       <div
         className={
           !nav
-            ? "fixed left-0 top-0 w-[100%] h-full z-20 border-r border-r-gray-900 bg-[#faf9f8] ease-in-out duration-2000"
+            ? "fixed left-0 top-0 w-[100%] h-full z-20 border-r border-r-gray-900 bg-white ease-in-out duration-2000"
             : "hidden"
         }
       >
@@ -151,7 +158,7 @@ const Navbar = () => {
           <Link
             onClick={() => setNav(true)}
             to={"/login"}
-            className="w-28 h-9 flex items-center justify-center font-medium bg-[#222222] text-[#fff] hover:bg-[#faf9f8] hover:border-2 hover:border-[#222222] hover:text-[#222222]"
+            className="w-28 h-9 flex items-center justify-center font-medium bg-[#222222] text-[#fff] hover:bg-white hover:border-2 hover:border-[#222222] hover:text-[#222222]"
           >
             Sign In
           </Link>

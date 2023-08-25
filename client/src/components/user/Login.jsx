@@ -42,7 +42,7 @@ function Login() {
         <Loader />
       ) : (
         <div className="flex justify-center items-center mt-14">
-          <div className="bg-slate-100 p-8 shadow-md w-80 lg:w-[400px]">
+          <div className=" p-8 shadow-2xl w-80 lg:w-[400px]">
             <h2 className="text-2xl font-semibold mb-4 text-center">
               Sign In to continue
             </h2>

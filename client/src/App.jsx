@@ -1,15 +1,13 @@
 import React from "react";
-import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
 import Products from "./pages/Products";
 import Login from "./components/user/Login";
 import Register from "./components/user/Register";
 
-
 function App() {
-
   return (
     <Router>
       <Navbar />

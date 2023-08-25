@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, register } from "../../features/Userslice";
 import Loader from "../Loader";
@@ -8,6 +8,8 @@ import Loader from "../Loader";
 function Register() {
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const { error, loading, isAuthenticated } = useSelector((state) => state.user);
 
@@ -49,7 +51,7 @@ const submitHandler = async (e) => {
         <Loader />
       ) : (
         <div className="flex justify-center items-center mt-10">
-          <div className="bg-slate-100 p-8 shadow-md w-[320px] lg:w-[400px]">
+          <div className=" p-8 shadow-2xl w-[320px] lg:w-[400px]">
             <h2 className="text-2xl font-semibold mb-4 text-center">
               Welcome, to Sign Up
             </h2>
