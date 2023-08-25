@@ -84,7 +84,7 @@ const Navbar = () => {
           className={
             isAuthenticated
               ? "hidden"
-              : '"w-28 h-9 ml-4 flex items-center justify-center font-medium bg-[#222222] text-[#fff] hover:bg-white hover:border-2 hover:border-[#222222] hover:text-[#222222]"'
+              : "w-28 h-9 ml-4 flex items-center justify-center font-medium bg-[#222222] text-[#fff] hover:bg-white hover:border-2 hover:border-[#222222] hover:text-[#222222]"
           }
         >
           Sign In
@@ -158,7 +158,11 @@ const Navbar = () => {
           <Link
             onClick={() => setNav(true)}
             to={"/login"}
-            className="w-28 h-9 flex items-center justify-center font-medium bg-[#222222] text-[#fff] hover:bg-white hover:border-2 hover:border-[#222222] hover:text-[#222222]"
+            className={
+              isAuthenticated
+                ? "hidden"
+                : "w-28 h-9 flex items-center justify-center font-medium bg-[#222222] text-[#fff] hover:bg-white hover:border-2 hover:border-[#222222] hover:text-[#222222]"
+            }
           >
             Sign In
           </Link>
