@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
 import MetaData from "../components/MetaData";
-import { STATUSES, fetchProducts } from "../features/productSlice";
+import { STATUSES, fetchProducts } from "../features/ProductSlice";
 import ErrorHandler from "../components/ErrorHandler";
 import Loader from "../components/Loader";
 import { useParams } from "react-router-dom";
@@ -49,15 +49,15 @@ const Products = () => {
         {keyword ? `Products related to: ${keyword}` : "All Products"}
       </h1>
       {status === STATUSES.SUCCESS ? (
-        <div className="flex flex-col-reverse lg:flex-row">
-          <div className="filter__box lg:w-80 border border-transparent m-5 border-r-slate-200 p-6 lg:p-8 mb-5 lg:mr-5 lg:ml-0 shadow-md">
-            <h1 className="text-2xl font-semibold mb-4">Filters</h1>
-            <div className="mb-4">
+        <div className="flex flex-col-reverse gap-8 lg:flex-row">
+          <div className="filter__box flex flex-col justify-between bg-[#faf9f8] lg:w-80 border border-transparent  border-r-slate-200 p-6 lg:p-8  m-5 lg:m-0 shadow-md">
+            <h1 className="text-2xl font-semibold">Filters</h1>
+            <div>
               <p className="text-xl font-medium">Price</p>
               <Slider
                 color="primary"
                 value={price}
-                onChange={(event,newPrice) => setPrice(newPrice)}
+                onChange={(event, newPrice) => setPrice(newPrice)}
                 valueLabelDisplay="auto"
                 aria-labelledby="range-slider"
                 step={30}
@@ -65,7 +65,7 @@ const Products = () => {
                 max={5000}
               />
             </div>
-            <div className="mb-4">
+            <div>
               <p className="text-xl font-medium">Category</p>
               <ul>
                 {categories.map((category, index) => (
@@ -79,7 +79,7 @@ const Products = () => {
                 ))}
               </ul>
             </div>
-            <div className="mb-4">
+            <div>
               <p className="text-xl font-medium">Ratings</p>
               <Rating
                 name="size-medium"
@@ -91,7 +91,7 @@ const Products = () => {
             </div>
           </div>
           <div className="products__section">
-            <div className="products__container flex justify-center flex-wrap gap-3 lg:gap-5">
+            <div className="products__container grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-3 lg:gap-x-8 place-items-center place-content-center mx-auto">
               {products &&
                 products.map((product) => (
                   <ProductCard key={product._id} product={product} />

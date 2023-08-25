@@ -11,7 +11,7 @@ function Hero() {
       <div>
         <Link to={'/products'}>
           <button className="text-[#fff] text-xl bg-[#222222] px-8 py-4 border-2 border-transparent hover:border-[#222222] hover:bg-[#f4eddd] hover:text-[#222222]">
-            Show All Products
+            Explore Products
           </button>
         </Link>
       </div>

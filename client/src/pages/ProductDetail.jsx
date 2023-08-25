@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchProduct } from '../features/productDetailSlice' 
-import { STATUSES } from '../features/productSlice';
+import { STATUSES } from '../features/ProductSlice';
 import ErrorHandler from '../components/ErrorHandler';
 import ProductDetailCard from '../components/ProductDetailCard';
 import Loader from '../components/Loader';

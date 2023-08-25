@@ -9,19 +9,18 @@ import cors from 'cors';
 // create an instance of express app
 const app = express();
 
-app.use(cors({
-    origin: '*'
-}));
-
 // Middleware for Parsing request body 
 app.use(express.json());
+
+// Middleware for url decode
+app.use(express.urlencoded({ extended: true }));
 
 // Middleware for parsing cookie
 app.use(cookieParser());
 
-// Middleware for url decode
-app.use(express.urlencoded({
-    extended: true,
+app.use(cors({
+    origin: '*',
+    credentials: true,
 }));
 
 // Handling product routes

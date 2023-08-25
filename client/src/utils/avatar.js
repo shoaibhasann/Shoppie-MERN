@@ -1,4 +1,3 @@
-
 function generateInitialAvatar(name) {
   const canvas = document.createElement("canvas");
   canvas.width = 100;
@@ -6,22 +5,23 @@ function generateInitialAvatar(name) {
 
   const context = canvas.getContext("2d");
 
+  // Clear the canvas
+  context.clearRect(0, 0, canvas.width, canvas.height);
 
+  // Draw the background color
   context.fillStyle = "#ed0010";
-  context.fillRect(0, 0, 100, 100);
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  // Draw the text
   context.fillStyle = "#FFFFFF";
-  context.font = `${100 / 2}px Arial`;
+  context.font = `${canvas.width / 2}px Arial`;
   context.textAlign = "center";
   context.textBaseline = "middle";
 
   const initials = name.substring(0, 1).toUpperCase();
-  context.fillText(initials, 100 / 2, 100 / 2);
+  context.fillText(initials, canvas.width / 2, canvas.height / 2);
 
-  return canvas.toDataURL(); 
+  return canvas.toDataURL();
 }
 
-export {
-  generateInitialAvatar
-}
-
-
+export { generateInitialAvatar };

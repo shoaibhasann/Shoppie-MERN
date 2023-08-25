@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ProductCard from "../components/ProductCard";
 import MetaData from "../components/MetaData";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts, STATUSES } from "../features/productSlice";
+import { fetchProducts, STATUSES } from "../features/ProductSlice";
 import Hero from "../components/Hero";
 import Loader from "../components/Loader";
 import ErrorHandler from "../components/ErrorHandler";

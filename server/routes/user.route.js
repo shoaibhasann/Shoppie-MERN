@@ -14,11 +14,12 @@ import {
   updateRole,
 } from "../controllers/user.controller.js";
 import { authorizedRoles, isLoggedIn } from "../middlewares/auth.middleware.js";
+import upload from "../middlewares/multer.middleware.js";
 
 const router = Router();
 
 // Public Routes
-router.post("/register", registerUser);
+router.post("/register", upload.single("avatar"), registerUser);
 router.post("/login", loginUser);
 router.post("/password/forgot", forgotPassword);
 router.put("/password/reset/:resetToken", resetPassword);

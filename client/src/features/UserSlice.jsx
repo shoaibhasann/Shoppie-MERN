@@ -15,6 +15,7 @@ const userSlice = createSlice({
   reducers: {
     setUser(state, action){
         state.userInfo = action.payload
+        state.error = null
     },
     setLoading(state,action){
       state.loading = action.payload
@@ -24,6 +25,9 @@ const userSlice = createSlice({
     },
     setError(state,action){
       state.error = action.payload
+    },
+    clearError(state,action){
+      state.error = null
     }
   }
 });
@@ -48,17 +52,41 @@ export function login(email,password) {
 
         dispatch(setLoading(false));
 
-        dispatch(setStatus(STATUSES.SUCCESS));
-
         dispatch(setAuthenticated(true));
 
        } catch (error) {
         dispatch(setLoading(false));
+        dispatch(setUser({}));
         dispatch(setError(error.response.data));
        }
   }
 }
 
-export const { setUser, setLoading, setAuthenticated, setError } = userSlice.actions;
+export function register(userData) {
+
+  const config = { headers: { "Content-Type" : "application/json"}};
+
+  const server = "http://localhost:8080/api/v1/register";
+
+  return async function loginThunk(dispatch, getState){
+    dispatch(setLoading(true));
+       try {
+        const { data } = await axios.post(server, userData, config);
+
+        dispatch(setUser(data));
+
+        dispatch(setLoading(false));
+
+        dispatch(setAuthenticated(true));
+
+       } catch (error) {
+        dispatch(setLoading(false));
+        dispatch(setUser({}));
+        dispatch(setError(error.response.data));
+       }
+  }
+}
+
+export const { setUser, setLoading, setAuthenticated, setError, clearError } = userSlice.actions;
 
 export default userSlice.reducer;

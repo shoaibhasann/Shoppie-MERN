@@ -3,40 +3,105 @@ import sendEmail from "../utils/email.util.js";
 import AppError from "../utils/error.util.js";
 import sendToken from "../utils/jwt.util.js";
 import crypto from "crypto";
+import cloudinary from "cloudinary";
+import fs from "fs/promises";
+import generateDefaultAvatar from "../utils/avatar.js";
+import path from 'path';
 
-// controller function to register user
-const registerUser = async (req, res, next) => {
+
+const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    if (!email || !name || !password) {
-      return next(new AppError(400, "All fields are required"));
+    // Check if all fields are provided
+    if (!name || !email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required",
+      });
     }
 
+    if(password.length < 8){
+      return res.status(400).json({
+        success: false,
+        message: 'Password should be greater than 8 characters'
+      });
+    }
+
+    // Check if the user already exists
     const userExists = await userModel.findOne({ email });
-
     if (userExists) {
-      return next(new AppError(400, "Email already exists"));
+      return res.status(400).json({
+        success: false,
+        message: "Email already exists",
+      });
     }
 
+    // Create a new user
     const user = await userModel.create({
       name,
       email,
       password,
       avatar: {
-        public_id: "sample id",
-        secure_url: "sample url",
+        public_id: email,
+        secure_url: "http://dummyurl.com",
       },
     });
 
+    // Generate default avatar
+    const defaultAvatarBuffer = await generateDefaultAvatar(name);
+
+    // Create a temporary file from the buffer
+    const tempFilePath = path.join(process.cwd(), "temp_avatar.png"); // Change the filename and extension as needed
+
+    await fs.writeFile(tempFilePath, defaultAvatarBuffer);
+
+    // Upload the default avatar to Cloudinary
+    try {
+      const uploadResult = await cloudinary.v2.uploader.upload(tempFilePath, {
+        folder: "Shoppie_Users",
+        width: 250,
+        height: 250,
+        gravity: "faces",
+        crop: "fill",
+      });
+
+      if (!uploadResult) {
+        throw new Error("Avatar upload failed");
+      }
+
+      // Update user with Cloudinary data and save
+      user.avatar.public_id = uploadResult.public_id;
+      user.avatar.secure_url = uploadResult.secure_url;
+      await user.save();
+    } catch (error) {
+      console.error("Error during Cloudinary upload:", error);
+      return res.status(500).json({
+        success: false,
+        message: "Error during Cloudinary upload",
+      });
+    } finally {
+      // Delete the temporary file
+      await fs.unlink(tempFilePath);
+    }
+
+    // Remove sensitive data
     user.password = undefined;
 
-    // sending jwt token in cookie and with response
-    sendToken(user, 201, "User registered successfully", res);
+    // Sending JWT token in cookie and with response
+    sendToken(user, 201, "Registered successfully!", res);
   } catch (error) {
-    return next(new AppError(500, "Internal Server Error" || error.message));
+    console.error("Internal Server Error:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
   }
 };
+
+
+
+
 
 // controller function to login user
 const loginUser = async (req, res, next) => {
