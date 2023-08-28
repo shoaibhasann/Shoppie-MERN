@@ -1,12 +1,18 @@
 import userModel from "../models/user.model.js";
 import sendEmail from "../utils/email.util.js";
 import AppError from "../utils/error.util.js";
-import sendToken from "../utils/jwt.util.js";
 import crypto from "crypto";
 import cloudinary from "cloudinary";
 import fs from "fs/promises";
 import generateDefaultAvatar from "../utils/avatar.js";
 import path from 'path';
+
+const cookieOptions = {
+  maxAge: 7 * 24 * 60 * 60 * 1000, // Valid for 7 days
+  httpOnly: true,
+  secure: true,
+};
+
 
 
 const registerUser = async (req, res) => {
@@ -21,10 +27,10 @@ const registerUser = async (req, res) => {
       });
     }
 
-    if(password.length < 8){
+    if (password.length < 8) {
       return res.status(400).json({
         success: false,
-        message: 'Password should be greater than 8 characters'
+        message: "Password should be greater than 8 characters",
       });
     }
 
@@ -85,11 +91,22 @@ const registerUser = async (req, res) => {
       await fs.unlink(tempFilePath);
     }
 
+    // generate jwt token
+    const token = await user.generateToken();
+
     // Remove sensitive data
     user.password = undefined;
 
-    // Sending JWT token in cookie and with response
-    sendToken(user, 201, "Registered successfully!", res);
+    // Set the JWT token in the cookie
+    res.cookie("token", token, cookieOptions);
+
+    // Respond with success message and user details
+    res.status(201).json({
+      success: true,
+      message: "Registered successfuly!",
+      user,
+    });
+
   } catch (error) {
     console.error("Internal Server Error:", error);
     return res.status(500).json({
@@ -126,31 +143,42 @@ const loginUser = async (req, res, next) => {
       return next(new AppError(400, "Password is incorrect"));
     }
 
+    // generate jwt token
+    const token = await user.generateToken();
+
     user.password = undefined;
 
-    // sending jwt token in cookie and with response
-    sendToken(user, 200, "Login successfully", res);
+    // Set the JWT token in the cookie
+    res.cookie("token", token, cookieOptions);
+
+    // Respond with success message and user details
+    res.status(201).json({
+      success: true,
+      message: "Logged in successfuly!",
+      user,
+    });
   } catch (error) {
     return next(new AppError(500, "Internal Server Error" || error.message));
   }
 };
 
 // controller function to logout user
-const logoutUser = async (req, res, next) => {
+const logoutUser = (req, res, next) => {
   try {
-    // clear jwt token from cookie
+    // Clear the JWT token in the cookie
     res.cookie("token", null, {
       secure: true,
       maxAge: 0,
       httpOnly: true,
     });
 
+    // Respond with success message
     res.status(200).json({
       success: true,
-      message: "Logged out successfully",
+      message: "Logged out successfuly!",
     });
   } catch (error) {
-    return next(new AppError(500, "Internal Server Error" || error.message));
+    return next(new AppError(500, error.message));
   }
 };
 
