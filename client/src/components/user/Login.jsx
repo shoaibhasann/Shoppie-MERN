@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { login, clearError } from "../../features/Userslice";
+import { login, clearError } from "../../redux/Userslice";
 import Loader from "../Loader";
 import { toast } from "react-toastify";
 
@@ -29,7 +29,7 @@ function Login() {
 
   useEffect(() => {
     if (error) {
-      toast.error(error.message || "An error occurred");
+      // toast.error(error.message || "An error occurred");
       dispatch(clearError());
     } else if(isAuthenticated){
       navigate('/account');
