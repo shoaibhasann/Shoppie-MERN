@@ -17,8 +17,6 @@ function App() {
 
   const dispatch = useDispatch();
 
-  const { isAuthenticated, userInfo } = useSelector((state) => state.user);
-
   useEffect(() => {
     dispatch(getUserProfile());
   }, []);
@@ -26,9 +24,6 @@ function App() {
   return (
     <Router>
       <Navbar />
-      {
-        isAuthenticated && <UserOptions user={userInfo}/> 
-      }
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/products" element={<Products />} />

@@ -13,6 +13,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { logout } from "../../redux/Userslice";
+import { toast } from "react-toastify";
 
 function UserOptions({ user }) {
   const labelProps = {
@@ -26,17 +28,31 @@ function UserOptions({ user }) {
 
   const dispatch = useDispatch();
 
-  const logoutUser = () => {
-    dispatch(logout());
+  const logoutUser = async () => {
+    try {
+      // Initiate logout action
+      await dispatch(logout());
+
+      // Display success toast
+      toast.success("Logged out successfully!");
+
+      navigate('/');
+
+    } catch (error) {
+      // Handle error if needed
+      toast.error("An error occurred during logout.");
+      console.error(error);
+    }
   };
 
   return (
-    <div className="absolute top-7 right-28 lg:right-8 ">
+    <div>
       <SpeedDial>
         <SpeedDialHandler>
           <img
-            src={user.avatar.secure_url}
-            className="h-9 w-9 rounded-full object-cover cursor-pointer"
+            src={user?.avatar.secure_url}
+            alt="User Avatar"
+            className="h-10 w-10 rounded-full object-cover cursor-pointer"
           />
         </SpeedDialHandler>
         <SpeedDialContent className="rounded-full  border border-blue-gray-50 bg-white shadow-xl shadow-black/10">
@@ -54,7 +70,7 @@ function UserOptions({ user }) {
               className="h-6 w-6"
               onClick={() => navigate("/account")}
             />
-            <Typography {...labelProps}>Account</Typography>
+            <Typography {...labelProps}>Profile</Typography>
           </SpeedDialAction>
           <SpeedDialAction className="relative my-2 bg-blue-gray-50">
             <ShoppingBagIcon
@@ -66,7 +82,7 @@ function UserOptions({ user }) {
           <SpeedDialAction className="relative my-2 bg-blue-gray-50">
             <ArrowLeftOnRectangleIcon
               className="h-6 w-6"
-              conClick={logoutUser}
+              onClick={logoutUser}
             />
             <Typography {...labelProps}>Logout</Typography>
           </SpeedDialAction>
