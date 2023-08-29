@@ -8,8 +8,8 @@ import Login from "./components/user/Login";
 import Register from "./components/user/Register";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile } from "./redux/Userslice";
-import UserProfile from "./components/user/UserProfile";
-import UserOptions from "./components/user/UserOptions";
+import Profile from "./components/user/Profile";
+
 
 
 
@@ -31,7 +31,7 @@ function App() {
         <Route exact path="/product/:id" element={<ProductDetail />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
-        <Route exact path="/account" element={<UserProfile />} />
+        <Route exact path="/account" element={<Profile />} />
       </Routes>
     </Router>
   );
