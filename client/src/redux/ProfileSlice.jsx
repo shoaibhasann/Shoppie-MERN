@@ -66,6 +66,30 @@ export function updateProfile(userData){
       }
 }
 
+// function to update password 
+export function updatePassword(password){
+          const config = {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          };
+
+          const server = "http://localhost:8080/api/v1/password/update";
+
+          return async function updatePasswordThunk(dispatch, getState){
+             dispatch(setLoading(true));
+             try {
+               const { data } = await axios.put(server, password, config);
+               dispatch(setProfile(data));
+               dispatch(setLoading(false));
+               dispatch(setIsUpdated(true));
+             } catch (error) {
+               dispatch(setLoading(false));
+               dispatch(setProfile(null));
+               dispatch(setError(error.response.data));
+             }
+          }
+}
+
 
 
 export const { setProfile, setLoading, setError, setIsUpdated, clearErrors, resetProfile } = profileSlice.actions;
