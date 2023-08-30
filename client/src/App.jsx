@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile } from "./redux/Userslice";
 import Profile from "./components/user/Profile";
 import UpdateProfile from "./components/user/UpdateProfile";
+import UpdatePassword from "./components/user/UpdatePassword";
 
 
 
@@ -36,6 +37,7 @@ function App() {
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/account" element={<Profile />} />
         <Route exact path="/update" element={<UpdateProfile />} />
+        <Route exact path="/change-password" element={<UpdatePassword />} />
       </Routes>
     </Router>
   );
