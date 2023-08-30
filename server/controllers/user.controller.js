@@ -202,22 +202,70 @@ const getProfile = async (req, res, next) => {
 // controller function to update profile
 const updateProfile = async (req, res, next) => {
   try {
+
+    const { name, email } = req.body;
+
+    // Extract user id from token
     const { id } = req.user;
 
-    const user = await userModel.findByIdAndUpdate(id, req.body, {
-      new: true,
-      runValidators: true,
-      useFindAndModify: false,
-    });
+    // Find the user in the database
+    const user = await userModel.findByIdAndUpdate(id, req.body, );
 
+    // Check if the user exists
+    if (!user) {
+      return next(new AppError(400, "User does not exist"));
+    }
+
+    // Update user full name
+    if (name) {
+      user.name = name;
+    }
+
+    // Update user email
+    if(email){
+      user.email = email;
+    }
+
+    // Delete and update user profile image
+    if (req.file) {
+
+      // Remove the existing profile image from Cloudinary
+      await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+
+      try {
+        // Upload the new profile image to Cloudinary
+        const result = await cloudinary.v2.uploader.upload(req.file.path, {
+          folder: "Shoppie_Users",
+          width: 250,
+          height: 250,
+          gravity: "faces",
+          crop: "fill",
+        });
+
+        if (result) {
+          user.avatar.public_id = result.public_id;
+          user.avatar.secure_url = result.secure_url;
+        }
+
+        // Remove the file from the upload folder after uploading to Cloudinary
+        fs.rm(`uploads/${req.file.filename}`);
+      } catch (error) {
+        return next(
+          new AppError(400, "File not uploaded, please try again" || error)
+        );
+      }
+    }
+
+    // Save the updated user profile to the database
     await user.save();
 
     res.status(200).json({
       success: true,
-      message: "Profile updated successfully",
+      message: "Profile Updated Successfully",
+      user
     });
   } catch (error) {
-    return next(new AppError(500, "Internal Server Error" || error.message));
+    return next(new AppError(500, error.message));
   }
 };
 

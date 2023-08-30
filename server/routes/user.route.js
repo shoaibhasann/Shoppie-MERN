@@ -26,7 +26,7 @@ router.put("/password/reset/:resetToken", resetPassword);
 
 // Private Routes (require authentication)
 router.put("/password/update", isLoggedIn, changePassword);
-router.put("/me/update", isLoggedIn, updateProfile);
+router.put("/me/update", isLoggedIn, upload.single('avatar'), updateProfile);
 router.get("/logout", isLoggedIn, logoutUser);
 router.get("/me", isLoggedIn, getProfile);
 
