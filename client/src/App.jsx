@@ -9,6 +9,7 @@ import Register from "./components/user/Register";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserProfile } from "./redux/Userslice";
 import Profile from "./components/user/Profile";
+import UpdateProfile from "./components/user/UpdateProfile";
 
 
 
@@ -34,6 +35,7 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/account" element={<Profile />} />
+        <Route exact path="/update" element={<UpdateProfile />} />
       </Routes>
     </Router>
   );
