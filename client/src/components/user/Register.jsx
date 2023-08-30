@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearError, register } from "../../redux/Userslice";
 import Loader from "../Loader";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { toast } from "react-toastify";
 
 
 function Register() {
@@ -18,6 +20,8 @@ function Register() {
     email: "",
     password: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const { name, email, password } = user;
 
@@ -68,7 +72,7 @@ const submitHandler = async (e) => {
                   type="text"
                   id="name"
                   name="name"
-                  className="w-full mt-1 p-2 border "
+                  className="w-full mt-1 p-2 pr-10 border border-slate-900 "
                   required
                 />
               </div>
@@ -84,25 +88,37 @@ const submitHandler = async (e) => {
                   type="email"
                   id="email"
                   name="email"
-                  className="w-full mt-1 p-2 border "
+                  className="w-full mt-1 p-2 pr-10 border border-slate-900"
                   required
                 />
               </div>
-              <div className="mb-4">
-                <label htmlFor="password" className="block font-medium">
+              <div className="mb-4 relative">
+                <label className="block font-medium" htmlFor="oldPassword">
                   Password
                 </label>
-                <input
-                  value={password}
-                  onChange={(e) =>
-                    setUser({ ...user, [e.target.name]: e.target.value })
-                  }
-                  type="password"
-                  id="password"
-                  name="password"
-                  className="w-full mt-1 p-2 border "
-                  required
-                />
+                <div className="relative">
+                  <input
+                    className="w-full mt-1 p-2 pr-10 border border-slate-900"
+                    name="password"
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) =>
+                      setUser({ ...user, [e.target.name]: e.target.value })
+                    }
+                  />
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-0 top-0 bottom-0 px-2 flex items-center bg-transparent"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? (
+                      <FiEyeOff size={20} />
+                    ) : (
+                      <FiEye size={20} />
+                    )}
+                  </button>
+                </div>
               </div>
               <button
                 type="submit"
