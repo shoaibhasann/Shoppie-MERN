@@ -1,12 +1,12 @@
 import React from "react";
 import ReactStars from "react-rating-stars-component";
 
+export const formatDate = (isoDate) => {
+     const options = { year: "numeric", month: "short", day: "numeric" };
+     return new Date(isoDate).toLocaleDateString(undefined, options);
+   };
+
 function ReviewCard({ review }) {
-  
-  const formatDate = (isoDate) => {
-    const options = { year: "numeric", month: "short", day: "numeric" };
-    return new Date(isoDate).toLocaleDateString(undefined, options);
-  };
 
   const options = {
     edit: false,

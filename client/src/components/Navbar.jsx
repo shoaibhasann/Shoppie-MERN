@@ -46,9 +46,6 @@ const Navbar = () => {
         <Link to="/products" className="p-4">
           Products
         </Link>
-        <Link to="/account" className="p-4">
-          Account
-        </Link>
         <Link to="/cart" className="p-4">
           Shopping Bag (0)
         </Link>
@@ -122,9 +119,6 @@ const Navbar = () => {
           </Link>
           <Link onClick={toggleNav} to="/products" className="p-4">
             Products
-          </Link>
-          <Link onClick={toggleNav} to="/account" className="p-4">
-            Account
           </Link>
           <Link onClick={toggleNav} to="/cart" className="p-4">
             Shopping Bag (0)

@@ -17,6 +17,8 @@ function App() {
 
   const dispatch = useDispatch();
 
+  const { isAuthenticated } = useSelector((state) => state.user);
+
   useEffect(() => {
     dispatch(getUserProfile());
   }, []);
