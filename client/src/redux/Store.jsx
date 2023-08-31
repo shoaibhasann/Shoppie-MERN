@@ -2,7 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import productReducer from './ProductSlice.jsx';
 import productDetailReducer from "./productDetailSlice.jsx";
 import userReducer from './UserSlice.jsx';
-import profileReducer from './ProfileSlice.jsx'
+import profileReducer from './ProfileSlice.jsx';
+import forgotPasswordReducer from './ForgotPasswordSlice.jsx'
 
 
 const store = configureStore({
@@ -14,7 +15,9 @@ const store = configureStore({
 
     user: userReducer,
 
-    profile: profileReducer
+    profile: profileReducer,
+
+    forgotPassword: forgotPasswordReducer,
     
   }
 });
