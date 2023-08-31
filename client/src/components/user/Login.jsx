@@ -5,6 +5,7 @@ import { login, clearError } from "../../redux/Userslice";
 import Loader from "../Loader";
 import { toast } from "react-toastify";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { AiOutlineMail } from "react-icons/ai";
 
 function Login() {
 
@@ -12,7 +13,7 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const { userInfo, error, loading, isAuthenticated } = useSelector(
+  const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
   );
 
@@ -32,7 +33,7 @@ function Login() {
 
   useEffect(() => {
     if (error) {
-      // toast.error(error.message || "An error occurred");
+      toast.error(error.message || "An error occurred");
       dispatch(clearError());
     } else if(isAuthenticated){
       navigate('/account');
@@ -62,7 +63,7 @@ function Login() {
                   type="email"
                   id="email"
                   name="email"
-                  className="w-full mt-1 p-2 border "
+                  className="w-full mt-1 p-2 pr-10 border border-slate-900  "
                   required
                 />
               </div>
