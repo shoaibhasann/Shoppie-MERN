@@ -5,7 +5,7 @@ import {
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
-import { numberWithCommas } from "../utils/utility";
+import { numberWithCommas } from "../utils/Utility";
 import ReactStars from "react-rating-stars-component";
 import Reviews from "./Reviews";
 
