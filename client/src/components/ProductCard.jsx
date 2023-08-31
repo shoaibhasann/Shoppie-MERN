@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import ReactStars from 'react-rating-stars-component';
 import { AiOutlineShoppingCart } from "react-icons/ai";
-import { numberWithCommas } from '../utils/utility';
+import { numberWithCommas } from '../utils/Utility';
 
 
 function ProductCard({ product }) {
