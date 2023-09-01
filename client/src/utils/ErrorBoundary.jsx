@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ErrorHandler from "../components/ErrorHandler";
 
 class ErrorBoundary extends Component {
   state = { hasError: false };
@@ -10,7 +11,7 @@ class ErrorBoundary extends Component {
 
   render() {
     if (this.state.hasError) {
-      return <div>Something went wrong.</div>;
+      return <ErrorHandler status='500' message='Something went wrong.'/>;
     }
 
     return this.props.children;
