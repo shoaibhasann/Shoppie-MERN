@@ -291,9 +291,7 @@ const forgotPassword = async (req, res, next) => {
     await emailExists.save();
 
     // create forgot password url for the email
-    const forgotPasswordURL = `${req.protocol}://${req.get(
-      "host"
-    )}/api/v1/password/reset/${resetToken}`;
+    const forgotPasswordURL = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
 
     const subject = "Shoppie Password Recovery";
 
