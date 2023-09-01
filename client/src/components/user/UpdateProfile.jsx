@@ -9,6 +9,7 @@ import {
 import { toast } from "react-toastify";
 import { getUserProfile } from "../../redux/Userslice";
 import { useNavigate } from "react-router-dom";
+import MetaData from "../MetaData";
 
 function UpdateProfile() {
   const { userInfo } = useSelector((state) => state.user);
@@ -77,6 +78,7 @@ function UpdateProfile() {
 
   return (
     <>
+      <MetaData title='Update Your Profile - Shoppie'/>
       {userInfo ? (
         <div className="flex justify-center items-center mt-14">
           <div className="p-8 shadow-2xl w-80 lg:w-[400px]">

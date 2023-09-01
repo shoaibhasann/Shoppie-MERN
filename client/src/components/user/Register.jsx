@@ -5,6 +5,7 @@ import { clearError, register } from "../../redux/Userslice";
 import Loader from "../Loader";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { toast } from "react-toastify";
+import MetaData from "../MetaData";
 
 
 function Register() {
@@ -51,6 +52,7 @@ const submitHandler = async (e) => {
 
   return (
     <>
+    <MetaData title='Register - Shoppie'/>
       {loading ? (
         <Loader />
       ) : (

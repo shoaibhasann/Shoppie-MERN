@@ -11,7 +11,7 @@ import { getUserProfile } from "./redux/Userslice";
 import Profile from "./components/user/Profile";
 import UpdateProfile from "./components/user/UpdateProfile";
 import UpdatePassword from "./components/user/UpdatePassword";
-import ProtectedRoute from "./utils/ProtectedRoute";
+import PrivateRoute from "./utils/PrivateRoute";
 
 
 
@@ -36,9 +36,9 @@ function App() {
         <Route exact path="/product/:id" element={<ProductDetail />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
-        <ProtectedRoute exact path="/account" element={Profile} isAuthenticated={isAuthenticated}/>
-        <ProtectedRoute exact path="/update" element={UpdateProfile} isAuthenticated={isAuthenticated}/>
-        <ProtectedRoute exact  path="/change-password" element={UpdatePassword} isAuthenticated={isAuthenticated}/>
+        <Route exact path="/account" element={<PrivateRoute authenticated={isAuthenticated} component={Profile}/>}/>
+        <Route exact path="/update" element={<PrivateRoute authenticated={isAuthenticated} component={UpdateProfile}/>}/>
+        <Route exact path="/change-password" element={<PrivateRoute authenticated={isAuthenticated} component={UpdatePassword}/>}/>
       </Routes>
     </Router>
   );

@@ -6,6 +6,7 @@ import Loader from "../Loader";
 import { toast } from "react-toastify";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { AiOutlineMail } from "react-icons/ai";
+import MetaData from "../MetaData";
 
 function Login() {
 
@@ -42,6 +43,7 @@ function Login() {
 
   return (
     <>
+    <MetaData title='Login - Shoppie'/>
       {loading ? (
         <Loader />
       ) : (

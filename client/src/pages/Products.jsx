@@ -45,7 +45,7 @@ const Products = () => {
 
   return (
     <>
-      <MetaData title="All Products" />
+      <MetaData title="All Products - Shoppie" />
       <h1 className="text-3xl text-center mx-auto my-10">
         {keyword ? `Showing results for : ${keyword}` : "All Products"}
       </h1>

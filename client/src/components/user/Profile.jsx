@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import Loader from "../Loader";
 import { formatDate } from "../ReviewCard";
 import { Link } from "react-router-dom";
+import MetaData from "../MetaData";
 
 function Profile() {
   const { userInfo, loading } = useSelector(
@@ -15,6 +16,7 @@ function Profile() {
 
   return (
     <>
+    <MetaData title='Profile - Shoppie'/>
       {userInfo && (
         <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-36 mt-20">
           <div>

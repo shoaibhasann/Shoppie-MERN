@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Loader from "../Loader";
 import { getUserProfile } from "../../redux/Userslice";
+import MetaData from "../MetaData";
 
 function UpdateProfile() {
 
@@ -71,6 +72,7 @@ const submitHandler = async (e) => {
 
   return (
     <>
+    <MetaData title='Change Password - Shoppie' />
       {loading ? (
         <Loader />
       ) : (
