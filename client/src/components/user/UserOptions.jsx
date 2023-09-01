@@ -28,10 +28,10 @@ function UserOptions({ user }) {
 
   const dispatch = useDispatch();
 
-  const logoutUser = async () => {
+  const logoutUser = () => {
     try {
       // Initiate logout action
-      await dispatch(logout());
+       dispatch(logout());
 
       // Display success toast
       toast.success("Logged out successfully!");

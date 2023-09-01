@@ -9,7 +9,6 @@ import { AiOutlineMail } from "react-icons/ai";
 import MetaData from "../MetaData";
 
 function Login() {
-
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ function Login() {
     password: "",
   });
 
-  const [showPassword , setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const { email, password } = user;
 
@@ -34,21 +33,23 @@ function Login() {
 
   useEffect(() => {
     if (error) {
-      toast.error(error.message || "An error occurred");
+      if (error && error.message === "Password is incorrect") {
+        toast.error(error.message);
+      }
       dispatch(clearError());
-    } else if(isAuthenticated){
-      navigate('/account');
+    } else if (isAuthenticated) {
+      navigate("/account");
     }
   }, [error, dispatch, isAuthenticated]);
 
   return (
     <>
-    <MetaData title='Login - Shoppie'/>
+      <MetaData title="Login - Shoppie" />
       {loading ? (
         <Loader />
       ) : (
         <div className="flex justify-center items-center mt-14">
-          <div className=" p-8 shadow-2xl w-80 lg:w-[400px]">
+          <div className=" p-8 shadow-2xl w-80 lg:w-[400px] rounded-sm border border-slate-300">
             <h2 className="text-2xl font-semibold mb-4 text-center">
               Sign In to continue
             </h2>
@@ -106,7 +107,7 @@ function Login() {
             </form>
             <div className="mt-4 text-center">
               <Link
-                to={"/forgot-password"}
+                to={"/password/forgot"}
                 className="text-blue-500 hover:underline"
               >
                 Forgot Password?

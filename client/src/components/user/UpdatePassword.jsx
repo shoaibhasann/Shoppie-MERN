@@ -72,12 +72,12 @@ const submitHandler = async (e) => {
 
   return (
     <>
-    <MetaData title='Change Password - Shoppie' />
+      <MetaData title="Change Password - Shoppie" />
       {loading ? (
         <Loader />
       ) : (
         <div className="flex justify-center items-center mt-10">
-          <div className="p-8 shadow-2xl w-80 lg:w-[400px]">
+          <div className="p-8 shadow-2xl w-80 lg:w-[400px] rounded-sm border border-slate-300">
             <h1 className="text-2xl font-bold text-center mb-4">
               Update Password
             </h1>

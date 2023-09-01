@@ -48,13 +48,17 @@ function ForgotPassword() {
         <Loader />
       ) : (
         <div className="flex justify-center items-center mt-14">
-          <div className="p-8 shadow-2xl w-80 lg:w-[400px]">
-            <h1 className="text-2xl font-bold text-center mb-4">
-              Forgot Password
+          <div className="p-8 shadow-2xl w-80 lg:w-[400px] rounded-sm border border-slate-300">
+            <h1 className="text-2xl font-bold text-center mb-4 pb-2 border-b border-slate-600">
+              Password Reset
             </h1>
+            <p className="mb-4 text-base border border-pink-400 p-3 bg-pink-200">
+              Forgotten your password? Enter your e-mail address below, and
+              we'll send you an e-mail allowing you to reset it.
+            </p>
             <form onSubmit={submitHandler}>
               <div className="mb-4">
-                <label htmlFor="email" className="block font-medium">
+                <label htmlFor="email" className="block font-semibold">
                   Email
                 </label>
                 <input
@@ -71,7 +75,7 @@ function ForgotPassword() {
                 type="submit"
                 className="flex items-center justify-center gap-4 text-lg bg-slate-950 px-6 py-2 text-white font-semibold mt-6 w-full border-2 border-transparent hover:text-slate-950 hover:bg-white hover:border-slate-950"
               >
-                Send Email
+                Reset My Password
               </button>
             </form>
           </div>

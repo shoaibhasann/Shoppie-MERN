@@ -12,6 +12,8 @@ import Profile from "./components/user/Profile";
 import UpdateProfile from "./components/user/UpdateProfile";
 import UpdatePassword from "./components/user/UpdatePassword";
 import PrivateRoute from "./utils/PrivateRoute";
+import ForgotPassword from "./components/user/ForgotPassword";
+import ResetPassword from "./components/user/ResetPassword";
 
 
 
@@ -36,9 +38,11 @@ function App() {
         <Route exact path="/product/:id" element={<ProductDetail />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
+        <Route exact path="/password/forgot" element={<ForgotPassword />} />
+        <Route exact path="/password/reset/:token" element={<ResetPassword />} />
         <Route exact path="/account" element={<PrivateRoute authenticated={isAuthenticated} component={Profile}/>}/>
         <Route exact path="/update" element={<PrivateRoute authenticated={isAuthenticated} component={UpdateProfile}/>}/>
-        <Route exact path="/change-password" element={<PrivateRoute authenticated={isAuthenticated} component={UpdatePassword}/>}/>
+        <Route exact path="/password/update" element={<PrivateRoute authenticated={isAuthenticated} component={UpdatePassword}/>}/>
       </Routes>
     </Router>
   );

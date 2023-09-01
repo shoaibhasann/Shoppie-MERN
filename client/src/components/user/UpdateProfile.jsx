@@ -78,10 +78,10 @@ function UpdateProfile() {
 
   return (
     <>
-      <MetaData title='Update Your Profile - Shoppie'/>
+      <MetaData title="Update Your Profile - Shoppie" />
       {userInfo ? (
         <div className="flex justify-center items-center mt-14">
-          <div className="p-8 shadow-2xl w-80 lg:w-[400px]">
+          <div className="p-8 shadow-2xl w-80 lg:w-[400px] rounded-sm border border-slate-300">
             <h1 className="text-2xl font-bold text-center">Update Profile</h1>
             <form onSubmit={submitHandler} encType="multipart/form-data">
               <div className="mb-4">

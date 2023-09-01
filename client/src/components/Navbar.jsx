@@ -68,10 +68,10 @@ const Navbar = () => {
       >
         <form
           onSubmit={submitHandler}
-          className="relative z-50 w-full flex items-center"
+          className="relative z-50 w-full lg:mx-5 flex items-center"
         >
           <input
-            className="w-full border text-lg p-2 rounded"
+            className="w-full border-b-2 border-slate-900 text-lg p-2"
             type="text"
             placeholder="Search products"
             value={searchTerm}

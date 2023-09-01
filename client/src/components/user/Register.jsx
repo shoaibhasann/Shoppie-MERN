@@ -52,12 +52,12 @@ const submitHandler = async (e) => {
 
   return (
     <>
-    <MetaData title='Register - Shoppie'/>
+      <MetaData title="Register - Shoppie" />
       {loading ? (
         <Loader />
       ) : (
         <div className="flex justify-center items-center mt-10">
-          <div className=" p-8 shadow-2xl w-[320px] lg:w-[400px]">
+          <div className=" p-8 shadow-2xl w-[320px] lg:w-[400px] rounded-sm border border-slate-300">
             <h2 className="text-2xl font-semibold mb-4 text-center">
               Welcome, to Sign Up
             </h2>

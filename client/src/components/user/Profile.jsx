@@ -53,7 +53,7 @@ function Profile() {
               </Link>
               <Link
                 className="flex items-center justify-center gap-4 text-lg bg-slate-950 px-6 py-2 text-white font-semibold mt-6 w-full border-2 border-transparent hover:text-slate-950 hover:bg-white hover:border-slate-950"
-                to={"/change-password"}
+                to={"/password/update"}
               >
                 Change Password
               </Link>
