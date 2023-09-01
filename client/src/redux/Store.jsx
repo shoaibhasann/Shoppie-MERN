@@ -3,7 +3,8 @@ import productReducer from './ProductSlice.jsx';
 import productDetailReducer from "./productDetailSlice.jsx";
 import userReducer from './UserSlice.jsx';
 import profileReducer from './ProfileSlice.jsx';
-import forgotPasswordReducer from './ForgotPasswordSlice.jsx'
+import forgotPasswordReducer from './ForgotPasswordSlice.jsx';
+import resetPasswordReducer from './ResetPasswordSlice.jsx';
 
 
 const store = configureStore({
@@ -18,6 +19,8 @@ const store = configureStore({
     profile: profileReducer,
 
     forgotPassword: forgotPasswordReducer,
+
+    resetPassword: resetPasswordReducer,
     
   }
 });
