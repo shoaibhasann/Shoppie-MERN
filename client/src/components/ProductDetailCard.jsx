@@ -8,11 +8,27 @@ import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { numberWithCommas } from "../utils/Utility";
 import ReactStars from "react-rating-stars-component";
 import Reviews from "./Reviews";
+import { useDispatch } from "react-redux";
+import { addItemsToCart } from "../redux/CartSlice";
 
 function ProductDetailCard({product}) {
 
   const [value, setValue] = useState(0);
   const [quantity, setQuantity] = useState(1);
+
+  const increasedQuantity = () => {
+
+    if(quantity < product.stock){
+      setQuantity(quantity + 1);
+    }
+  }
+
+  const decreasedQuantity = () => {
+
+    if(quantity > 1){
+      setQuantity(quantity - 1);
+    }
+  }
 
 
   const nextSlide = () => {
@@ -39,6 +55,22 @@ function ProductDetailCard({product}) {
      value: 4.5,
      isHalf: true,
    };
+
+   const dispatch = useDispatch();
+
+const addToCartHandler = () => {
+  // Check if the quantity is greater than 0 and less than or equal to the product's stock
+  if (quantity > 0 && quantity <= product.stock) {
+    // Dispatch the action to add the item to the cart
+    dispatch(addItemsToCart(product._id, quantity));
+  } else {
+    // Show an error or notification to the user if the quantity is invalid
+    alert(
+      "Invalid quantity. Please select a valid quantity within the stock limit."
+    );
+  }
+};
+
 
   return (
     <>
@@ -122,26 +154,18 @@ function ProductDetailCard({product}) {
           </p>
           <div className="mt-8">
             <div className="flex items-center text-lg text-black cursor-pointer font-semibold">
-              <div
-                onClick={() =>
-                  setQuantity(quantity === 1 ? quantity : quantity - 1)
-                }
-                className="border bg-[#f4eddd] border-slate-950 p-4  h-12 text-black"
-              >
+              <div onClick={decreasedQuantity} className="border bg-[#f4eddd] border-slate-950 p-4  h-12 text-black">
                 <AiOutlineMinus />
               </div>
               <div className="border border-slate-950 border-r-0 border-l-0 p-4 w-12 h-12 flex items-center justify-center">
                 {quantity}
               </div>
-              <div
-                onClick={() => setQuantity(quantity + 1)}
-                className="border bg-[#f4eddd] border-slate-950 p-4 h-12 text-black"
-              >
+              <div onClick={increasedQuantity} className="border bg-[#f4eddd] border-slate-950 p-4 h-12 text-black">
                 <AiOutlinePlus />
               </div>
             </div>
             <div className="mt-8">
-              <button className="flex  items-center justify-center gap-4 text-xl bg-slate-950 p-4 text-white font-bold mt-5 w-full border-2 border-transparent hover:text-slate-950 hover:bg-white hover:border-slate-950">
+              <button onClick={addToCartHandler} className="flex  items-center justify-center gap-4 text-xl bg-slate-950 p-4 text-white font-bold mt-5 w-full border-2 border-transparent hover:text-slate-950 hover:bg-white hover:border-slate-950">
                 <AiOutlineShoppingCart />
                 {product.stock >= 1 ? "Add to cart" : "Notify me"}
               </button>
