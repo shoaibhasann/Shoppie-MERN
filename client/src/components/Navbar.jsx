@@ -33,6 +33,8 @@ const Navbar = () => {
     }
   };
 
+  const { cartItems }  = useSelector((state) => state.cart);
+
   return (
     <div className="flex border-b-2 border-gray justify-between items-center h-24 max-w-[1240px] mx-auto px-4 text-base lg:text-lg">
       <img className="w-36" src={Logo} alt="Logo" />
@@ -47,7 +49,7 @@ const Navbar = () => {
           Products
         </Link>
         <Link to="/cart" className="p-4">
-          Shopping Bag (0)
+          Shopping Bag ({cartItems.length})
         </Link>
         {!isAuthenticated && (
           <Link
