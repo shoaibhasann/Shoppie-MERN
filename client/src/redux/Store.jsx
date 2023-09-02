@@ -5,6 +5,7 @@ import userReducer from './UserSlice.jsx';
 import profileReducer from './ProfileSlice.jsx';
 import forgotPasswordReducer from './ForgotPasswordSlice.jsx';
 import resetPasswordReducer from './ResetPasswordSlice.jsx';
+import cartReducer from './CartSlice.jsx';
 
 
 const store = configureStore({
@@ -21,6 +22,8 @@ const store = configureStore({
     forgotPassword: forgotPasswordReducer,
 
     resetPassword: resetPasswordReducer,
+
+    cart: cartReducer,
     
   }
 });
