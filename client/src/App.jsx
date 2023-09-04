@@ -14,6 +14,7 @@ import UpdatePassword from "./components/user/UpdatePassword";
 import PrivateRoute from "./utils/PrivateRoute";
 import ForgotPassword from "./components/user/ForgotPassword";
 import ResetPassword from "./components/user/ResetPassword";
+import Cart from "./components/cart/Cart";
 
 
 
@@ -36,6 +37,7 @@ function App() {
         <Route exact path="/products" element={<Products />} />
         <Route path="/products/:keyword" element={<Products />} />
         <Route exact path="/product/:id" element={<ProductDetail />} />
+        <Route exact path="/cart" element={<Cart />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/password/forgot" element={<ForgotPassword />} />

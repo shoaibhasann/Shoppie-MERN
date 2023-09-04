@@ -1,22 +1,75 @@
 import productModel from "../models/product.model.js";
 import AppError from "../utils/error.util.js";
 import Feature from "../utils/features.util.js";
+import cloudinary from "cloudinary";
 
 const createProduct = async (req, res, next) => {
   try {
-    req.body.user = req.user.id;
+    // extract information from request body
+    const { name, description, category, price, stock } = req.body;
 
+    if (!name || !description || !category || !price || !stock) {
+      return next(new AppError(400, "All fields are required"));
+    }
+
+    // Check if a product with the same name already exists
+    const existingProduct = await productModel.findOne({ name: name });
+
+    if (existingProduct) {
+      return next(new AppError(400, "A product with this name already exists"));
+    }
+
+    // create new product instance
     const product = await productModel.create(req.body);
 
+    // Check if there are uploaded files
+    if (req.files && req.files.length > 0) {
+      const uploadedImages = [];
+
+      for (const file of req.files) {
+        try {
+          const result = await cloudinary.v2.uploader.upload(file.path, {
+            folder: "Shoppie_Products",
+          });
+
+          if (result && result.secure_url) {
+            uploadedImages.push({
+              public_id: result.public_id,
+              secure_url: result.secure_url,
+            });
+          } else {
+            // Log an error if image upload fails
+            console.error("Image upload failed:", result);
+          }
+
+          // Remove file from the upload folder
+          fs.rm(file.path);
+        } catch (error) {
+          console.error("Image upload error:", error);
+          return next(new AppError(400, "File not uploaded, please try again"));
+        }
+      }
+
+      // Add the uploaded images to the product's images array
+      product.images = [...product.images, ...uploadedImages];
+    }
+
+    // save product to the database
+    await product.save();
+
+    // respond with success message and product details
     res.status(201).json({
       success: true,
       message: "Product created successfully",
       product,
     });
   } catch (error) {
-    return next(new AppError(500, "Internal Server Error" || error.message));
+    console.error("Product creation error:", error);
+    return next(new AppError(500, error.message || "Internal Server Error"));
   }
 };
+
+
 
 const getAllProducts = async (req, res, next) => {
   try {

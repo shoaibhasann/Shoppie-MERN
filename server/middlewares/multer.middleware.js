@@ -20,8 +20,6 @@ const upload = multer({
   fileFilter: (_req, file, cb) => {
     // Get the file extension from the original filename
     let ext = path.extname(file.originalname);
-    console.log('extension name',ext);
-    console.log('mimetype', file.mimetype);
 
     // List of allowed file extensions
     const allowedExtensions = [
