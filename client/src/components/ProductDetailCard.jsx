@@ -27,9 +27,9 @@ function ProductDetailCard({ product }) {
   };
 
   const nextSlide = () => {
-    if (value !== product.image.length - 1) {
+    if (value !== product.images.length - 1) {
       setValue(value + 1);
-    } else if (value === product.image.length - 1) {
+    } else if (value === product.images.length - 1) {
       setValue(0);
     }
   };
@@ -38,8 +38,13 @@ function ProductDetailCard({ product }) {
     if (value !== 0) {
       setValue(value - 1);
     } else {
-      setValue(product.image.length - 1);
+      setValue(product.images.length - 1);
     }
+  };
+
+  const handleImageClick = (index) => {
+    console.log("image clicked", index);
+    setValue(index);
   };
 
   const options = {
@@ -47,7 +52,7 @@ function ProductDetailCard({ product }) {
     color: "rgba(20,20,20,0.1)",
     activeColor: "#faca15",
     size: window.innerWidth < 600 ? 20 : 25,
-    value: 4.5,
+    value: product.ratings,
     isHalf: true,
   };
 
@@ -57,17 +62,26 @@ function ProductDetailCard({ product }) {
     dispatch(addItemsToCart(product._id, quantity));
   };
 
+  // Calculate the discounted price
+  const discountedPrice = Math.floor(
+    product.price - product.price * (product.discount / 100)
+  );
+
   return (
     <>
-      <section className="max-w-6xl lg:mt-10  mx-auto grid grid-cols-1 lg:grid-cols-2">
+      <section className="max-w-6xl mt-7 lg:mt-10  mx-auto grid grid-cols-1 lg:grid-cols-2">
         <article>
-          <div>
-            {/* <img src={url} alt="" className="w-full h-9/12" /> */}
+          <div className="relative">
+            <img
+              src={product.images[value].secure_url}
+              alt=""
+              className="w-full h-9/14"
+            />
             <ul className="block lg:hidden">
               <li>
                 <button
                   onClick={previousSlide}
-                  className="bg-white cursor-pointer rounded-full p-5 shadow absolute top-1/2 left-4 -translate-y-1/2"
+                  className="bg-white cursor-pointer rounded-full p-2 shadow absolute top-1/2 left-2 -translate-y-1/2"
                 >
                   <FaChevronLeft />
                 </button>
@@ -75,26 +89,26 @@ function ProductDetailCard({ product }) {
               <li>
                 <button
                   onClick={nextSlide}
-                  className="bg-white cursor-pointer rounded-full p-5 shadow absolute top-1/2 right-4 -translate-y-1/2"
+                  className="bg-white cursor-pointer rounded-full p-2 shadow absolute top-1/2 right-2 -translate-y-1/2"
                 >
                   <FaChevronRight />
                 </button>
               </li>
             </ul>
           </div>
-          {/* <ul className=" hidden lg:flex items-center justify-between flex-wrap mt-8 px-4">
-          {product.image.map((item, index) => (
-            <li
-              onClick={() => setValue(index)}
-              key={item.id}
-              className={`${
-                index === value && "border-2 border-[#E50010] opacity-70 "
-              } border-2 border-transparent rounded-lg overflow-hidden cursor-pointer`}
-            >
-              <img src={item.url} alt="" className="w-[85px]" />
-            </li>
-          ))}
-        </ul> */}
+          <ul className=" hidden lg:flex items-center justify-around flex-wrap mt-8 px-4">
+            {product.images.map((item, index) => (
+              <li
+                onClick={() => handleImageClick(index)}
+                key={item.secure_url}
+                className={`${
+                  index === value && " border-2 border-[#E50010] opacity-70 "
+                } rounded-lg overflow-hidden cursor-pointer`}
+              >
+                <img src={item.secure_url} alt="" className="w-[85px]" />
+              </li>
+            ))}
+          </ul>
         </article>
         <article className=" p-8 pb-10">
           <h2 className=" py-1 px-2 text-[#ed0010] uppercase tracking-wide text-sm font-bold inline-block mb-10">
@@ -127,15 +141,15 @@ function ProductDetailCard({ product }) {
           <div className="flex items-center justify-between flex-wrap ">
             <ul className="flex items-center gap-5">
               <li className="text-slate-900 font-bold text-2xl lg:text-3xl">
-                {"₹ " + numberWithCommas(product.price)}
+                {"₹ " + numberWithCommas(discountedPrice)}
               </li>
               <li className="bg-[#f4eddd] py-1 px-2 text-[#ed0010] tracking-wide text-sm lg:text-base font-bold inline-block rounded shadow ">
-                50% off
+                {product.discount + '% off'}
               </li>
             </ul>
           </div>
           <p className="text-slate-600 text-base lg:text-xl mt-4">
-            <s>₹250.00</s>
+            <s>{"₹ " + product.price}</s>
           </p>
           <div className="mt-8">
             <div className="flex items-center text-lg text-black cursor-pointer font-semibold">
