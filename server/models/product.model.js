@@ -19,8 +19,6 @@ const productSchema = new Schema(
     },
     discount: {
       type: Number,
-      startDate: Date,
-      endDate: Date,
       default: 0,
     },
     ratings: {
