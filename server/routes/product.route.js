@@ -15,7 +15,13 @@ import upload from "../middlewares/multer.middleware.js";
 const router = Router();
 
 // Admin Routes
-router.post("/admin", upload.array('images', 5), isLoggedIn, authorizedRoles("Admin"), createProduct);
+router.post(
+  "/admin",
+  isLoggedIn,
+  authorizedRoles("Admin"),
+  upload.array("images", 5),
+  createProduct
+);
 router.put("/admin/:id", isLoggedIn, authorizedRoles("Admin"), updateProduct);
 router.delete(
   "/admin/:id",

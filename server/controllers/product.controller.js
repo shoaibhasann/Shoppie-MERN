@@ -2,6 +2,7 @@ import productModel from "../models/product.model.js";
 import AppError from "../utils/error.util.js";
 import Feature from "../utils/features.util.js";
 import cloudinary from "cloudinary";
+import fs from 'fs/promises'
 
 const createProduct = async (req, res, next) => {
   try {
