@@ -28,7 +28,7 @@ const productSlice = createSlice({
 });
 
 
-export function fetchProducts(keyword='', currentPage=1, price=[0,5000], category, ratings=0){
+export function fetchProducts(keyword='', currentPage=1, price=[0,500000], category, ratings=0){
 
     let server = `http://localhost:8080/api/v1/products?keyword=${keyword}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}&ratings[gte]=${ratings}`;
 

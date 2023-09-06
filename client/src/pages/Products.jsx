@@ -15,7 +15,7 @@ const Products = () => {
   const { keyword } = useParams();
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [price, setPrice] = useState([0, 5000]);
+  const [price, setPrice] = useState([0, 500000]);
   const [category, setCategory] = useState(null);
   const [ratings, setRatings] = useState(0);
 
@@ -64,9 +64,9 @@ const Products = () => {
                 onChange={(event, newPrice) => setPrice(newPrice)}
                 valueLabelDisplay="auto"
                 aria-labelledby="range-slider"
-                step={30}
+                step={500}
                 min={0}
-                max={5000}
+                max={500000}
               />
             </div>
             <div className=" border border-transparent border-b-slate-300 pb-5">

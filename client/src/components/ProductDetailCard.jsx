@@ -43,7 +43,6 @@ function ProductDetailCard({ product }) {
   };
 
   const handleImageClick = (index) => {
-    console.log("image clicked", index);
     setValue(index);
   };
 
