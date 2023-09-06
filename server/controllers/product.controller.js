@@ -75,7 +75,7 @@ const createProduct = async (req, res, next) => {
 const getAllProducts = async (req, res, next) => {
   try {
     
-    const resultPerPage = 5;
+    const resultPerPage = 9;
 
     const apiFeature = new Feature(productModel.find(), req.query)
       .search()
