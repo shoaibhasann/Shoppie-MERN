@@ -37,6 +37,7 @@ const Products = () => {
     "Shoes",
     "Clothing",
     "Accessories",
+    "Home Decor"
   ];
 
   if (status === STATUSES.FAIL) {
