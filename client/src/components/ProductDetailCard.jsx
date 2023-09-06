@@ -95,7 +95,7 @@ function ProductDetailCard({ product }) {
               </li>
             </ul>
           </div>
-          <ul className=" hidden lg:flex items-center justify-around flex-wrap mt-8 px-4">
+          <ul className=" hidden lg:flex items-center justify-center lg:gap-7 flex-wrap mt-8 px-4">
             {product.images.map((item, index) => (
               <li
                 onClick={() => handleImageClick(index)}

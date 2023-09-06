@@ -31,11 +31,11 @@ const Products = () => {
   const totalPages = productsCount / resultPerPage;
 
   const categories = [
-    "Electronics",
-    "Clothing",
+    "Smartphones",
+    "Computers",
+    "Games",
     "Shoes",
-    "Appliances",
-    "Sports",
+    "Clothing",
     "Accessories",
   ];
 
@@ -51,7 +51,7 @@ const Products = () => {
       </h1>
       {status === STATUSES.SUCCESS ? (
         <div className="flex flex-col-reverse gap-8 lg:flex-row">
-          <div className="filter__box flex flex-col justify-between bg-white lg:w-80 border border-transparent  border-r-slate-200 p-6 lg:p-8  m-5 lg:m-0 lg:mr-10 shadow-xl">
+          <div className="filter__box flex flex-col justify-between max-h-screen bg-white lg:w-80 border border-transparent  border-slate-200 p-6 lg:p-8  m-5 lg:m-0 lg:mr-10">
             <div className="text-lg font-semibold flex gap-2 items-center border border-transparent border-b-slate-300 pb-5">
               {" "}
               <BsFilter className="text-2xl font-semibold" /> Filters
