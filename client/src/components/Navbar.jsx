@@ -30,6 +30,7 @@ const Navbar = () => {
       setSearchTerm(trimmedSearchTerm);
       navigate(`/products/${trimmedSearchTerm}`);
       setSearchOpen(false);
+      setSearchTerm('');
     }
   };
 
@@ -49,7 +50,7 @@ const Navbar = () => {
           Products
         </Link>
         <Link to="/cart" className="p-4">
-          Shopping Bag ({cartItems.length})
+          Shopping Bag <sup className="text-base text-[#ed0010]">({cartItems.length})</sup>
         </Link>
         {!isAuthenticated && (
           <Link
@@ -73,9 +74,9 @@ const Navbar = () => {
           className="relative z-50 w-full lg:mx-5 flex items-center"
         >
           <input
-            className="w-full border-b-2 border-slate-900 text-lg p-2"
+            className="w-full border-b-2 border-slate-900 text-lg p-2 focus:outline-none"
             type="text"
-            placeholder="Search products"
+            placeholder="Search Products"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
