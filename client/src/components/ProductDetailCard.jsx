@@ -9,6 +9,7 @@ import { numberWithCommas } from "../utils/Utility";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch } from "react-redux";
 import { addItemsToCart } from "../redux/CartSlice";
+import { toast } from 'react-toastify';
 
 function ProductDetailCard({ product }) {
   const [value, setValue] = useState(0);
@@ -59,6 +60,7 @@ function ProductDetailCard({ product }) {
 
   const addToCartHandler = () => {
     dispatch(addItemsToCart(product._id, quantity));
+    toast.success('Item added to cart')
   };
 
   // Calculate the discounted price
@@ -132,9 +134,9 @@ function ProductDetailCard({ product }) {
             {product.stock < 1 ? "Out Of Stock" : "In Stock"}
           </b>
 
-          <div className="flex items-center gap-5 mb-10">
+          <div className="flex items-center gap-4 mb-10">
             <ReactStars {...options} />{" "}
-            <span>({product.numberOfReviews + " Reviews"})</span>
+            <span>{product.ratings + ' Ratings'}</span>
           </div>
 
           <div className="flex items-center justify-between flex-wrap ">
