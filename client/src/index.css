@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@200;300;400&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,5 +15,7 @@
     font-family: 'Blinker', sans-serif;
   }
 
-
+  .product__card{
+    font-family: 'Lexend', sans-serif;
+  }
 }

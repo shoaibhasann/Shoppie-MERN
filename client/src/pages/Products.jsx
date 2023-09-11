@@ -54,7 +54,7 @@ const Products = () => {
       </h1>
       {status === STATUSES.SUCCESS ? (
         <div className="flex flex-col-reverse gap-8 lg:flex-row">
-          <div className="filter__box flex flex-col justify-between max-h-screen bg-white lg:w-80 border border-transparent  border-slate-200 p-6 lg:p-8  m-5 lg:m-0 lg:mr-10">
+          <div className="filter__box flex flex-col justify-between max-h-screen bg-white lg:w-80 border border-transparent  border-slate-200 p-6 lg:p-8 lg:m-0">
             <div className="text-lg font-semibold flex gap-2 items-center border border-transparent border-b-slate-300 pb-5">
               {" "}
               <BsFilter className="text-2xl font-semibold" /> Filters
@@ -97,7 +97,7 @@ const Products = () => {
               />
             </div>
           </div>
-          <div className="products__section">
+          <div className="products__section lg:mr-8">
             <div className="products__container grid grid-cols-1 lg:grid-cols-3 gap-3 lg:gap-3 lg:gap-x-8 place-items-center place-content-center mx-auto">
               {products &&
                 products.map((product) => (

@@ -25,17 +25,17 @@ function Home() {
     <>
       <MetaData title="Shoppie: Where Shopping Meets Convenience and Style" />
       <Hero />
-      <div>
+      <div className=" p-2 lg:p-8 mb-8">
         <h1 className="text-3xl text-center mx-auto my-20">
           Featured Products
         </h1>
         <div
           id="container"
-          className="flex items-center justify-center flex-wrap gap-5"
+          className="flex items-center justify-center flex-wrap gap-7 lg:justify-around"
         >
           {status === STATUSES.SUCCESS ? (
             products &&
-            products.slice(0,8).map((product) => (
+            products.slice(0,9).map((product) => (
               <ProductCard key={product._id} product={product} />
             ))
           ) : (

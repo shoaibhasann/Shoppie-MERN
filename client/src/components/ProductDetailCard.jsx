@@ -136,7 +136,7 @@ function ProductDetailCard({ product }) {
 
           <div className="flex items-center gap-4 mb-10">
             <ReactStars {...options} />{" "}
-            <span>{product.ratings + ' Ratings'}</span>
+            <span>{product.ratings.toFixed(1) + ' Ratings'}</span>
           </div>
 
           <div className="flex items-center justify-between flex-wrap ">
