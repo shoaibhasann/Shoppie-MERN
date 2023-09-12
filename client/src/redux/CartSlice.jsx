@@ -47,7 +47,8 @@ export function addItemsToCart(id, quantity) {
         name: data.product.name,
         price: data.product.price,
         stock: data.product.stock,
-        image: data.product.images, // update the image url here
+        image: data.product.images, 
+        discount: data.product.discount,
         quantity,
       })
     );
