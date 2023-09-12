@@ -66,7 +66,7 @@ function Login() {
                   type="email"
                   id="email"
                   name="email"
-                  className="w-full mt-1 p-2 pr-10 border border-slate-900  "
+                  className="w-full mt-1 p-2 pr-10 border border-slate-900 bg-white  "
                   required
                 />
               </div>
@@ -100,7 +100,7 @@ function Login() {
               </div>
               <button
                 type="submit"
-                className="w-full bg-slate-950 text-white py-2 border-2 border-transparent  hover:text-slate-950 hover:bg-slate-100 hover:border-2 hover:border-slate-950"
+                className="w-full bg-slate-950 text-white py-2 border-2 transition border-transparent  hover:text-slate-950 hover:bg-white hover:border-2 hover:border-slate-950"
               >
                 Sign In
               </button>
