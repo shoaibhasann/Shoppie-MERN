@@ -10,7 +10,7 @@ function Hero() {
       </h1>
       <div>
         <Link to={'/products'}>
-          <button className="text-[#fff] text-xl bg-[#222222] px-8 py-4 border-2 border-transparent hover:border-[#222222] hover:bg-[#f4eddd] hover:text-[#222222]">
+          <button className="text-[#fff] text-xl bg-[#222222] px-8 py-4 border-2 border-transparent hover:border-[#222222] hover:bg-[#f4eddd] hover:text-[#222222] transition">
             Explore Products
           </button>
         </Link>

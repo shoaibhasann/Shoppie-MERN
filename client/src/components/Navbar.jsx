@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch } from "react-icons/ai";
+import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
 import Logo from "../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -50,12 +50,20 @@ const Navbar = () => {
           Products
         </Link>
         <Link to="/cart" className="p-4">
-          Shopping Bag <sup className="text-base text-[#ed0010]">({cartItems.length})</sup>
+          <div className="flex items-center gap-2">
+            <AiOutlineShoppingCart />
+            <div>
+              Shopping Bag{" "}
+              <sup className="text-base text-[#ed0010]">
+                ({cartItems.length})
+              </sup>
+            </div>
+          </div>
         </Link>
         {!isAuthenticated && (
           <Link
             to="/login"
-            className="w-28 h-9 flex items-center justify-center font-medium bg-[#222222] text-[#fff] hover:bg-white hover:border-2 hover:border-[#222222] hover:text-[#222222]"
+            className="w-28 h-9  flex items-center justify-center font-medium transition bg-[#222222] text-[#fff] hover:bg-white hover:border-2 hover:border-[#222222] hover:text-[#222222]"
           >
             Sign In
           </Link>
@@ -124,13 +132,21 @@ const Navbar = () => {
             Products
           </Link>
           <Link onClick={toggleNav} to="/cart" className="p-4">
-            Shopping Bag (0)
+            <div className="flex items-center gap-2">
+              <AiOutlineShoppingCart />
+              <div>
+                Shopping Bag{" "}
+                <sup className="text-base text-[#ed0010]">
+                  ({cartItems.length})
+                </sup>
+              </div>
+            </div>
           </Link>
           {!isAuthenticated && (
             <Link
               onClick={toggleNav}
               to="/login"
-              className="w-28 h-9 flex items-center justify-center font-medium bg-[#222222] text-[#fff] hover:bg-white hover:border-2 hover:border-[#222222] hover:text-[#222222]"
+              className="w-28 h-9  flex items-center justify-center font-medium transition bg-[#222222] text-[#fff] hover:bg-white hover:border-2 hover:border-[#222222] hover:text-[#222222]"
             >
               Sign In
             </Link>

@@ -120,7 +120,7 @@ function ProductDetailCard({ product }) {
             {product.name}
           </h1>
 
-          <p className="text-slate-800 mb-10 font-semi-bold text-lg lg:text-xl leading-loose">
+          <p className="text-slate-800 mb-10 font-semi-bold text-lg lg:text-xl leading-normal">
             {product.description}
           </p>
 
@@ -173,12 +173,12 @@ function ProductDetailCard({ product }) {
             <div className="mt-8">
               <button
                 onClick={addToCartHandler}
-                className="flex  items-center justify-center gap-4 text-xl bg-slate-950 p-4 text-white font-bold mt-5 w-full border-2 border-transparent hover:text-slate-950 hover:bg-white hover:border-slate-950"
+                className="flex items-center justify-center gap-4 text-xl transition bg-slate-950 p-4 text-white font-bold mt-5 w-full border-2 border-transparent hover:text-slate-950 hover:bg-white hover:border-slate-950"
               >
                 <AiOutlineShoppingCart />
                 {product.stock >= 1 ? "Add to cart" : "Notify me"}
               </button>
-              <button className="flex  items-center justify-center gap-4 text-xl bg-[#ed0010] p-4 text-white font-bold mt-5 w-full border-2 border-transparent hover:text-[#ed0010] hover:bg-white hover:border-[#e50010]">
+              <button className="flex items-center justify-center gap-4 text-xl transition bg-[#ed0010] p-4 text-white font-bold mt-5 w-full border-2 border-transparent hover:text-[#ed0010] hover:bg-white hover:border-[#e50010]">
                 Buy now
               </button>
             </div>

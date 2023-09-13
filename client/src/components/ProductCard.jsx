@@ -32,7 +32,7 @@ function ProductCard({ product }) {
 
   return (
     <Link to={`/product/${product._id}`}>
-      <div className="product__card w-80 min-h-[10rem] shadow-lg rounded-md overflow-hidden bg-white text-gray-700">
+      <div className="product__card w-72 min-h-[7rem] shadow-lg border-slate-400 overflow-hidden bg-white text-gray-700">
         <div className="w-full h-8/12">
           <img
             className="w-full h-full object-cover"
@@ -41,7 +41,7 @@ function ProductCard({ product }) {
           />
         </div>
         <div className="p-5 flex flex-col gap-3">
-          <p className="text-2xl font-semibold overflow-ellipsis overflow-hidden whitespace-nowrap">
+          <p className="text-xl font-semibold overflow-ellipsis overflow-hidden whitespace-nowrap">
             {product.name}
           </p>
           <div className="flex items-center gap-5">
@@ -51,11 +51,11 @@ function ProductCard({ product }) {
             </span>
           </div>
           <div>
-            <span className="text-xl font-bold">
+            <span className="text-lg font-semibold">
               {"₹ " + numberWithCommas(discountedPrice)}
             </span>
             <div className="flex items-center gap-2 mt-2">
-              <span className="text-sm line-through opacity-50">
+              <span className="text-sm line-through opacity-80">
                 {"₹ " + numberWithCommas(product.price)}
               </span>
               <span className="bg-green-400 px-1.5 py-0.5 rounded-md text-xs text-white">
@@ -63,7 +63,7 @@ function ProductCard({ product }) {
               </span>
             </div>
             <div className="flex gap-2 mt-5">
-              <button onClick={addToCartHandler} className=" bg-red-400 px-6 py-2 rounded-md text-white font-medium tracking-wider transition">
+              <button onClick={addToCartHandler} className=" bg-[#ed0010] border border-transparent hover:bg-white hover:text-[#ed0010] hover:border-[#ed0010] px-6 py-2 text-white font-medium tracking-wider transition">
                 Add to cart
               </button>
             </div>
