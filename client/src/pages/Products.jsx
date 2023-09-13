@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
 import MetaData from "../components/MetaData";
 import { STATUSES, fetchProducts } from "../redux/ProductSlice";
-import ErrorHandler from "../components/ErrorHandler";
 import Loader from "../components/Loader";
 import { useParams } from "react-router-dom";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
@@ -77,7 +76,7 @@ const Products = () => {
               <ul className="pl-2">
                 {categories.map((category, index) => (
                   <li
-                    className="cursor-pointer"
+                    className="cursor-pointer hover:text-[#ed0010]"
                     onClick={() => setCategory(category)}
                     key={index}
                   >
