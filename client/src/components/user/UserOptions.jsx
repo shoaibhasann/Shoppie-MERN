@@ -55,7 +55,7 @@ function UserOptions({ user }) {
             className="h-10 w-10 rounded-full object-cover cursor-pointer"
           />
         </SpeedDialHandler>
-        <SpeedDialContent className="rounded-full  border border-blue-gray-50 bg-white shadow-xl shadow-black/10">
+        <SpeedDialContent className="rounded-full  border border-blue-gray-50 bg-white shadow-xl shadow-black/10 z-50">
           {user.role === "Admin" && (
             <SpeedDialAction className="relative my-2 bg-blue-gray-50">
               <Square3Stack3DIcon
