@@ -7,7 +7,7 @@ import {
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { numberWithCommas } from "../utils/Utility";
 import ReactStars from "react-rating-stars-component";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItemsToCart } from "../redux/CartSlice";
 import { toast } from 'react-toastify';
 
@@ -58,9 +58,24 @@ function ProductDetailCard({ product }) {
 
   const dispatch = useDispatch();
 
-  const addToCartHandler = () => {
-    dispatch(addItemsToCart(product._id, quantity));
-    toast.success('Item added to cart')
+  const { cartItems } = useSelector((state) => state.cart);
+
+  const addToCartHandler = (e) => {
+    e.preventDefault();
+    const itemInCart = cartItems.find((item) => item.productId === product._id);
+    if (itemInCart) {
+      if (itemInCart.quantity + quantity > itemInCart.stock) {
+        toast.warn("Not enough stock");
+        return;
+      } else {
+        // Increment quantity if the item is already in the cart
+        dispatch(addItemsToCart(product._id, quantity));
+        toast.success("Item added to cart");
+      }
+    } else {
+      dispatch(addItemsToCart(product._id, 1));
+      toast.success("Item added to cart");
+    }
   };
 
   // Calculate the discounted price

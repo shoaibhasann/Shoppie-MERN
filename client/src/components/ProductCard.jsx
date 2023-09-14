@@ -2,12 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import { numberWithCommas } from "../utils/Utility";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addItemsToCart } from "../redux/CartSlice";
 import { toast } from "react-toastify";
 
 function ProductCard({ product }) {
-
   const options = {
     edit: false,
     color: "rgba(20,20,20,0.1)",
@@ -24,11 +23,26 @@ function ProductCard({ product }) {
 
   const dispatch = useDispatch();
 
-  const addToCartHandler = (event) => {
-    event.preventDefault();
-    dispatch(addItemsToCart(product._id, 1));
-    toast.success('Item added to cart')
-  }
+  const { cartItems } = useSelector((state) => state.cart);
+
+
+  const addToCartHandler = (e) => {
+     e.preventDefault();
+     const itemInCart = cartItems.find((item) => item.productId === product._id);
+     if(itemInCart){
+       if (itemInCart.quantity >= itemInCart.stock) {
+         toast.warn("Not enough stock");
+         return;
+       } else {
+         // Increment quantity if the item is already in the cart
+         dispatch(addItemsToCart(product._id, 1));
+         toast.success("Item added to cart");
+       }
+     } else {
+         dispatch(addItemsToCart(product._id, 1));
+         toast.success('Item added to cart');
+     }
+  };
 
   return (
     <Link to={`/product/${product._id}`}>
@@ -63,7 +77,10 @@ function ProductCard({ product }) {
               </span>
             </div>
             <div className="flex gap-2 mt-5">
-              <button onClick={addToCartHandler} className=" bg-[#ed0010] border border-transparent hover:bg-white hover:text-[#ed0010] hover:border-[#ed0010] px-6 py-2 text-white font-medium tracking-wider transition">
+              <button
+                onClick={addToCartHandler}
+                className=" bg-[#ed0010] border border-transparent hover:bg-white hover:text-[#ed0010] hover:border-[#ed0010] px-6 py-2 text-white font-medium tracking-wider transition"
+              >
                 Add to cart
               </button>
             </div>
