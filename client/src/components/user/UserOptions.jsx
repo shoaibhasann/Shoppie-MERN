@@ -9,10 +9,11 @@ import {
   UserIcon,
   ArrowLeftOnRectangleIcon,
   ShoppingBagIcon,
-  Square3Stack3DIcon
+  Square3Stack3DIcon,
+  ShoppingCartIcon
 } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/Userslice";
 import { toast } from "react-toastify";
 
@@ -44,6 +45,8 @@ function UserOptions({ user }) {
       console.error(error);
     }
   };
+
+  const { cartItems } = useSelector((state) => state.cart);
 
   return (
     <div>
@@ -78,6 +81,13 @@ function UserOptions({ user }) {
               onClick={() => navigate("/orders")}
             />
             <Typography {...labelProps}>Orders</Typography>
+          </SpeedDialAction>
+          <SpeedDialAction className="relative my-2 bg-blue-gray-50">
+            <ShoppingCartIcon
+              className={cartItems.length > 0 ? 'h-6 w-6 text-red-600' : 'h-6 w-6'}
+              onClick={() => navigate("/cart")}
+            />
+            <Typography {...labelProps}>Cart({cartItems.length})</Typography>
           </SpeedDialAction>
           <SpeedDialAction className="relative my-2 bg-blue-gray-50">
             <ArrowLeftOnRectangleIcon
