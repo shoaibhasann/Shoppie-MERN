@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import CartCard from './CartCard'
 import { useDispatch, useSelector } from 'react-redux';
 import EmptyCart from './EmptyCart';
@@ -7,12 +7,26 @@ import {
   AiOutlineMinus,
 } from "react-icons/ai";
 import { numberWithCommas } from '../../utils/Utility';
+import { addItemsToCart } from '../../redux/CartSlice';
 
 function Cart() {
 
   const dispatch = useDispatch();
 
   const { cartItems } = useSelector((state) => state.cart);
+
+  const increasedQuantity = (id,quantity,stock) => {
+      if (quantity < stock) {
+       dispatch(addItemsToCart(id, 1 ))
+      }
+    };
+
+  const decreasedQuantity = (id,quantity) => {
+    if(quantity > 1){
+      dispatch(addItemsToCart(id, -1))
+    }
+  }
+
 
   if(cartItems.length <= 0){
     return <EmptyCart/>
@@ -29,24 +43,25 @@ function Cart() {
 
       {cartItems.length > 0 &&
         cartItems.map((item) => (
-          <div className="cart_container bg-white grid grid-cols-[3fr_1fr_1fr] lg:grid-cols-[4fr_1fr_1fr] lg:px-5 py-2 m-auto w-[90%]">
-            <CartCard key={item.productId} item={item} />
+          <div className="cart_container bg-white grid grid-cols-[3fr_1fr_1fr] lg:grid-cols-[4fr_1fr_1fr] lg:px-5 py-2 m-auto w-[90%] place-content-center">
+              <CartCard key={item.productId} item={item} />
             <div className="flex items-center text-base lg:text-lg text-black cursor-pointer font-medium px-5 lg:px-0 ">
-              <div className="border bg-[#f4eddd] border-slate-950 p-0.5 h-6 lg:p-1.5 lg:h-8 text-black">
+              <div onClick={() => decreasedQuantity(item.productId, item.quantity)} className="border bg-[#f4eddd] border-slate-950 p-0.5 h-6 lg:p-1.5 lg:h-8 text-black">
                 <AiOutlineMinus />
               </div>
               <div className="border border-slate-950 border-r-0 border-l-0 p-0.5 h-6 w-6 lg:p-1.5 lg:w-8 lg:h-8 flex items-center justify-center">
                 {item.quantity}
               </div>
-              <div className="border bg-[#f4eddd] border-slate-950 p-0.5 h-6 lg:p-1.5 lg:h-8 text-black">
+              <div onClick={() => increasedQuantity(item.productId, item.quantity, item.stock)} className="border bg-[#f4eddd] border-slate-950 p-0.5 h-6 lg:p-1.5 lg:h-8 text-black">
                 <AiOutlinePlus />
               </div>
             </div>
             <div className="flex items-center justify-start lg:justify-end font-medium text-sm lg:text-lg">
-              {'₹ ' + numberWithCommas(
-                item.quantity *
-                  Math.floor(item.price - item.price * (item.discount / 100))
-              )}
+              {"₹ " +
+                numberWithCommas(
+                  item.quantity *
+                    Math.floor(item.price - item.price * (item.discount / 100))
+                )}
             </div>
           </div>
         ))}
@@ -54,8 +69,8 @@ function Cart() {
       <div className="grid grid-cols-[0fr_2fr] lg:grid-cols-[2fr_1.2fr]">
         <div></div>
         <div className="border-dashed border-t-[3px] border-[#ed0010] mx-4 lg:mx-16 my-4 py-3 flex justify-between">
-          <p className="text-lg font-semibold">Gross Total</p>
-          <p className="text-xl font-bold">₹600</p>
+          <p className="text-lg font-medium">Gross Total</p>
+          <p className="text-xl font-semibold">600</p>
         </div>
         <div></div>
         <div className="flex justify-center lg:justify-end">
