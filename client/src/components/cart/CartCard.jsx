@@ -19,7 +19,7 @@ function CartCard({item}) {
   );
 
   return (
-    <div className="flex flex-col items-start lg:flex-row  lg:items-center max-h-30 mb-6">
+    <div className="flex flex-col items-start lg:flex-row  lg:items-center lg:justify-start max-h-30 mb-6">
       <img
         className="w-[150px] lg:w-[180px]"
         src={item.image[0].secure_url}
