@@ -15,6 +15,7 @@ import PrivateRoute from "./utils/PrivateRoute";
 import ForgotPassword from "./components/user/ForgotPassword";
 import ResetPassword from "./components/user/ResetPassword";
 import Cart from "./components/cart/Cart";
+import Shipping from "./components/cart/Shipping";
 
 
 
@@ -45,6 +46,7 @@ function App() {
         <Route exact path="/account" element={<PrivateRoute authenticated={isAuthenticated} component={Profile}/>}/>
         <Route exact path="/update" element={<PrivateRoute authenticated={isAuthenticated} component={UpdateProfile}/>}/>
         <Route exact path="/password/update" element={<PrivateRoute authenticated={isAuthenticated} component={UpdatePassword}/>}/>
+        <Route exact path="/shipping" element={<PrivateRoute authenticated={isAuthenticated} component={Shipping}/>}/>
       </Routes>
     </Router>
   );
