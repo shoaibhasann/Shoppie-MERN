@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { server } from "../main";
 
 const profileSlice = createSlice({
     name: 'profile',
@@ -49,12 +50,10 @@ export function updateProfile(userData){
         withCredentials: true,
       };
 
-      const server = "http://localhost:8080/api/v1/me/update";
-
       return async function updateProfileThunk(dispatch,getState){
         dispatch(setLoading(true));
         try {
-            const { data } = await axios.put(server, userData, config, );
+            const { data } = await axios.put(`${server}/me/update`, userData, config, );
             dispatch(setProfile(data));
             dispatch(setLoading(false));
             dispatch(setIsUpdated(true));
@@ -73,12 +72,10 @@ export function updatePassword(password){
             withCredentials: true,
           };
 
-          const server = "http://localhost:8080/api/v1/password/update";
-
           return async function updatePasswordThunk(dispatch, getState){
              dispatch(setLoading(true));
              try {
-               const { data } = await axios.put(server, password, config);
+               const { data } = await axios.put(`${server}/password/update`, password, config);
                dispatch(setProfile(data));
                dispatch(setLoading(false));
                dispatch(setIsUpdated(true));

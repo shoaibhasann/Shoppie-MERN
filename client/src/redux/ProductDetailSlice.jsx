@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { STATUSES } from "./ProductSlice";
+import { server } from "../main";
 
 
 const productDetailSlice = createSlice({
@@ -21,14 +22,12 @@ const productDetailSlice = createSlice({
   },
 });
 
-const server = "http://localhost:8080/api/v1/products";
-
 export function fetchProduct(id) {
   return async function fetchProductThunk(dispatch, getState) {
     dispatch(setStatus(STATUSES.LOADING));
     try {
 
-      const { data } = await axios.get(`${server}/product/${id}`);
+      const { data } = await axios.get(`${server}/products/product/${id}`);
 
       dispatch(setProduct(data));
 

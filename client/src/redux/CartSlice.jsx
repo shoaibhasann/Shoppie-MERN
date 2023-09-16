@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { server } from "../main";
 
 const cartSlice = createSlice({
   name: "cart",
@@ -58,9 +59,9 @@ const cartSlice = createSlice({
 });
 
 export function addItemsToCart(id, quantity) {
-  const server = "http://localhost:8080/api/v1/products/product";
+
   return async function addItemsToCartThunk(dispatch, getState) {
-    const { data } = await axios.get(`${server}/${id}`);
+    const { data } = await axios.get(`${server}/products/product/${id}`);
 
     dispatch(
       addToCart({

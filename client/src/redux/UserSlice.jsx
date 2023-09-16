@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { server } from "../main";
 
 
 const userSlice = createSlice({
@@ -41,12 +42,10 @@ export function login(email, password) {
 
   const config = {  headers: { "Content-Type": "application/json" }, withCredentials: true };
 
-  const server = "http://localhost:8080/api/v1/login";
-
   return async function loginThunk(dispatch, getState) {
     dispatch(setLoading(true));
     try {
-      const { data } = await axios.post(server, payload, config);
+      const { data } = await axios.post(`${server}/login`, payload, config);
 
       dispatch(setUser(data.user));
 
@@ -69,12 +68,10 @@ export function register(userData) {
     withCredentials: true,
   };
 
-  const server = "http://localhost:8080/api/v1/register";
-
   return async function loginThunk(dispatch, getState){
     dispatch(setLoading(true));
        try {
-        const { data } = await axios.post(server, userData, config);
+        const { data } = await axios.post(`${server}/register`, userData, config);
 
         dispatch(setUser(data.user));
 
@@ -92,12 +89,11 @@ export function register(userData) {
 
 // get profile function
 export function getUserProfile() {
-  const server = "http://localhost:8080/api/v1/me";
 
   return async function getUserProfileThunk(dispatch, getState) {
     dispatch(setLoading(true));
     try {
-      const { data } = await axios.get(server, {withCredentials: true});
+      const { data } = await axios.get(`${server}/me`, {withCredentials: true});
       if (data.user) {
         dispatch(setUser(data.user));
         dispatch(setAuthenticated(true));
@@ -116,12 +112,11 @@ export function getUserProfile() {
 
 // logout funciton
 export function logout() {
-  const server = "http://localhost:8080/api/v1/logout";
 
   return async function logoutThunk(dispatch, getState) {
     dispatch(setLoading(true));
     try {
-      const { data } = await axios.get(server, { withCredentials: true });
+      const { data } = await axios.get(`${server}/logout`, { withCredentials: true });
       dispatch(setUser(null));
       dispatch(setLoading(false));
       dispatch(setAuthenticated(false));

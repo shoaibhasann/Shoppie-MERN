@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { server } from "../main";
 
 const forgotSlice = createSlice({
     name: 'forgotPassword',
@@ -32,13 +33,12 @@ export function forgotPassword(email){
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     };
-    
-    const server = "http://localhost:8080/api/v1/password/forgot";
+
 
     return async function forgotPasswordThunk(dispatch, getState){
         dispatch(setLoading(true));
         try {
-            const { data } = await axios.post(server, email, config);
+            const { data } = await axios.post(`${server}/password/forgot`, email, config);
             dispatch(setLoading(false));
             dispatch(setMessage(data.message));
         } catch (error) {

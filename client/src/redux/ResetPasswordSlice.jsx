@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { server } from "../main";
 
 
 
@@ -38,13 +39,11 @@ export function resetPassword(formData, token) {
     withCredentials: true,
   };
 
-  const server = `http://localhost:8080/api/v1/password/reset/${token}`;
-
   return async function resetPasswordThunk(dispatch) {
     try {
       dispatch(setLoading(true));
 
-      const { data } = await axios.put(server, formData, config);
+      const { data } = await axios.put(`${server}/password/reset${token}`, formData, config);
 
       dispatch(setSuccess(data.success));
       dispatch(setMessage(data.message));
