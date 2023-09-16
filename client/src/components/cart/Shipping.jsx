@@ -11,10 +11,16 @@ import { Country, State } from "country-state-city"
 import { useDispatch, useSelector } from "react-redux";
 import MetaData from "../MetaData";
 import CheckOutSteps from "./CheckOutSteps";
+import { toast } from 'react-toastify';
+import { saveShippingInfo } from "../../redux/CartSlice";
+import { useNavigate } from 'react-router-dom';
+
 
 function ShippingDetailsForm() {
 
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const { shippingInfo } = useSelector((state) => state.cart);
 
@@ -27,7 +33,6 @@ function ShippingDetailsForm() {
     state: shippingInfo.state,
   });
 
-  const [activeStep, setActiveStep] = useState(0);
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -42,14 +47,21 @@ function ShippingDetailsForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission here (e.g., send data to the server)
-    console.log("Form data submitted:", formData);
+
+    if(formData.phone.length > 10 || formData.phone.length < 10){
+      toast.error('Please enter a 10-digit phone number')
+      return;
+    }
+
+    dispatch(saveShippingInfo(formData));
+
+    navigate('/order/confirm');
   };
 
   return (
     <>
       <MetaData title="Shoppie - Shipping Details" />
-      <CheckOutSteps activeStep={activeStep} setActiveStep={setActiveStep} />
+      <CheckOutSteps activeStep={0} />
       <div className="w-full max-w-md lg:mx-auto">
         <form
           onSubmit={handleSubmit}
@@ -122,7 +134,7 @@ function ShippingDetailsForm() {
               <select
                 name="country"
                 value={formData.country}
-                className="border w-full rounded pl-8 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="border w-full rounded pl-8 pr-3 py-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
                 placeholder="Country"
                 onChange={handleChange}
@@ -146,7 +158,7 @@ function ShippingDetailsForm() {
               <select
                 name="state"
                 value={formData.state}
-                className="border w-full rounded pl-8 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="border w-full rounded pl-8 pr-3 py-2  text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 required
                 placeholder="State"
                 onChange={handleChange}
