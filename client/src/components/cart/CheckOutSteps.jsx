@@ -12,7 +12,6 @@ function CheckOutSteps({ activeStep }) {
       {steps.map((stepItem, index) => (
         <div
           key={index}
-          active={activeStep === index ? true : false}
           className={`flex items-center ${
             activeStep >= index ? "text-red-500 font-semibold" : "text-gray-500"
           }`}
