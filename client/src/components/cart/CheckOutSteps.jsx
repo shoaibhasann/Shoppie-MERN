@@ -1,6 +1,6 @@
 import React from "react";
 
-function CheckOutSteps({ activeStep, setActiveStep }) {
+function CheckOutSteps({ activeStep }) {
   const steps = [
     { name: "Shipping", icon: "🚚" },
     { name: "Confirm", icon: "📦" },
@@ -12,10 +12,11 @@ function CheckOutSteps({ activeStep, setActiveStep }) {
       {steps.map((stepItem, index) => (
         <div
           key={index}
+          active={activeStep === index ? true : false}
           className={`flex items-center ${
-            index === activeStep ? "text-red-500" : "text-gray-500"
+            activeStep >= index ? "text-red-500 font-semibold" : "text-gray-500"
           }`}
-          onClick={() => setActiveStep(index)} // Update activeStep on click
+          onClick={() => activeStep = index} // Update activeStep on click
         >
           <div className="flex flex-col lg:flex-row">
             <div className="lg:mr-2">{stepItem.icon}</div>
