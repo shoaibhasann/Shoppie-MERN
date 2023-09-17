@@ -73,16 +73,16 @@ const Navbar = () => {
       <div
         className={
           searchOpen
-            ? "absolute left-0 w-full px-4 lg:px-8 bg-white flex items-center"
+            ? "absolute left-0 w-full px-4 lg:px-8 bg-[#faf9f8] flex items-center"
             : "hidden"
         }
       >
         <form
           onSubmit={submitHandler}
-          className="relative z-50 w-full lg:mx-5 flex items-center"
+          className="relative z-50 w-full bg-[#faf9f8] lg:mx-5 flex items-center"
         >
           <input
-            className="w-full border-b-2 border-slate-900 text-lg p-2 focus:outline-none"
+            className="w-full border-b-2 bg-[#faf9f8] border-slate-900 text-lg p-2 focus:outline-none"
             type="text"
             placeholder="Search Products"
             value={searchTerm}

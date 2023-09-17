@@ -8,7 +8,7 @@ function CheckOutSteps({ activeStep }) {
   ];
 
   return (
-    <div className=" cursor-pointer max-w-md mx-4 lg:mx-auto flex justify-between items-center my-6 lg:my-10">
+    <div className=" cursor-pointer max-w-md lg:mx-auto flex justify-between items-center my-6 lg:my-10">
       {steps.map((stepItem, index) => (
         <div
           key={index}

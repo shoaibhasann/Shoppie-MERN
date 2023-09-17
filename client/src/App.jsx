@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
@@ -16,12 +16,12 @@ import ForgotPassword from "./components/user/ForgotPassword";
 import ResetPassword from "./components/user/ResetPassword";
 import Cart from "./components/cart/Cart";
 import Shipping from "./components/cart/Shipping";
-
-
+import ConfirmOrder from "./components/cart/ConfirmOrder";
+import Payment from "./components/cart/Payment";
 
 
 function App() {
-
+  
   const dispatch = useDispatch();
 
   const { isAuthenticated } = useSelector((state) => state.user);
@@ -42,11 +42,69 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/password/forgot" element={<ForgotPassword />} />
-        <Route exact path="/password/reset/:token" element={<ResetPassword />} />
-        <Route exact path="/account" element={<PrivateRoute authenticated={isAuthenticated} component={Profile}/>}/>
-        <Route exact path="/update" element={<PrivateRoute authenticated={isAuthenticated} component={UpdateProfile}/>}/>
-        <Route exact path="/password/update" element={<PrivateRoute authenticated={isAuthenticated} component={UpdatePassword}/>}/>
-        <Route exact path="/shipping" element={<PrivateRoute authenticated={isAuthenticated} component={Shipping}/>}/>
+        <Route
+          exact
+          path="/password/reset/:token"
+          element={<ResetPassword />}
+        />
+        <Route
+          exact
+          path="/account"
+          element={
+            <PrivateRoute authenticated={isAuthenticated} component={Profile} />
+          }
+        />
+        <Route
+          exact
+          path="/update"
+          element={
+            <PrivateRoute
+              authenticated={isAuthenticated}
+              component={UpdateProfile}
+            />
+          }
+        />
+        <Route
+          exact
+          path="/password/update"
+          element={
+            <PrivateRoute
+              authenticated={isAuthenticated}
+              component={UpdatePassword}
+            />
+          }
+        />
+        <Route
+          exact
+          path="/shipping"
+          element={
+            <PrivateRoute
+              authenticated={isAuthenticated}
+              component={Shipping}
+            />
+          }
+        />
+        <Route
+          exact
+          path="/order/confirm"
+          element={
+            <PrivateRoute
+              authenticated={isAuthenticated}
+              component={ConfirmOrder}
+            />
+          }
+        />
+          <Route
+            exact
+            path="/process/payment"
+            element={
+              <PrivateRoute
+                authenticated={isAuthenticated}
+                component={Payment}
+              />
+            }
+          />
+
       </Routes>
     </Router>
   );
