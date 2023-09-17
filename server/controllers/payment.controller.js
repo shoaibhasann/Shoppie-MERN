@@ -4,16 +4,17 @@ import Stripe from "stripe";
 // loding enviroment variables
 dotenv.config();
 
-const stripeApiKey = process.env.STRIPE_API_KEY;
+const stripeSecretKey = process.env.STRIPE_API_SECRET;
 
-if (!stripeApiKey) {
+if (!stripeSecretKey) {
   console.error(
-    "Error: Stripe API key is not defined in environment variables."
+    "Error: Stripe Secret key is not defined in environment variables."
   );
-  process.exit(1); // Exit the application if the API key is missing.
+  process.exit(1);
 }
 
-const stripe = new Stripe(stripeApiKey);
+const stripe = new Stripe(stripeSecretKey);
+
 
 const createPaymentIntent = async (req, res, next) => {
   try {
@@ -34,10 +35,22 @@ const createPaymentIntent = async (req, res, next) => {
       success: false,
       message: error.message || "Payment failed. Please try again later.",
     });
+
+    console.log(error.message);
   }
 };
 
 const sendStripeKey = (req,res,next) => {
+
+  const stripeApiKey = process.env.STRIPE_API_KEY
+
+  if (!stripeApiKey) {
+    console.error(
+      "Error: Stripe Api key is not defined in environment variables."
+    );
+    process.exit(1);
+  }
+
     try {
         res.status(200).json({
             success: true,
