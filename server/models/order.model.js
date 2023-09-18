@@ -22,7 +22,7 @@ const orderSchema = new Schema({
       type: String,
       required: true,
     },
-    phoneNo: {
+    phone: {
       type: Number,
       required: true,
     },
@@ -42,14 +42,32 @@ const orderSchema = new Schema({
         required: true,
       },
       image: {
-        type: String,
-        required: true,
+        public_id: {
+          type: String,
+          required: true
+        },
+        secure_url: {
+          type: String, 
+          required: true
+        },
+        _id: {
+          type: String,
+          required: true
+        }
       },
-      product: {
+      productId: {
         type: Schema.ObjectId,
         ref: "Product",
         required: true,
       },
+      stock: {
+        type: Number,
+        required: true
+      },
+      discount: {
+        type: Number,
+        required: true,
+      }
     },
   ],
   user: {
