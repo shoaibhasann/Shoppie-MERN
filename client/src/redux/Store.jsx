@@ -6,6 +6,7 @@ import profileReducer from './ProfileSlice.jsx';
 import forgotPasswordReducer from './ForgotPasswordSlice.jsx';
 import resetPasswordReducer from './ResetPasswordSlice.jsx';
 import cartReducer from './CartSlice.jsx';
+import orderReducer from './OrderSlice.jsx';
 
 
 const store = configureStore({
@@ -24,6 +25,8 @@ const store = configureStore({
     resetPassword: resetPasswordReducer,
 
     cart: cartReducer,
+
+    newOrder: orderReducer
     
   }
 });
