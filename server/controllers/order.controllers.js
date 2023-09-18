@@ -5,17 +5,20 @@ import AppError from "../utils/error.util.js";
 // controller function to create new order
 const createOrder = async (req, res, next) => {
   try {
+
     const { shippingInfo, paymentInfo, orderItems } = req.body;
 
     if (!shippingInfo || !paymentInfo || !orderItems) {
-      return next(new AppError("Please enter all order details"));
+      return next(new AppError(400, "Please enter all order details"));
     }
+
+    // Add the 'paidAt' field to the 'paymentInfo' object
+    paymentInfo.paidAt = Date.now();
 
     const order = await orderModel.create({
       shippingInfo,
       paymentInfo,
       orderItems,
-      paidAt: Date.now(),
       user: req.user.id,
     });
 
@@ -28,6 +31,9 @@ const createOrder = async (req, res, next) => {
     return next(new AppError(500, "Internal Server Error" || error.message));
   }
 };
+
+export default createOrder;
+
 
 // controller function to get single order
 const getSingleOrder = async (req, res, next) => {
