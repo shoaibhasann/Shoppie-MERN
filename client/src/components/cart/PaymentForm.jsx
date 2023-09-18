@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   CardNumberElement,
   CardCvcElement,
@@ -16,8 +16,10 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { server } from "../../main";
 import { toast } from "react-toastify";
+import { clearErrors, createNewOrder } from "../../redux/OrderSlice";
 
 function PaymentForm() {
+
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
 
   const payBtn = useRef(null);
@@ -32,65 +34,94 @@ function PaymentForm() {
 
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.user);
+  const {  error, loading, } = useSelector((state) => state.newOrder);
+
+  useEffect(() => {
+    if(error){
+      toast.error(error);
+      dispatch(clearErrors());
+    }
+  }, [dispatch, error, toast]);
+
+  const order = {
+    shippingInfo,
+    orderItems: cartItems,
+  }
 
   const paymentData = {
-    amount: orderInfo.totalPrice * 100
-  }
+    amount: orderInfo.totalPrice * 100,
+  };
 
   const paymentSubmitHandler = async (e) => {
     e.preventDefault();
 
-    // disabled pay button 
+    // disabled pay button
     payBtn.current.disabled = true;
 
     try {
-      
       const config = {
-        headers: { "Content-Type" : "application/json"},
+        headers: { "Content-Type": "application/json" },
         withCredentials: true,
       };
 
-      const { data } = await axios.post(`${server}/payment/process`, paymentData, config);
+      const { data } = await axios.post(
+        `${server}/payment/process`,
+        paymentData,
+        config
+      );
 
       const client_secret = data.client_secret;
 
-      if(!stripe || !elements) return;
+      if (!stripe || !elements) return;
 
       const result = await stripe.confirmCardPayment(client_secret, {
-         payment_method: {
-            card: elements.getElement(CardNumberElement),
-            billing_details: {
-              name: userInfo.name,
-              email: userInfo.email,
-              address: {
-                line1: shippingInfo.address,
-                city: shippingInfo.city,
-                postal_code: shippingInfo.pincode,
-                state: shippingInfo.state,
-                country: shippingInfo.country
-              }
-            }
-         }
+        payment_method: {
+          card: elements.getElement(CardNumberElement),
+          billing_details: {
+            name: userInfo.name,
+            email: userInfo.email,
+            address: {
+              line1: shippingInfo.address,
+              city: shippingInfo.city,
+              postal_code: shippingInfo.pincode,
+              state: shippingInfo.state,
+              country: shippingInfo.country,
+            },
+          },
+        },
       });
 
-      if(result.error){
+      if (result.error) {
         payBtn.current.disabled = false;
         toast.error(result.error.message);
-      } else{
-         if(result.paymentIntent.status === 'succeeded'){
-             toast.success("Payment successful! Your order has been confirmed");
-             navigate('/success');
-         } else if(result.paymentIntent.status === 'canceled'){
+      } else {
+
+          if (result.paymentIntent.status === "succeeded") {
+
+            order.paymentInfo = {
+              id: result.paymentIntent.id,
+              status: result.paymentIntent.status,
+              itemsPrice: orderInfo.subtotal,
+              taxPrice: orderInfo.tax,
+              shippingPrice: orderInfo.shippingCharges,
+              totalPrice: orderInfo.totalPrice,
+            };
+           
+            dispatch(createNewOrder(order));
+
+          navigate("/success");
+
+        } else if (result.paymentIntent.status === "canceled") {
           toast.warning(
             "Oops! Payment failed. Please check your card information and try again."
           );
-         } else{
+          
+        } else {
           toast.error(
             "Sorry, there was a problem on our end. Our team has been notified. Please try again later."
           );
-         }
+        }
       }
-
     } catch (error) {
       payBtn.current.disabled = false;
       toast.error(error.response.data.message);

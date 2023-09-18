@@ -92,7 +92,7 @@ function ConfirmOrder() {
                     <div className="flex flex-col gap-2 items-center lg:flex-row">
                       <img
                         className="w-[80px] lg:w-[140px]"
-                        src={item.image[0].secure_url}
+                        src={item.image.secure_url}
                         alt={item.name}
                       />
                       <Link
