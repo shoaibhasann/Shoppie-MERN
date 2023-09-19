@@ -4,10 +4,10 @@ import axios from "axios";
 import { server } from "../main";
 
 const myOrderSlice = createSlice({
-  name: "myOrders",
+  name: "myOrder",
 
   initialState: {
-    myOrders: [],
+    orders: [],
     status: STATUSES.IDLE,
     loading: false,
     error: null,
@@ -20,9 +20,12 @@ const myOrderSlice = createSlice({
     },
 
     myOrderSuccess(state, action) {
-      state.loading = false;
-      state.status = STATUSES.SUCCESS;
-      state.myOrders.push(action.payload);
+        return {
+          ...state,
+          loading: false,
+          status: STATUSES.SUCCESS,
+          orders: action.payload
+        }
     },
 
     myOrderFail(state, action) {
@@ -34,18 +37,18 @@ const myOrderSlice = createSlice({
     clearErrors(state, action) {
       state.loading = false;
       state.status = STATUSES.IDLE;
-      state.myOrders = [];
+      state.orders = [];
       state.error = null;
     },
   },
 });
 
-export function myOrders() {
+export function getMyOrders() {
   const config = {
     headers: { "Content-Type": "application/json" },
     withCredentials: true,
   };
-  return async function myOrdersThunk(dispatch, getState) {
+  return async function getMyOrdersThunk(dispatch, getState) {
     dispatch(myOrderRequest());
 
     try {
@@ -54,7 +57,7 @@ export function myOrders() {
         config
       );
 
-      dispatch(myOrderSuccess(data));
+      dispatch(myOrderSuccess(data.orders));
     } catch (error) {
       console.log(error);
       dispatch(myOrderFail(error.response.data.message));
