@@ -84,7 +84,7 @@ const Navbar = () => {
           <input
             className="w-full border-b-2 bg-[#faf9f8] border-slate-900 text-lg p-2 focus:outline-none"
             type="text"
-            placeholder="Search Products"
+            placeholder="Search your favourite products"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -119,12 +119,12 @@ const Navbar = () => {
       <div
         className={
           navOpen
-            ? "fixed left-0 top-0 w-[100%] h-screen z-20 border-r border-r-gray-900 bg-white ease-in-out duration-2000 overflow-hidden"
-            : "hidden"
+            ? "fixed left-0 top-0 w-[70%] h-screen z-20 border-r border-r-gray-900 bg-white ease-in-out duration-300 opacity-100 transform translate-x-0 overflow-hidden"
+            : "fixed left-0 top-0 w-0 h-screen z-20 border-r border-r-gray-900 bg-white ease-in-out duration-300 opacity-0 transform -translate-x-full overflow-hidden"
         }
       >
         <img className="w-36 mt-9 ml-4" src={Logo} alt="Logo" />
-        <div className="flex flex-col items-center justify-center p-4 gap-5 font-semibold cursor-pointer text-base lg:text-lg mt-16 overflow-hidden">
+        <div className="flex flex-col items-start justify-center p-4 gap-5 font-semibold cursor-pointer text-base lg:text-lg mt-16 overflow-hidden">
           <Link onClick={toggleNav} to="/" className="p-4">
             Home
           </Link>
@@ -133,7 +133,6 @@ const Navbar = () => {
           </Link>
           <Link onClick={toggleNav} to="/cart" className="p-4">
             <div className="flex items-center gap-2">
-              <AiOutlineShoppingCart />
               <div>
                 Shopping Bag{" "}
                 <sup className="text-base text-[#ed0010]">

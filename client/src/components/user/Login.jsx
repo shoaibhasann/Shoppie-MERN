@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login, clearError } from "../../redux/Userslice";
 import Loader from "../Loader";
@@ -12,6 +12,8 @@ function Login() {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const location = useLocation();
 
   const { error, loading, isAuthenticated } = useSelector(
     (state) => state.user
@@ -38,7 +40,7 @@ function Login() {
       }
       dispatch(clearError());
     } else if (isAuthenticated) {
-      navigate("/account");
+      navigate(location.state?.from || "/");
     }
   }, [error, dispatch, isAuthenticated]);
 
