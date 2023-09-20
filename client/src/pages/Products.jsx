@@ -4,10 +4,11 @@ import ProductCard from "../components/ProductCard";
 import MetaData from "../components/MetaData";
 import { STATUSES, fetchProducts } from "../redux/ProductSlice";
 import Loader from "../components/Loader";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { Slider, Rating } from "@mui/material";
-import { BsFilter } from 'react-icons/bs'
+import { BsFilter } from 'react-icons/bs';
+import RejectedImage from '../assets/rejected.png'
 
 const Products = () => {
   const dispatch = useDispatch();
@@ -42,7 +43,18 @@ const Products = () => {
   ];
 
   if (status === STATUSES.FAIL) {
-    return <h1 className="text-center text-3xl">Not found</h1>;
+    return (
+      <div className="flex lg:mt-10 mt-7 items-center flex-col justify-center lg:gap-7 gap-5">
+        <img className="w-[200px]" src={RejectedImage} alt="Your cart is empty" />
+        <h4 className="text-2xl font-bold">OOPS! Product not found</h4>
+        <Link
+          to={"/products"}
+          className="flex items-center justify-center gap-4 text-xl transition bg-[#ed0010] px-4 py-2 text-white font-bold  border-2 border-transparent hover:text-[#ed0010] hover:bg-white hover:border-[#e50010]"
+        >
+          Browse Products
+        </Link>
+      </div>
+    );
   }
 
   return (
