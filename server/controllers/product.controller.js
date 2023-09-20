@@ -175,13 +175,17 @@ const productDetails = async (req, res, next) => {
 const productReview = async (req, res, next) => {
   try {
     const { rating, comment, productId } = req.body;
-    const { name, id } = req.user;
+    const { name, id, avatar } = req.user;
 
     const newReview = {
       user: id,
-      name,
       rating: Number(rating),
+      name,
       comment,
+      avatar: {
+        public_id: avatar.public_id,
+        secure_url: avatar.secure_url,
+      },
     };
 
     const product = await productModel.findById(productId);

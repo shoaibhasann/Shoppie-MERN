@@ -47,7 +47,7 @@ const productSchema = new Schema(
       required: [true, "Please enter product stock"],
       maxLength: [5, "Stock cannot exceed 5 characters"],
       default: 1,
-      min: 1
+      min: 1,
     },
     numberOfReviews: {
       type: Number,
@@ -58,6 +58,16 @@ const productSchema = new Schema(
         user: {
           type: Schema.ObjectId,
           ref: "User",
+        },
+        avatar: {
+          public_id: {
+            type: String,
+            required: true,
+          },
+          secure_url: {
+            type: String,
+            required: true,
+          },
         },
         name: {
           type: String,
@@ -73,8 +83,8 @@ const productSchema = new Schema(
         },
         createdAt: {
           type: Date,
-          default: Date.now()
-        }
+          default: Date.now(),
+        },
       },
     ],
     user: {
