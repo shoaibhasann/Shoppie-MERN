@@ -12,7 +12,9 @@ function OrderDetail() {
   const dispatch = useDispatch();
   const { error, loading, order } = useSelector((state) => state.orderDetail);
 
-  const address = `${order.shippingInfo.address}, ${order.shippingInfo.city}, ${order.shippingInfo.pincode}, ${order.shippingInfo.state}, ${order.shippingInfo.country}`;
+  const address =
+    order.shippingInfo &&
+    `${order.shippingInfo.address}, ${order.shippingInfo.city}, ${order.shippingInfo.pincode}, ${order.shippingInfo.state}, ${order.shippingInfo.country}`;
 
   useEffect(() => {
     if (error) {
@@ -48,7 +50,7 @@ function OrderDetail() {
                   {/* Different background color */}
                   <p className="text-lg font-semibold">Name:</p>
                   <span className="text-gray-700 font-medium">
-                    {order.user.name}
+                    {order.user && order.user.name}
                   </span>
                 </div>
                 <div className="bg-green-100 p-4 ">
@@ -56,7 +58,7 @@ function OrderDetail() {
                   {/* Different background color */}
                   <p className="text-lg font-semibold">Phone No:</p>
                   <span className="text-gray-700 font-medium">
-                    {order.shippingInfo.phone}
+                    {order.shippingInfo && order.shippingInfo.phone}
                   </span>
                 </div>
                 <div className="bg-yellow-100 p-4">
@@ -100,7 +102,7 @@ function OrderDetail() {
               <p className="text-2xl font-semibold my-3">Order Status</p>
               <div className="bg-yellow-100 p-4 ">
                 <span className="text-gray-900 text-lg font-semibold">
-                  {order.paymentInfo.orderStatus}
+                  {order.paymentInfo && order.paymentInfo.orderStatus}
                 </span>
               </div>
             </div>
