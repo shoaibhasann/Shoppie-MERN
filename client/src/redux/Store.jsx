@@ -9,6 +9,7 @@ import cartReducer from './CartSlice.jsx';
 import newOrderReducer from './OrderSlice.jsx';
 import myOrderReducer from './MyOrderSlice.jsx';
 import orderDetailReducer from './OrderDetailSlice.jsx';
+import newReviewReducer from './ReviewSlice.jsx';
 
 
 const store = configureStore({
@@ -32,7 +33,9 @@ const store = configureStore({
 
     myOrder:  myOrderReducer,
 
-    orderDetail: orderDetailReducer
+    orderDetail: orderDetailReducer,
+
+    newReview: newReviewReducer
     
   }
 });
