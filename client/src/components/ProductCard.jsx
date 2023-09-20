@@ -79,7 +79,7 @@ function ProductCard({ product }) {
             <div className="flex gap-2 mt-5">
               <button
                 onClick={addToCartHandler}
-                className=" bg-[#ed0010] border border-transparent hover:bg-white hover:text-[#ed0010] hover:border-[#ed0010] px-6 py-2 text-white font-medium tracking-wider transition"
+                className=" bg-[#222222] border border-transparent hover:bg-white hover:text-[#222222] hover:border-[#222222] px-6 py-2 text-white font-medium tracking-wider transition"
               >
                 Add to cart
               </button>

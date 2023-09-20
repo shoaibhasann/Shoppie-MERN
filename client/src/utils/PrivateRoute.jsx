@@ -3,10 +3,10 @@ import { Navigate } from "react-router-dom";
 
 function PrivateRoute({ component: Compotent, authenticated, loading }) {
   if(!loading){
-    if(authenticated === true){
-      return <Compotent/>
+    if(authenticated === false){
+      return <Navigate to="/login" />
     } else{
-      return <Navigate to='/login'/>
+      return <Compotent/>
     }
   }
 }
