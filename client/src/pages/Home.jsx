@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import ProductCard from "../components/ProductCard";
+import ProductCard from "../components/app/ProductCard";
 import MetaData from "../components/layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, STATUSES } from "../redux/ProductSlice";

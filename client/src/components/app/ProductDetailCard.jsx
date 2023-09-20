@@ -5,10 +5,10 @@ import {
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
-import { numberWithCommas } from "../utils/Utility";
+import { numberWithCommas } from "../../utils/Utility";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemsToCart } from "../redux/CartSlice";
+import { addItemsToCart } from "../../redux/CartSlice";
 import { toast } from 'react-toastify';
 
 function ProductDetailCard({ product }) {

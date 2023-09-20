@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import Loader from "../layout/Loader";
-import { formatDate } from "../ReviewCard";
+import { formatDate } from "../app/ReviewCard";
 import { Link } from "react-router-dom";
 import MetaData from "../layout/MetaData";
 

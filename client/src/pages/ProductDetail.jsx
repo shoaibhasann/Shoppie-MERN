@@ -4,9 +4,9 @@ import { useParams } from 'react-router-dom';
 import { fetchProduct } from '../redux/productDetailSlice' 
 import { STATUSES } from '../redux/ProductSlice';
 import ErrorHandler from '../components/layout/ErrorHandler';
-import ProductDetailCard from '../components/ProductDetailCard';
+import ProductDetailCard from '../components/app/ProductDetailCard';
 import Loader from '../components/layout/Loader';
-import Reviews from '../components/Reviews';
+import Reviews from '../components/app/Reviews';
 import MetaData from '../components/layout/MetaData';
 
 function ProductDetail() {
