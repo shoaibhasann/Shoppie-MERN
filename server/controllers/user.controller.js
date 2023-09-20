@@ -104,6 +104,7 @@ const registerUser = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Registered successfuly!",
+      user
     });
 
   } catch (error) {
@@ -154,6 +155,7 @@ const loginUser = async (req, res, next) => {
     res.status(201).json({
       success: true,
       message: "Logged in successfuly!",
+      user
     });
   } catch (error) {
     return next(new AppError(500, "Internal Server Error" || error.message));
