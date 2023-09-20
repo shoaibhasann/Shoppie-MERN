@@ -8,6 +8,7 @@ import resetPasswordReducer from './ResetPasswordSlice.jsx';
 import cartReducer from './CartSlice.jsx';
 import newOrderReducer from './OrderSlice.jsx';
 import myOrderReducer from './MyOrderSlice.jsx';
+import orderDetailReducer from './OrderDetailSlice.jsx';
 
 
 const store = configureStore({
@@ -29,7 +30,9 @@ const store = configureStore({
 
     newOrder: newOrderReducer,
 
-    myOrder:  myOrderReducer 
+    myOrder:  myOrderReducer,
+
+    orderDetail: orderDetailReducer
     
   }
 });

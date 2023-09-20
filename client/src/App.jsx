@@ -18,13 +18,16 @@ import Cart from "./components/cart/Cart";
 import Shipping from "./components/cart/Shipping";
 import ConfirmOrder from "./components/cart/ConfirmOrder";
 import Payment from "./components/cart/Payment";
+import MyOrder from "./components/order/MyOrder";
+import OrderDetail from "./components/order/OrderDetail";
+import OrderSuccess from "./components/cart/OrderSuccess";
 
 
 function App() {
   
   const dispatch = useDispatch();
 
-  const { isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated, loading } = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(getUserProfile());
@@ -51,7 +54,11 @@ function App() {
           exact
           path="/account"
           element={
-            <PrivateRoute authenticated={isAuthenticated} component={Profile} />
+            <PrivateRoute
+              loading={loading}
+              authenticated={isAuthenticated}
+              component={Profile}
+            />
           }
         />
         <Route
@@ -59,6 +66,7 @@ function App() {
           path="/update"
           element={
             <PrivateRoute
+              loading={loading}
               authenticated={isAuthenticated}
               component={UpdateProfile}
             />
@@ -69,6 +77,7 @@ function App() {
           path="/password/update"
           element={
             <PrivateRoute
+              loading={loading}
               authenticated={isAuthenticated}
               component={UpdatePassword}
             />
@@ -79,6 +88,7 @@ function App() {
           path="/shipping"
           element={
             <PrivateRoute
+              loading={loading}
               authenticated={isAuthenticated}
               component={Shipping}
             />
@@ -89,22 +99,59 @@ function App() {
           path="/order/confirm"
           element={
             <PrivateRoute
+              loading={loading}
               authenticated={isAuthenticated}
               component={ConfirmOrder}
             />
           }
         />
-          <Route
-            exact
-            path="/process/payment"
-            element={
-              <PrivateRoute
-                authenticated={isAuthenticated}
-                component={Payment}
-              />
-            }
-          />
+        <Route
+          exact
+          path="/process/payment"
+          element={
+            <PrivateRoute
+              loading={loading}
+              authenticated={isAuthenticated}
+              component={Payment}
+            />
+          }
+        />
 
+        <Route
+          exact
+          path="/success"
+          element={
+            <PrivateRoute
+              loading={loading}
+              authenticated={isAuthenticated}
+              component={OrderSuccess}
+            />
+          }
+        />
+
+        <Route
+          exact
+          path="/orders"
+          element={
+            <PrivateRoute
+              loading={loading}
+              authenticated={isAuthenticated}
+              component={MyOrder}
+            />
+          }
+        />
+
+        <Route
+          exact
+          path="/orders/:id"
+          element={
+            <PrivateRoute
+              loading={loading}
+              authenticated={isAuthenticated}
+              component={OrderDetail}
+            />
+          }
+        />
       </Routes>
     </Router>
   );
