@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import Loader from '../Loader';
-import MetaData from '../MetaData';
+import Loader from '../layout/Loader';
+import MetaData from '../layout/MetaData';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearErrors, clearMessage, forgotPassword } from '../../redux/ForgotPasswordSlice';
 import { useNavigate } from 'react-router-dom';

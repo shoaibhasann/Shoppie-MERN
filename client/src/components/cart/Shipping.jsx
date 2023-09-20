@@ -9,7 +9,7 @@ import {
 } from "react-icons/fa";
 import { Country, State } from "country-state-city"
 import { useDispatch, useSelector } from "react-redux";
-import MetaData from "../MetaData";
+import MetaData from "../layout/MetaData";
 import CheckOutSteps from "./CheckOutSteps";
 import { toast } from 'react-toastify';
 import { saveShippingInfo } from "../../redux/CartSlice";

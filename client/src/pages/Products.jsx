@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../components/ProductCard";
-import MetaData from "../components/MetaData";
+import MetaData from "../components/layout/MetaData";
 import { STATUSES, fetchProducts } from "../redux/ProductSlice";
-import Loader from "../components/Loader";
+import Loader from "../components/layout/Loader";
 import { Link, useParams } from "react-router-dom";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { Slider, Rating } from "@mui/material";

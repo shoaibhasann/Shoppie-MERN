@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchProduct } from '../redux/productDetailSlice' 
 import { STATUSES } from '../redux/ProductSlice';
-import ErrorHandler from '../components/ErrorHandler';
+import ErrorHandler from '../components/layout/ErrorHandler';
 import ProductDetailCard from '../components/ProductDetailCard';
-import Loader from '../components/Loader';
+import Loader from '../components/layout/Loader';
 import Reviews from '../components/Reviews';
-import MetaData from '../components/MetaData';
+import MetaData from '../components/layout/MetaData';
 
 function ProductDetail() {
 

@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
-import MetaData from "../MetaData";
-import Loader from "../Loader";
+import MetaData from "../layout/MetaData";
+import Loader from "../layout/Loader";
 import { toast } from "react-toastify";
 import { clearErrors, getMyOrders } from "../../redux/MyOrderSlice";
 import { Link } from "react-router-dom";

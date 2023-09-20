@@ -1,5 +1,5 @@
 import React from 'react'
-import MetaData from '../MetaData'
+import MetaData from '../layout/MetaData'
 import CheckOutSteps from './CheckOutSteps'
 import { useSelector } from 'react-redux'
 import { numberWithCommas } from '../../utils/Utility';

@@ -9,7 +9,7 @@ import {
 import { numberWithCommas } from '../../utils/Utility';
 import { addItemsToCart } from '../../redux/CartSlice';
 import { useNavigate } from 'react-router-dom';
-import MetaData from '../MetaData';
+import MetaData from '../layout/MetaData';
 
 function Cart() {
   const dispatch = useDispatch();

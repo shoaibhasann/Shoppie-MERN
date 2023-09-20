@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../Loader";
+import Loader from "../layout/Loader";
 import {
   updateProfile,
   clearErrors,
@@ -9,7 +9,7 @@ import {
 import { toast } from "react-toastify";
 import { getUserProfile } from "../../redux/Userslice";
 import { useNavigate } from "react-router-dom";
-import MetaData from "../MetaData";
+import MetaData from "../layout/MetaData";
 
 function UpdateProfile() {
   const { userInfo } = useSelector((state) => state.user);

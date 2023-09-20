@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, resetProfile, updatePassword } from "../../redux/ProfileSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import Loader from "../Loader";
+import Loader from "../layout/Loader";
 import { getUserProfile } from "../../redux/Userslice";
-import MetaData from "../MetaData";
+import MetaData from "../layout/MetaData";
 
 function UpdateProfile() {
 

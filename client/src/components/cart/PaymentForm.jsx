@@ -6,7 +6,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import MetaData from "../MetaData";
+import MetaData from "../layout/MetaData";
 import CheckOutSteps from "./CheckOutSteps";
 import { AiFillCreditCard } from "react-icons/ai";
 import { BsFillCalendarEventFill } from "react-icons/bs";

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { clearErrors, getMyOrderDetails } from "../../redux/OrderDetailSlice";
-import MetaData from "../MetaData";
-import Loader from "../Loader";
+import MetaData from "../layout/MetaData";
+import Loader from "../layout/Loader";
 import { numberWithCommas } from "../../utils/Utility";
 
 function OrderDetail() {

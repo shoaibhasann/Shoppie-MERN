@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import ProductCard from "../components/ProductCard";
-import MetaData from "../components/MetaData";
+import MetaData from "../components/layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts, STATUSES } from "../redux/ProductSlice";
-import Hero from "../components/Hero";
-import Loader from "../components/Loader";
-import ErrorHandler from "../components/ErrorHandler";
+import Hero from "../components/layout/Hero";
+import Loader from "../components/layout/Loader";
+import ErrorHandler from "../components/layout/ErrorHandler";
 
 function Home() {
   const dispatch = useDispatch();
