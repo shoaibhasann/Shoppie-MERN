@@ -71,7 +71,6 @@ const createProduct = async (req, res, next) => {
 };
 
 
-
 const getAllProducts = async (req, res, next) => {
   try {
     
@@ -103,6 +102,20 @@ const getAllProducts = async (req, res, next) => {
     return next(new AppError(500, "Internal Server Error" || error.message));
   }
 };
+
+const getAdminProducts = async(req,res,next) => {
+  try {
+    const products = await productModel.find();
+
+    res.status(200).json({
+      success: true,
+      message: 'All products fetched successfully',
+      products
+    })
+  } catch (error) {
+    return next(new AppError(500, "Internal Server Error" || error.message));
+  }
+}
 
 const updateProduct = async (req, res, next) => {
   try {
@@ -292,6 +305,7 @@ const deleteReview = async (req, res, next) => {
 export {
   createProduct,
   getAllProducts,
+  getAdminProducts,
   updateProduct,
   deleteProduct,
   productDetails,
