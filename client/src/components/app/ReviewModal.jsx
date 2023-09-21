@@ -4,28 +4,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { addNewReview, newReviewReset } from "../../redux/ReviewSlice";
 import { toast } from "react-toastify";
 
-const MAX_CHARACTER_LIMIT = 250; // Define your maximum character limit here
+const maxCharacterLimit = 250;
 
 function ReviewModal({ isOpen, onClose, id }) {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  
   const dispatch = useDispatch();
-
-  const { error, loading, review } = useSelector((state) => state.newReview);
 
   const submitReview = async () => {
     try {
       // Check if the comment exceeds the character limit
-      if (comment.length > MAX_CHARACTER_LIMIT) {
+      if (comment.length > maxCharacterLimit) {
         toast.error(
-          `Character limit exceeded. Maximum ${MAX_CHARACTER_LIMIT} characters allowed.`
+          `Character limit exceeded. Maximum ${maxCharacterLimit} characters allowed.`
         );
         return;
       }
-
       dispatch(addNewReview({ productId: id, rating, comment }));
       onClose();
-      toast.success(review.message);
     } catch (error) {
       toast.error(error);
     }
@@ -57,7 +54,7 @@ function ReviewModal({ isOpen, onClose, id }) {
         </div>
         <textarea
           rows="4"
-          placeholder={`Write your review (Maximum ${MAX_CHARACTER_LIMIT} characters)...`}
+          placeholder={`Write your review (Maximum ${maxCharacterLimit} characters)...`}
           className="w-full p-2 border border-gray-300 mb-4"
           value={comment}
           onChange={(e) => setComment(e.target.value)}
