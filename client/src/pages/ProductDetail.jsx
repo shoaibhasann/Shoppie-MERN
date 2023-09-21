@@ -8,6 +8,8 @@ import ProductDetailCard from '../components/app/ProductDetailCard';
 import Loader from '../components/layout/Loader';
 import Reviews from '../components/app/Reviews';
 import MetaData from '../components/layout/MetaData';
+import { toast } from 'react-toastify';
+import { newReviewReset } from '../redux/ReviewSlice';
 
 function ProductDetail() {
 
@@ -24,6 +26,20 @@ function ProductDetail() {
   if(status === STATUSES.FAIL){
     return <ErrorHandler message="Page not found" />;
   }
+
+    const { review, error } = useSelector((state) => state.newReview);
+
+    useEffect(() => {
+      if (error) {
+        toast.error(error);
+        dispatch(newReviewReset());
+      }
+
+      if (review && review.success) {
+        toast.success(review.message);
+        dispatch(newReviewReset());
+      }
+    }, [review, error, id]);
 
   return (
     <>

@@ -3,6 +3,7 @@ import ReviewCard from "./ReviewCard";
 import { useSelector } from "react-redux";
 
 function Reviews() {
+  
   const product = useSelector((state) => state.productDetail.data.product);
 
   return (
@@ -12,8 +13,8 @@ function Reviews() {
       </h1>
       {product.reviews.length > 0 ? (
         <div className="max-w-7xl px-5 mx-auto grid grid-cols-1 lg:grid-cols-3 gap-5 place-items-center place-content-center">
-            {product.reviews.map((review, index) => (
-            <ReviewCard key={index} review={review} />
+          {product.reviews.map((review, index) => (
+              <ReviewCard key={index} review={review} />
           ))}
         </div>
       ) : (

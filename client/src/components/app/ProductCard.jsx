@@ -61,7 +61,7 @@ function ProductCard({ product }) {
           <div className="flex items-center gap-5">
             <ReactStars {...options} />
             <span className="text-sm text-gray-500">
-              {product.ratings.toFixed(1) + " Ratings"}
+              ({product.reviews.length + " Reviews"})
             </span>
           </div>
           <div>

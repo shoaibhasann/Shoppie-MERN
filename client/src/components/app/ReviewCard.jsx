@@ -2,9 +2,9 @@ import React from "react";
 import ReactStars from "react-rating-stars-component";
 
 export const formatDate = (isoDate) => {
-     const options = { year: "numeric", month: "short", day: "numeric" };
-     return new Date(isoDate).toLocaleDateString(undefined, options);
-   };
+  const options = { year: "numeric", month: "short", day: "numeric" };
+  return new Date(isoDate).toLocaleDateString(undefined, options);
+};
 
 function ReviewCard({ review }) {
 
@@ -16,14 +16,16 @@ function ReviewCard({ review }) {
     value: review.rating,
     isHalf: true,
   };
-  
+
   return (
-    <div className="max-w-sm p-6 flex flex-col gap-5 bg-white border border-gray-200 rounded-lg shadow">
+    <div className="max-w-sm p-6 flex flex-col justify-around bg-slate-100 border border-gray-800 shadow h-[300px]">
       <div className="flex items-center justify-between">
-        <div className="flex gap-2">
-          <div className="w-7 h-7 flex items-center justify-center text-white rounded-full bg-[#ed0010]">
-            {review.name.slice(0, 1)}
-          </div>
+        <div className="flex items-center gap-3">
+          <img
+            src={review?.avatar.secure_url}
+            alt="User Avatar"
+            className="h-10 w-10 rounded-full object-cover cursor-pointer"
+          />
           <span className="text-xl font-bold">{review.name}</span>
         </div>
         <ReactStars {...options} />

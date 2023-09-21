@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AiOutlinePlus,
   AiOutlineMinus,
@@ -9,9 +9,16 @@ import { numberWithCommas } from "../../utils/Utility";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
 import { addItemsToCart } from "../../redux/CartSlice";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import ReviewModal from "./ReviewModal";
+import { newReviewReset } from "../../redux/ReviewSlice";
+import { useParams } from "react-router-dom";
+
 
 function ProductDetailCard({ product }) {
+
+  const { isAuthenticated } = useSelector((state) => state.user);
+
   const [value, setValue] = useState(0);
   const [quantity, setQuantity] = useState(1);
 
@@ -83,6 +90,9 @@ function ProductDetailCard({ product }) {
     product.price - product.price * (product.discount / 100)
   );
 
+  const [isReviewModalOpen, setReviewModalOpen] = useState(false);
+
+
   return (
     <>
       <section className="max-w-6xl mt-7 lg:mt-10  mx-auto grid grid-cols-1 lg:grid-cols-2">
@@ -151,7 +161,12 @@ function ProductDetailCard({ product }) {
 
           <div className="flex items-center gap-4 mb-10">
             <ReactStars {...options} />{" "}
-            <span>{product.ratings.toFixed(1) + ' Ratings'}</span>
+            <span className="text-lg">
+              {product.ratings.toFixed(1) + " Ratings"}
+            </span>
+            <span className="text-base text-gray-800">
+              ({product.reviews.length + " Reviews"})
+            </span>
           </div>
 
           <div className="flex items-center justify-between flex-wrap ">
@@ -159,8 +174,8 @@ function ProductDetailCard({ product }) {
               <li className="text-slate-900 font-bold text-2xl lg:text-3xl">
                 {"₹ " + numberWithCommas(discountedPrice)}
               </li>
-              <li className="bg-[#f4eddd] py-1 px-2 text-[#ed0010] tracking-wide text-sm lg:text-base font-bold inline-block rounded shadow ">
-                {product.discount + '% off'}
+              <li className="bg-[#f4eddd] py-1 px-2 text-[#ed0010] tracking-wide text-sm lg:text-base font-bold inline-block shadow ">
+                {product.discount + "% off"}
               </li>
             </ul>
           </div>
@@ -197,6 +212,21 @@ function ProductDetailCard({ product }) {
                 Buy now
               </button>
             </div>
+            <button
+              onClick={() => setReviewModalOpen(true)}
+              className={
+                isAuthenticated ? "text-lg bg-[#f4eddd] py-1 px-2 text-[#ed0010] tracking-wide font-bold inline-block shadow border border-transparent hover:border-[#ed0010] my-8" : "hidden"
+              }
+            >
+              Write a review
+            </button>
+
+            {/* Add the ReviewModal component */}
+            <ReviewModal
+              isOpen={isReviewModalOpen}
+              onClose={() => setReviewModalOpen(false)}
+              id={product._id}
+            />
           </div>
         </article>
       </section>
