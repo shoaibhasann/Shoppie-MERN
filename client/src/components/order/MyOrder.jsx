@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { clearErrors, getMyOrders } from "../../redux/MyOrderSlice";
 import { Link } from "react-router-dom";
 import { BiLinkExternal } from 'react-icons/bi';
-import './MyOrder.css'
+import '../../styles/MyOrder.css';
 
 
 function MyOrder() {

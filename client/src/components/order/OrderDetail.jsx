@@ -39,7 +39,7 @@ function OrderDetail() {
       ) : (
         <div className="max-w-[1240px] mx-4 lg:mx-auto lg:mt-10 mt-7">
           <h1 className="text-xl lg:text-2xl font-bold mb-3 p-4 bg-red-100 text-red-500">
-            #Order {order && order._id}
+            #Order ID:  {order && order._id}
           </h1>
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mt-5 lg:mt-8">
             <div>
