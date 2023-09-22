@@ -1,0 +1,39 @@
+.productListTable > div{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.productListTable a:hover{
+    color: #ed0010;
+}
+
+.MuiDataGrid-columnHeader{
+    background-color: #ed0010;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.MuiDataGrid-iconSeparator{
+    display: none !important;
+}
+
+@media only screen and (max-width: 640px) {
+    .productListTableHeading{
+        font: 400 2.2vmax;
+        padding: 4vw;
+    }
+
+    .productListTable div{
+        font: 300 4vw;
+    }
+
+    .MuiDataGrid-columnHeader{
+        padding: 20px !important;
+    }
+
+    .MuiDataGrid-columnHeader div{
+        font: 500 5vw !important;
+    }
+
+}
