@@ -63,7 +63,7 @@ function UserOptions({ user }) {
             <SpeedDialAction className="relative my-2 bg-blue-gray-50">
               <Square3Stack3DIcon
                 className="h-6 w-6"
-                onClick={() => navigate("/dashboard")}
+                onClick={() => navigate("/admin/dashboard")}
               />
               <Typography {...labelProps}>Dashboard</Typography>
             </SpeedDialAction>
