@@ -68,7 +68,7 @@ export function register(userData) {
     withCredentials: true,
   };
 
-  return async function loginThunk(dispatch, getState){
+  return async function registerThunk(dispatch, getState){
     dispatch(setLoading(true));
        try {
         const { data } = await axios.post(`${server}/register`, userData, config);

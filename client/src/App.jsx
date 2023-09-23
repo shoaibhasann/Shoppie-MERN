@@ -21,13 +21,17 @@ import Payment from "./components/cart/Payment";
 import MyOrder from "./components/order/MyOrder";
 import OrderDetail from "./components/order/OrderDetail";
 import OrderSuccess from "./components/cart/OrderSuccess";
+import Dashboard from "./components/admin/Dashboard";
+import ProductContent from "./components/admin/ProductContent";
+import UserContent from "./components/admin/UserContent";
+import OrderContent from "./components/admin/OrderContent";
+import ProductListContent from "./components/admin/ProductListContent";
+
 
 
 function App() {
   
   const dispatch = useDispatch();
-
-  const { isAuthenticated, loading } = useSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(getUserProfile());
@@ -53,105 +57,82 @@ function App() {
         <Route
           exact
           path="/account"
-          element={
-            <PrivateRoute
-              loading={loading}
-              authenticated={isAuthenticated}
-              component={Profile}
-            />
-          }
+          element={<PrivateRoute component={Profile} />}
         />
         <Route
           exact
           path="/update"
-          element={
-            <PrivateRoute
-              loading={loading}
-              authenticated={isAuthenticated}
-              component={UpdateProfile}
-            />
-          }
+          element={<PrivateRoute component={UpdateProfile} />}
         />
         <Route
           exact
           path="/password/update"
-          element={
-            <PrivateRoute
-              loading={loading}
-              authenticated={isAuthenticated}
-              component={UpdatePassword}
-            />
-          }
+          element={<PrivateRoute component={UpdatePassword} />}
         />
         <Route
           exact
           path="/shipping"
-          element={
-            <PrivateRoute
-              loading={loading}
-              authenticated={isAuthenticated}
-              component={Shipping}
-            />
-          }
+          element={<PrivateRoute component={Shipping} />}
         />
         <Route
           exact
           path="/order/confirm"
-          element={
-            <PrivateRoute
-              loading={loading}
-              authenticated={isAuthenticated}
-              component={ConfirmOrder}
-            />
-          }
+          element={<PrivateRoute component={ConfirmOrder} />}
         />
         <Route
           exact
           path="/process/payment"
-          element={
-            <PrivateRoute
-              loading={loading}
-              authenticated={isAuthenticated}
-              component={Payment}
-            />
-          }
+          element={<PrivateRoute component={Payment} />}
         />
 
         <Route
           exact
           path="/success"
-          element={
-            <PrivateRoute
-              loading={loading}
-              authenticated={isAuthenticated}
-              component={OrderSuccess}
-            />
-          }
+          element={<PrivateRoute component={OrderSuccess} />}
         />
 
         <Route
           exact
           path="/orders"
-          element={
-            <PrivateRoute
-              loading={loading}
-              authenticated={isAuthenticated}
-              component={MyOrder}
-            />
-          }
+          element={<PrivateRoute component={MyOrder} />}
         />
 
         <Route
           exact
           path="/orders/:id"
-          element={
-            <PrivateRoute
-              loading={loading}
-              authenticated={isAuthenticated}
-              component={OrderDetail}
-            />
-          }
+          element={<PrivateRoute component={OrderDetail} />}
         />
+
+        <Route
+          exact
+          path="/admin/dashboard"
+          element={<PrivateRoute component={Dashboard} />}
+        />
+
+        <Route
+          exact
+          path="/admin/products"
+          element={<PrivateRoute component={ProductListContent} />}
+        />
+
+        <Route
+          exact
+          path="/admin/product"
+          element={<PrivateRoute component={ProductContent} />}
+        />
+
+        <Route
+          exact
+          path="/admin/users"
+          element={<PrivateRoute component={UserContent} />}
+        />
+
+        <Route
+          exact
+          path="/admin/orders"
+          element={<PrivateRoute component={OrderContent} />}
+        />
+
       </Routes>
     </Router>
   );

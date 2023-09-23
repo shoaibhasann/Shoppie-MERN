@@ -1,3 +1,7 @@
+.productListTable{
+    background-color: white;
+}
+
 .productListTable > div{
     font-size: 16px;
     font-weight: 500;
@@ -5,6 +9,24 @@
 
 .productListTable a:hover{
     color: #ed0010;
+}
+
+.productListTable a,
+.productListTable button {
+  color: rgba(0, 0, 0, 0.527);
+  transition: all 0.5s;
+}
+
+.productListTable a:hover {
+  color: #ed0010;
+}
+
+.productListTable button:hover {
+  color: #ed0010;
+}
+
+.MuiDataGrid-columnHeader div {
+  color: rgb(255, 255, 255);
 }
 
 .MuiDataGrid-columnHeader{
