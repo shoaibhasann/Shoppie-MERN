@@ -4,12 +4,14 @@ import Feature from "../utils/features.util.js";
 import cloudinary from "cloudinary";
 import fs from 'fs/promises'
 
-const createProduct = async (req, res, next) => {
+// function to create new product
+const createProduct = async(req,res,next) => {
   try {
-    // extract information from request body
-    const { name, description, category, price, stock } = req.body;
 
-    if (!name || !description || !category || !price || !stock) {
+    // extract information from request body
+    const { name, description, category, price, stock, discount, images } = req.body;
+
+    if (!name || !description || !category || !price || !stock || !images) {
       return next(new AppError(400, "All fields are required"));
     }
 
@@ -20,55 +22,52 @@ const createProduct = async (req, res, next) => {
       return next(new AppError(400, "A product with this name already exists"));
     }
 
-    // create new product instance
-    const product = await productModel.create(req.body);
+    let imageFiles = [];
 
-    // Check if there are uploaded files
-    if (req.files && req.files.length > 0) {
-      const uploadedImages = [];
-
-      for (const file of req.files) {
-        try {
-          const result = await cloudinary.v2.uploader.upload(file.path, {
-            folder: "Shoppie_Products",
-          });
-
-          if (result && result.secure_url) {
-            uploadedImages.push({
-              public_id: result.public_id,
-              secure_url: result.secure_url,
-            });
-          } else {
-            // Log an error if image upload fails
-            console.error("Image upload failed:", result);
-          }
-
-          // Remove file from the upload folder
-          fs.rm(file.path);
-        } catch (error) {
-          console.error("Image upload error:", error);
-          return next(new AppError(400, "File not uploaded, please try again"));
-        }
-      }
-
-      // Add the uploaded images to the product's images array
-      product.images = [...product.images, ...uploadedImages];
+    if(typeof images === 'string'){
+      imageFiles.push(images);
+    } else{
+      imageFiles = images;
     }
 
-    // save product to the database
-    await product.save();
+    let uploadedImages = [];
 
-    // respond with success message and product details
+    for(let i = 0; i < imageFiles.length; i++){
+      const result = await cloudinary.v2.uploader.upload(imageFiles[i], {
+        folder: "Shoppie_Products",
+      });
+
+      if(result){
+        uploadedImages.push({
+          public_id: result.public_id,
+          secure_url: result.secure_url,
+        })
+      }
+    }
+
+    const product = await productModel.create({
+       name,
+       price,
+       description,
+       stock,
+       category,
+       discount,
+       images: uploadedImages
+    });
+
     res.status(201).json({
       success: true,
       message: "Product created successfully",
       product,
     });
   } catch (error) {
-    console.error("Product creation error:", error);
-    return next(new AppError(500, error.message || "Internal Server Error"));
+        console.error("Product creation error:", error);
+        return next(
+          new AppError(500, error.message || "Internal Server Error")
+        );
   }
-};
+}
+
 
 
 const getAllProducts = async (req, res, next) => {
@@ -311,5 +310,5 @@ export {
   productDetails,
   productReview,
   getAllReviews,
-  deleteReview
+  deleteReview,
 };
