@@ -14,9 +14,10 @@ const cookieOptions = {
 };
 
 
-
+// function to register new user
 const registerUser = async (req, res) => {
   try {
+    
     const { name, email, password } = req.body;
 
     // Check if all fields are provided
@@ -116,51 +117,53 @@ const registerUser = async (req, res) => {
   }
 };
 
-
-
-
-
 // controller function to login user
 const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
     if (!email || !password) {
-      return next(new AppError(400, "Please enter email & password"));
+      return next(new AppError(400, "Please enter both email and password"));
     }
 
     // Find the user in the database
     const user = await userModel.findOne({ email }).select("+password");
 
     if (!user) {
-      return next(new AppError(400, "Invalid email or password"));
+      return next(
+        new AppError(
+          401,
+          "The email address you entered is not associated with an account"
+        )
+      );
     }
 
-    // Compare passwords using the comparePassword method
+    // Compare passwords securely using bcrypt
     const isPasswordMatch = await user.comparePassword(password);
 
     if (!isPasswordMatch) {
-      return next(new AppError(400, "Password is incorrect"));
+      return next(new AppError(401, "The password you entered is incorrect"));
     }
 
-    // generate jwt token
+    // Generate a JWT token
     const token = await user.generateToken();
 
     user.password = undefined;
 
-    // Set the JWT token in the cookie
+    // Set the JWT token in the cookie or response headers
     res.cookie("token", token, cookieOptions);
 
     // Respond with success message and user details
-    res.status(201).json({
+    res.status(200).json({
       success: true,
-      message: "Logged in successfuly!",
-      user
+      message: "Logged in successfully!",
+      user,
     });
   } catch (error) {
     return next(new AppError(500, "Internal Server Error" || error.message));
   }
 };
+
 
 // controller function to logout user
 const logoutUser = (req, res, next) => {
@@ -203,18 +206,13 @@ const getProfile = async (req, res, next) => {
 const updateProfile = async (req, res, next) => {
   try {
 
-    const { name, email } = req.body;
+    const { name, email, avatar } = req.body;
 
     // Extract user id from token
     const { id } = req.user;
 
-    // Find the user in the database
-    const user = await userModel.findByIdAndUpdate(id, req.body, );
+    const user = await userModel.findById(id);
 
-    // Check if the user exists
-    if (!user) {
-      return next(new AppError(400, "User does not exist"));
-    }
 
     // Update user full name
     if (name) {
@@ -227,14 +225,14 @@ const updateProfile = async (req, res, next) => {
     }
 
     // Delete and update user profile image
-    if (req.file) {
+    if (avatar) {
 
       // Remove the existing profile image from Cloudinary
       await cloudinary.v2.uploader.destroy(user.avatar.public_id);
 
       try {
         // Upload the new profile image to Cloudinary
-        const result = await cloudinary.v2.uploader.upload(req.file.path, {
+        const result = await cloudinary.v2.uploader.upload(avatar, {
           folder: "Shoppie_Users",
           width: 250,
           height: 250,
@@ -247,8 +245,6 @@ const updateProfile = async (req, res, next) => {
           user.avatar.secure_url = result.secure_url;
         }
 
-        // Remove the file from the upload folder after uploading to Cloudinary
-        fs.rm(`uploads/${req.file.filename}`);
       } catch (error) {
         return next(
           new AppError(400, "File not uploaded, please try again" || error)
