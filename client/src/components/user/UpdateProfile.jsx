@@ -28,11 +28,14 @@ function UpdateProfile() {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-          setAvatarPreview(e.target.result);    
-          setAvatar(selectedFile);    
+
+            reader.readAsDataURL(selectedFile);
+            
+      reader.onloadend = (e) => {
+          setAvatarPreview(reader.result);    
+          setAvatar(reader.result);    
     };
-      reader.readAsDataURL(selectedFile);
+      
     }
   };
 

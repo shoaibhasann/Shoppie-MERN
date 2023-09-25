@@ -3,7 +3,7 @@ import { AiOutlineFileImage, AiOutlinePlus } from "react-icons/ai";
 import MetaData from "../layout/MetaData";
 import Sidebar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import { clearAdminErrors, createProduct, newProductReset } from "../../redux/AdminSlice";
+import { clearAdminErrors, createProduct, newProductFail, newProductReset } from "../../redux/AdminSlice";
 import { toast } from "react-toastify";
 
 function ProductContent() {
@@ -18,6 +18,7 @@ function ProductContent() {
     description: "",
     stock: "",
     category: "",
+    discount: ""
   });
 
   const [images, setImages] = useState([]);
@@ -37,14 +38,15 @@ function ProductContent() {
 
     if(files){
       files.forEach((file) => {
+
         const reader = new FileReader();
 
-        reader.onload = (event) => {
-          setImages(prevImage => [...prevImage, event.target.result]);
-          setImagePreview(prevImage => [...prevImage, event.target.result]);
-        }
-
         reader.readAsDataURL(file);
+
+        reader.onloadend = (event) => {
+          setImages(prevImage => [...prevImage, reader.result]);
+          setImagePreview(prevImage => [...prevImage, reader.result]);
+        }
       })
     }
   };
@@ -52,26 +54,28 @@ function ProductContent() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    console.log(images);
     // create a formdata for product
-        const formData = new FormData();
-        formData.append("name", productData.name);
-        formData.append("price", productData.price);
-        formData.append("description", productData.description);
-        formData.append("stock", productData.stock);
-        formData.append("category", productData.category);
-        formData.append("images", images);
+    const formData = new FormData();
+    formData.append("name", productData.name);
+    formData.append("price", productData.price);
+    formData.append("description", productData.description);
+    formData.append("stock", productData.stock);
+    formData.append("category", productData.category);
 
-        console.log("FormData:", formData);
+    // Append each image file to the FormData object
+    images.forEach((image) => {
+      formData.append("images", image);
+    });
 
-        try {
-          dispatch(clearAdminErrors());
-          console.log(formData);
-          dispatch(createProduct(formData));
-
-        } catch (error) {
-          toast.error(error);
-        }
-
+    try {
+      dispatch(clearAdminErrors());
+      console.log(formData);
+      dispatch(createProduct(formData));
+    } catch (error) {
+      toast.error(error);
+      dispatch(newProductFail());
+    }
   };
 
   useEffect(() => {
@@ -101,7 +105,7 @@ function ProductContent() {
 
   return (
     <>
-      <MetaData title={`Create Product - Admin`} />
+      <MetaData title={`Add Product - Admin`} />
 
       <div className="max-w-[1240px] m-8 mx-auto flex flex-col lg:flex-row">
         <Sidebar />
@@ -168,6 +172,20 @@ function ProductContent() {
               />
             </div>
             <div className="mb-4">
+              <label htmlFor="discount" className="text-gray-600 block mb-2">
+                Discount
+              </label>
+              <input
+                type="number"
+                id="discount"
+                name="discount"
+                value={productData.discount}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+                required
+              />
+            </div>
+            <div className="mb-4">
               <label htmlFor="category" className="text-gray-600 block mb-2">
                 Category
               </label>
@@ -192,7 +210,7 @@ function ProductContent() {
               <label htmlFor="image-upload" className="w-full cursor-pointer">
                 <div className="flex items-center justify-center border border-dashed border-gray-300 rounded-md p-4">
                   <AiOutlinePlus className="text-4xl text-gray-400" />
-                  <p className="text-gray-400 mt-2">Upload an image</p>
+                  <p className="text-gray-400 mt-2">Upload Images</p>
                 </div>
                 <input
                   type="file"
@@ -240,7 +258,7 @@ function ProductContent() {
                   <span className="sr-only">Loading...</span>
                 </div>
               ) : (
-                "Submit"
+                "Add"
               )}
             </button>
           </form>
