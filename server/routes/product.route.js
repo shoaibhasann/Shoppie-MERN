@@ -11,7 +11,7 @@ import {
   updateProduct,
 } from "../controllers/product.controller.js";
 import { authorizedRoles, isLoggedIn } from "../middlewares/auth.middleware.js";
-import upload from "../middlewares/multer.middleware.js";
+
 
 const router = Router();
 
@@ -20,7 +20,6 @@ router.post(
   "/admin",
   isLoggedIn,
   authorizedRoles("Admin"),
-  upload.array("images", 5),
   createProduct
 );
 router.put("/admin/:id", isLoggedIn, authorizedRoles("Admin"), updateProduct);
