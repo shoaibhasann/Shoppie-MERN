@@ -7,6 +7,7 @@ import paymentRoutes from "./routes/payment.route.js";
 import errorMiddleware from "./middlewares/error.middleware.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import fileUpload from "express-fileupload";
 
 // loding enviroment variables
 dotenv.config();
@@ -16,6 +17,9 @@ const app = express();
 
 // Middleware for Parsing request body
 app.use(express.json());
+
+// Middleware for file uploading
+app.use(fileUpload());
 
 // Middleware for url decode
 app.use(express.urlencoded({ extended: true }));
