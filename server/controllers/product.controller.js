@@ -2,14 +2,14 @@ import productModel from "../models/product.model.js";
 import AppError from "../utils/error.util.js";
 import Feature from "../utils/features.util.js";
 import cloudinary from "cloudinary";
-import fs from 'fs/promises'
+import fs from "fs/promises";
 
 // function to create new product
-const createProduct = async(req,res,next) => {
+const createProduct = async (req, res, next) => {
   try {
-
     // extract information from request body
-    const { name, description, category, price, stock, discount, images } = req.body;
+    const { name, description, category, price, stock, discount, images } =
+      req.body;
 
     if (!name || !description || !category || !price || !stock || !images) {
       return next(new AppError(400, "All fields are required"));
@@ -24,35 +24,35 @@ const createProduct = async(req,res,next) => {
 
     let imageFiles = [];
 
-    if(typeof images === 'string'){
+    if (typeof images === "string") {
       imageFiles.push(images);
-    } else{
+    } else {
       imageFiles = images;
     }
 
     let uploadedImages = [];
 
-    for(let i = 0; i < imageFiles.length; i++){
+    for (let i = 0; i < imageFiles.length; i++) {
       const result = await cloudinary.v2.uploader.upload(imageFiles[i], {
         folder: "Shoppie_Products",
       });
 
-      if(result){
+      if (result) {
         uploadedImages.push({
           public_id: result.public_id,
           secure_url: result.secure_url,
-        })
+        });
       }
     }
 
     const product = await productModel.create({
-       name,
-       price,
-       description,
-       stock,
-       category,
-       discount,
-       images: uploadedImages
+      name,
+      price,
+      description,
+      stock,
+      category,
+      discount,
+      images: uploadedImages,
     });
 
     res.status(201).json({
@@ -61,18 +61,13 @@ const createProduct = async(req,res,next) => {
       product,
     });
   } catch (error) {
-        console.error("Product creation error:", error);
-        return next(
-          new AppError(500, error.message || "Internal Server Error")
-        );
+    console.error("Product creation error:", error);
+    return next(new AppError(500, error.message || "Internal Server Error"));
   }
-}
-
-
+};
 
 const getAllProducts = async (req, res, next) => {
   try {
-    
     const resultPerPage = 9;
 
     const apiFeature = new Feature(productModel.find(), req.query)
@@ -95,35 +90,72 @@ const getAllProducts = async (req, res, next) => {
       message: "All products fetched successfully",
       products,
       productsCount,
-      resultPerPage
+      resultPerPage,
     });
   } catch (error) {
     return next(new AppError(500, "Internal Server Error" || error.message));
   }
 };
 
-const getAdminProducts = async(req,res,next) => {
+const getAdminProducts = async (req, res, next) => {
   try {
     const products = await productModel.find();
 
     res.status(200).json({
       success: true,
-      message: 'All products fetched successfully',
-      products
-    })
+      message: "All products fetched successfully",
+      products,
+    });
   } catch (error) {
     return next(new AppError(500, "Internal Server Error" || error.message));
   }
-}
+};
 
 const updateProduct = async (req, res, next) => {
   try {
+
     const { id } = req.params;
 
     const product = await productModel.findById(id);
 
     if (!product) {
       return next(new AppError(404, "Product not found"));
+    }
+
+    let images = req.body.images;
+
+    let imageFiles = [];
+
+    if (typeof images === "string") {
+      imageFiles.push(images);
+    } else {
+      imageFiles = images;
+    }
+
+    if (imageFiles !== "undefined" && Array.isArray(imageFiles)) {
+      for (let i = 0; i < product.images.length; i++) {
+        await cloudinary.v2.uploader.destroy(product.images[i].public_id);
+      }
+    }
+
+    if( imageFiles && Array.isArray(imageFiles)){
+
+      let uploadedImages = [];
+
+      for (let i = 0; i < imageFiles.length; i++) {
+        const result = await cloudinary.v2.uploader.upload(imageFiles[i], {
+          folder: "Shoppie_Products",
+        });
+
+        if (result) {
+          uploadedImages.push({
+            public_id: result.public_id,
+            secure_url: result.secure_url,
+          });
+        }
+      }
+
+      req.body.images = uploadedImages;
     }
 
     const updatedProduct = await productModel.findByIdAndUpdate(id, req.body, {
@@ -138,6 +170,7 @@ const updateProduct = async (req, res, next) => {
       updatedProduct,
     });
   } catch (error) {
+    console.log(error);
     return next(new AppError(500, "Internal Server Error" || error.message));
   }
 };
@@ -150,6 +183,11 @@ const deleteProduct = async (req, res, next) => {
 
     if (!product) {
       return next(new AppError(404, "Product not found"));
+    }
+
+    // Remove the existing profile image from Cloudinary
+    for (let i = 0; i < product.images.length; i++) {
+      await cloudinary.v2.uploader.destroy(product.images[i].public_id);
     }
 
     await productModel.findByIdAndDelete(id);
@@ -240,8 +278,8 @@ const getAllReviews = async (req, res, next) => {
   try {
     const { id } = req.query;
 
-    if(!id){
-      return next(new AppError(400, 'Product id is required'));
+    if (!id) {
+      return next(new AppError(400, "Product id is required"));
     }
 
     const product = await productModel.findById(id);
@@ -270,7 +308,9 @@ const deleteReview = async (req, res, next) => {
       return next(new AppError(404, "Product not found"));
     }
 
-    const reviews = product.reviews.filter((review) => review._id.toString() !== id.toString());
+    const reviews = product.reviews.filter(
+      (review) => review._id.toString() !== id.toString()
+    );
 
     const totalRatings = product.reviews.reduce(
       (sum, review) => sum + review.rating,
@@ -279,22 +319,25 @@ const deleteReview = async (req, res, next) => {
 
     let ratings = reviews.length > 0 ? totalRatings / reviews.length : 0;
 
-
     let numberOfReviews = reviews.length;
 
-    await productModel.findByIdAndUpdate(productId, {
-      reviews,
-      ratings,
-      numberOfReviews
-    },{
-      new: true,
-      runValidators: true,
-      useFindAndModify: false
-    });
+    await productModel.findByIdAndUpdate(
+      productId,
+      {
+        reviews,
+        ratings,
+        numberOfReviews,
+      },
+      {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false,
+      }
+    );
 
     res.status(200).json({
       success: true,
-      message: 'Review deleted successfully'
+      message: "Review deleted successfully",
     });
   } catch (error) {
     return next(new AppError(500, error.message || "Internal Server Error"));
