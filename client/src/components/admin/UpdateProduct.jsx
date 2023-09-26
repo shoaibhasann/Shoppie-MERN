@@ -1,114 +1,146 @@
 import React, { useEffect, useState } from "react";
-import {  AiOutlinePlus } from "react-icons/ai";
+import { AiOutlinePlus } from "react-icons/ai";
 import MetaData from "../layout/MetaData";
 import Sidebar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import { clearAdminErrors, newProductFail, newProductReset } from "../../redux/Admin/AdminSlice";
+import { updateProductFail, updateProductReset } from "../../redux/Admin/AdminSlice";
 import { toast } from "react-toastify";
-import { createProduct } from "../../redux/Admin/AdminAsyncActions";
+import { updateProductDetails } from "../../redux/Admin/AdminAsyncActions";
+import { fetchProduct } from "../../redux/productDetailSlice";
+import { useNavigate, useParams } from "react-router-dom";
 
-function ProductContent() {
+function UpdateProduct() {
 
   const dispatch = useDispatch();
 
-  const {error, newProduct, loading } = useSelector((state) => state.admin);
+  const navigate = useNavigate();
 
-  const [productData, setProductData] = useState({
-    name: "",
-    price: "",
-    description: "",
-    stock: "",
-    category: "",
-    discount: ""
-  });
+  const { id: productId } = useParams();
+
+  const { productUpdation: { loading, error, isUpdated } } = useSelector(
+    (state) => state.admin
+  );
+
+  const {
+    data: { product },
+    status,
+  } = useSelector((state) => state.productDetail);
 
   const [images, setImages] = useState([]);
   const [imagePreview, setImagePreview] = useState([]);
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProductData({...productData, [name]: value})
-  };
+  const [oldImages, setOldImages] = useState([]);
+  const [productData, setProductData] = useState({
+    name: "",
+    price: 0,
+    description: "",
+    category: "",
+    stock: 0,
+    discount: 0,
+  });
 
   const handleImageUpload = (e) => {
-
     const files = Array.from(e.target.files);
 
-    setImages([]);
-    setImagePreview([]);
-
-    if(files){
+    if (files) {
       files.forEach((file) => {
-
         const reader = new FileReader();
 
         reader.readAsDataURL(file);
 
-        reader.onloadend = (event) => {
-          setImages(prevImage => [...prevImage, reader.result]);
-          setImagePreview(prevImage => [...prevImage, reader.result]);
-        }
-      })
+        reader.onloadend = () => {
+          setImagePreview((prev) => [...prev, reader.result]);
+          setImages((prev) => [...prev, reader.result]);
+        };
+      });
     }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setProductData({ ...productData, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // create a formdata for product
     const formData = new FormData();
-    formData.append("name", productData.name);
+
+    if( productData.name !== product.name){
+      formData.append("name", productData.name);
+    }
+  
     formData.append("price", productData.price);
     formData.append("description", productData.description);
     formData.append("stock", productData.stock);
     formData.append("category", productData.category);
+    formData.append("discount", productData.discount);
 
     // Append each image file to the FormData object
-    images.forEach((image) => {
-      formData.append("images", image);
-    });
-
-    try {
-      dispatch(clearAdminErrors());
-      dispatch(createProduct(formData));
-    } catch (error) {
-      toast.error(error);
-      dispatch(newProductFail());
+    if (images) {
+      images.forEach((image) => {
+        formData.append("images", image);
+      });
     }
+      try {
+        dispatch(updateProductDetails(productId, formData));
+      } catch (error) {
+        dispatch(updateProductFail(error));
+      }
   };
 
   useEffect(() => {
+    if (productId && ( !product || product._id !== productId)) {
+      // Only dispatch fetchProduct if productId exists and product is not already loaded
+      dispatch(fetchProduct(productId));
+    }
+
+    if (product) {
+      setProductData({
+        name: product.name,
+        price: product.price,
+        description: product.description,
+        category: product.category,
+        stock: product.stock,
+        discount: product.discount,
+      });
+
+      setOldImages(product.images);
+    }
+
+    if (isUpdated) {
+      toast.success("Product updated successfully!");
+      dispatch(updateProductReset());
+      navigate('/admin/dashboard');
+    }
+
     if(error){
       toast.error(error);
-      dispatch(clearAdminErrors());
+      dispatch(updateProductReset());
     }
+  }, [error, dispatch, isUpdated, productId, product, loading, toast]);
 
-    if(newProduct && newProduct.success){
-       toast.success('Product created successfuly!');
-       dispatch(newProductReset());
-    }
-  }, [error,dispatch, newProduct]);
-
-    const categories = [
-      "Smartphones",
-      "Computers",
-      "Games",
-      "Shoes",
-      "Clothing",
-      "Accessories",
-      "Home Decor",
-      "Luxury Beauty",
-      "Kitchen",
-    ];
-
-
+  const categories = [
+    "Smartphones",
+    "Computers",
+    "Games",
+    "Shoes",
+    "Clothing",
+    "Accessories",
+    "Home Decor",
+    "Luxury Beauty",
+    "Kitchen",
+  ];
   return (
     <>
-      <MetaData title={`Add Product - Admin`} />
+      <MetaData title={`Update Product Details - Admin`} />
 
       <div className="max-w-[1240px] m-8 mx-auto flex flex-col lg:flex-row">
         <Sidebar />
         <div className="bg-gray-100 p-4 rounded-md shadow-md lg:w-[calc(1240px-256px)]">
-          <h1 className="text-2xl font-semibold mb-4">Create New Product</h1>
+          <h1 className="text-2xl font-semibold mb-4">
+            Update Product Details
+          </h1>
           <form
             method="POST"
             encType="multipart/form-data"
@@ -219,7 +251,33 @@ function ProductContent() {
                   className="hidden"
                 />
               </label>
+
               <div className="mt-4 flex items-center gap-4">
+                <label
+                  htmlFor="old images"
+                  className="text-gray-600 block mb-2"
+                >
+                  Old Images
+                </label>
+                {oldImages &&
+                  oldImages.map((file, index) => (
+                    <div key={file.public_id} className="mb-2">
+                      <img
+                        src={file.secure_url}
+                        alt={`Preview ${index}`}
+                        className="w-20 h-20 object-cover rounded-md"
+                      />
+                    </div>
+                  ))}
+              </div>
+
+              <div className="mt-4 flex items-center gap-4">
+                <label
+                  htmlFor="new images"
+                  className="text-gray-600 block mb-2"
+                >
+                  New Images
+                </label>
                 {imagePreview.map((file, index) => (
                   <div key={index} className="mb-2">
                     <img
@@ -235,7 +293,7 @@ function ProductContent() {
               type="submit"
               className="bg-red-500 relative text-white px-8 py-2 rounded-md hover:bg-red-600 transition duration-300"
             >
-              {loading ? (
+              { loading ? (
                 <div className="flex justify-center" role="status">
                   <svg
                     aria-hidden="true"
@@ -256,7 +314,7 @@ function ProductContent() {
                   <span className="sr-only">Loading...</span>
                 </div>
               ) : (
-                "Add"
+                "Update"
               )}
             </button>
           </form>
@@ -266,4 +324,4 @@ function ProductContent() {
   );
 }
 
-export default ProductContent;
+export default UpdateProduct;

@@ -31,7 +31,7 @@ function ProductListContent() {
 
         if(isDeleted){
           toast.success('Product deleted successfuly!');
-          dispatch(deleteProductReset);
+          dispatch(deleteProductReset());
         }
 
         dispatch(fetchAllProudcts());
