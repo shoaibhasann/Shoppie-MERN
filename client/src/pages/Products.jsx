@@ -48,7 +48,7 @@ const Products = () => {
         <img className="w-[200px]" src={RejectedImage} alt="Your cart is empty" />
         <h4 className="text-2xl font-bold">OOPS! Product not found</h4>
         <Link
-          to={"/products"}
+          to={"/"}
           className="flex items-center justify-center gap-4 text-xl transition bg-[#ed0010] px-4 py-2 text-white font-bold  border-2 border-transparent hover:text-[#ed0010] hover:bg-white hover:border-[#e50010]"
         >
           Browse Products
