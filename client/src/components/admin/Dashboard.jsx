@@ -20,8 +20,8 @@ import {
 import { Line, Doughnut } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { productsReset } from "../../redux/Admin/AdminSlice";
-import { fetchAllProudcts } from "../../redux/Admin/AdminAsyncActions";
+import { productsReset } from "../../redux/admin/AdminSlice";
+import { fetchAllProudcts } from "../../redux/admin/AdminAsyncActions";
 
 ChartJS.register(
   CategoryScale,
