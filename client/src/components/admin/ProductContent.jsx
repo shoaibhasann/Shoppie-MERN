@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { AiOutlineFileImage, AiOutlinePlus } from "react-icons/ai";
+import {  AiOutlinePlus } from "react-icons/ai";
 import MetaData from "../layout/MetaData";
 import Sidebar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import { clearAdminErrors, createProduct, newProductFail, newProductReset } from "../../redux/AdminSlice";
+import { clearAdminErrors, newProductFail, newProductReset } from "../../redux/Admin/AdminSlice";
 import { toast } from "react-toastify";
+import { createProduct } from "../../redux/Admin/AdminAsyncActions";
 
 function ProductContent() {
 
@@ -222,7 +223,7 @@ function ProductContent() {
                 />
               </label>
               <div className="mt-4 flex items-center gap-4">
-                {images.map((file, index) => (
+                {imagePreview.map((file, index) => (
                   <div key={index} className="mb-2">
                     <img
                       src={file}
