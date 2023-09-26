@@ -3,9 +3,9 @@ import { AiOutlinePlus } from "react-icons/ai";
 import MetaData from "../layout/MetaData";
 import Sidebar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import { updateProductFail, updateProductReset } from "../../redux/Admin/AdminSlice";
+import { updateProductFail, updateProductReset } from "../../redux/admin/AdminSlice";
 import { toast } from "react-toastify";
-import { updateProductDetails } from "../../redux/Admin/AdminAsyncActions";
+import { updateProductDetails } from "../../redux/admin/AdminAsyncActions";
 import { fetchProduct } from "../../redux/productDetailSlice";
 import { useNavigate, useParams } from "react-router-dom";
 
