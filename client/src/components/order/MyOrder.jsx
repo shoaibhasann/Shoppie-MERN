@@ -8,6 +8,7 @@ import { clearErrors, getMyOrders } from "../../redux/MyOrderSlice";
 import { Link } from "react-router-dom";
 import { BiLinkExternal } from 'react-icons/bi';
 import '../../styles/MyOrder.css';
+import NoOrder from "./NoOrder";
 
 
 function MyOrder() {
@@ -110,7 +111,7 @@ const getStatusTextColor = (status) => {
       ) : (
         <div className="myOrdersPage max-w-[1240px] lg:mx-auto mt-6 mx-3 lg:mt-8 bg-white">
           {rows.length === 0 ? (
-            <p>No orders found.</p>
+            <NoOrder/>
           ) : (
             <>
               <DataGrid
