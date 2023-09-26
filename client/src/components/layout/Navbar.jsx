@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch, AiOutlineShoppingCart } from "react-icons/ai";
 import Logo from "../../assets/logo.png";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import UserOptions from "../user/UserOptions";
 
@@ -43,30 +43,30 @@ const Navbar = () => {
         <button onClick={toggleSearch} className="p-4">
           <AiOutlineSearch size={21} />
         </button>
-        <Link to="/" className="p-4">
+        <NavLink to="/" className={({ isActive }) => isActive ? "p-4 text-[#ed0010]" : "p-4"}>
           Home
-        </Link>
-        <Link to="/products" className="p-4">
+        </NavLink>
+        <NavLink to="/products" className={({ isActive }) => isActive ? "p-4 text-[#ed0010]" : "p-4"}>
           Products
-        </Link>
-        <Link to="/cart" className="p-4">
+        </NavLink>
+        <NavLink to="/cart" className={({ isActive }) => isActive ? "p-4 text-[#ed0010]" : "p-4"}>
           <div className="flex items-center gap-2">
             <AiOutlineShoppingCart />
             <div>
               Shopping Bag{" "}
-              <sup className="text-base text-[#ed0010]">
+              <sup className="text-base hover:text-[#ed0010]">
                 ({cartItems.length})
               </sup>
             </div>
           </div>
-        </Link>
+        </NavLink>
         {!isAuthenticated && (
-          <Link
+          <NavLink
             to="/login"
             className="w-28 h-9  flex items-center justify-center font-medium transition bg-[#222222] text-[#fff] hover:bg-white hover:border-2 hover:border-[#222222] hover:text-[#222222]"
           >
             Sign In
-          </Link>
+          </NavLink>
         )}
         {isAuthenticated && <UserOptions user={userInfo} />}
       </ul>
@@ -125,13 +125,21 @@ const Navbar = () => {
       >
         <img className="w-36 mt-9 ml-4" src={Logo} alt="Logo" />
         <div className="flex flex-col items-start justify-center p-4 gap-5 font-semibold cursor-pointer text-base lg:text-lg mt-16 overflow-hidden">
-          <Link onClick={toggleNav} to="/" className="p-4">
+          <NavLink onClick={toggleNav} to="/" className={ ({ isActive }) => isActive ? "p-4 text-[#ed0010]" : "p-4"}>
             Home
-          </Link>
-          <Link onClick={toggleNav} to="/products" className="p-4">
+          </NavLink>
+          <NavLink
+            onClick={toggleNav}
+            to="/products"
+            className={ ({ isActive }) => isActive ? "p-4 text-[#ed0010]" : "p-4"}
+          >
             Products
-          </Link>
-          <Link onClick={toggleNav} to="/cart" className="p-4">
+          </NavLink>
+          <NavLink
+            onClick={toggleNav}
+            to="/cart"
+            className={ ({ isActive }) => isActive ? "p-4 text-[#ed0010]" : "p-4"}
+          >
             <div className="flex items-center gap-2">
               <div>
                 Shopping Bag{" "}
@@ -140,15 +148,15 @@ const Navbar = () => {
                 </sup>
               </div>
             </div>
-          </Link>
+          </NavLink>
           {!isAuthenticated && (
-            <Link
+            <NavLink
               onClick={toggleNav}
               to="/login"
               className="w-28 h-9  flex items-center justify-center font-medium transition bg-[#222222] text-[#fff] hover:bg-white hover:border-2 hover:border-[#222222] hover:text-[#222222]"
             >
               Sign In
-            </Link>
+            </NavLink>
           )}
         </div>
       </div>
