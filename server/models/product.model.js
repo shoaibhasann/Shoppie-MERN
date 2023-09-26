@@ -46,8 +46,8 @@ const productSchema = new Schema(
       type: Number,
       required: [true, "Please enter product stock"],
       maxLength: [5, "Stock cannot exceed 5 characters"],
-      default: 1,
-      min: 1,
+      default: 10,
+      min: 0,
     },
     numberOfReviews: {
       type: Number,
