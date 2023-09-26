@@ -3,15 +3,16 @@ import {  AiOutlinePlus } from "react-icons/ai";
 import MetaData from "../layout/MetaData";
 import Sidebar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
-import { clearAdminErrors, newProductFail, newProductReset } from "../../redux/Admin/AdminSlice";
+import { clearAdminErrors, newProductFail, newProductReset } from "../../redux/admin/AdminSlice";
 import { toast } from "react-toastify";
-import { createProduct } from "../../redux/Admin/AdminAsyncActions";
+import { createProduct } from "../../redux/admin/AdminAsyncActions";
 
 function ProductContent() {
 
   const dispatch = useDispatch();
 
   const {error, newProduct, loading } = useSelector((state) => state.admin);
+
 
   const [productData, setProductData] = useState({
     name: "",

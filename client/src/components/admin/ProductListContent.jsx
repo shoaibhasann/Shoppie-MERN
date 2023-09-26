@@ -3,14 +3,14 @@ import { DataGrid } from "@mui/x-data-grid";
 import Sidebar from './SideBar';
 import MetaData from '../layout/MetaData';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteProductReset, productsReset } from '../../redux/Admin/AdminSlice';
+import { deleteProductReset, productsReset } from '../../redux/admin/AdminSlice';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-tailwind/react';
 import '../../styles/ProductListContent.css';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
 import Loader from '../layout/Loader';
-import { deleteProduct, fetchAllProudcts } from '../../redux/Admin/AdminAsyncActions';
+import { deleteProduct, fetchAllProudcts } from '../../redux/admin/AdminAsyncActions';
 
 
 function ProductListContent() {
