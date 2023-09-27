@@ -114,9 +114,11 @@ const updateOrderStatus = async (req, res, next) => {
       return next(new AppError(400, "You have already delivered this order"));
     }
 
-    order.orderItems.forEach(async (orderItem) => {
-      await updateStock(orderItem.productId, orderItem.quantity);
-    });
+    if(req.body.orderStatus === 'Shipped'){
+          order.orderItems.forEach(async (orderItem) => {
+            await updateStock(orderItem.productId, orderItem.quantity);
+          });
+    }
 
     order.paymentInfo.orderStatus = req.body.orderStatus;
 
