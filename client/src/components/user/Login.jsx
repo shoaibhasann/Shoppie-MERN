@@ -34,15 +34,15 @@ function Login() {
   };
 
   useEffect(() => {
-    if (error) {
-      if (error && error.message === "Password is incorrect") {
-        toast.error(error.message);
-      }
+
+    if (error !== "Unauthenticaed, please log in again") {
+      toast.error(error);
       dispatch(clearError());
-    } else if (isAuthenticated) {
+    }
+     if (isAuthenticated) {
       navigate(location.state?.from || "/");
     }
-  }, [error, dispatch, isAuthenticated]);
+  }, [error, dispatch, isAuthenticated, toast]);
 
   return (
     <>
