@@ -102,23 +102,25 @@ const getAllOrders = async (req, res, next) => {
 // controller function to update status of order --(Admin)
 const updateOrderStatus = async (req, res, next) => {
   try {
+
     const order = await orderModel.findById(req.params.id);
 
-    if(!order){
-        return next(new AppError(404, 'Order not found'));
+
+    if (!order) {
+      return next(new AppError(404, "Order not found"));
     }
 
     if (order.paymentInfo.orderStatus === "Delivered") {
       return next(new AppError(400, "You have already delivered this order"));
     }
 
-    order.orderItems.forEach(async (order) => {
-      await updateStock(order.product, order.quantity);
+    order.orderItems.forEach(async (orderItem) => {
+      await updateStock(orderItem.productId, orderItem.quantity);
     });
 
-    order.paymentInfo.orderStatus = req.body.status;
+    order.paymentInfo.orderStatus = req.body.orderStatus;
 
-    if (req.body.status === "Delivered") {
+    if (req.body.orderStatus === "Delivered") {
       order.paymentInfo.deliveredAt = Date.now();
     }
 
@@ -130,9 +132,10 @@ const updateOrderStatus = async (req, res, next) => {
       order,
     });
   } catch (error) {
-    return next(new AppError(500, "Internal Server Error" || error.message));
+    return next(new AppError(500, error.message || "Internal Server Error"));
   }
 };
+
 
 // function to update stock
 async function updateStock(id, quantity) {
