@@ -21,7 +21,8 @@ import { Line, Doughnut } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { productsReset } from "../../redux/admin/AdminSlice";
-import { fetchAllProudcts } from "../../redux/admin/AdminAsyncActions";
+import { fetchAllProudcts, fetchOrders } from "../../redux/admin/AdminAsyncActions";
+import { getAllUsers } from "../../redux/admin/AdminUserSlice";
 
 ChartJS.register(
   CategoryScale,
@@ -40,6 +41,10 @@ function Dashboard() {
 
    const { error, products } = useSelector((state) => state.admin);
 
+   const { orders } = useSelector((state) => state.adminOrder);
+
+   const { users } = useSelector((state) => state.adminUsers);
+
    useEffect(() => {
      if (error) {
        toast.error(error);
@@ -47,6 +52,8 @@ function Dashboard() {
      }
 
      dispatch(fetchAllProudcts());
+     dispatch(getAllUsers());
+     dispatch(fetchOrders());
    }, [dispatch, error]);
 
    let outOfStock = 0;
@@ -140,7 +147,7 @@ function Dashboard() {
               >
                 <ReceiptRefundIcon className="h-8 w-8" />
                 <p>Orders</p>
-                <p>50</p>
+                <p>{orders && orders.length}</p>
               </Link>
               <Link
                 className="bg-slate-200 p-4 flex flex-col gap-2 items-center justify-center border border-gray-700"
@@ -148,7 +155,7 @@ function Dashboard() {
               >
                 <UserGroupIcon className="h-8 w-8" />
                 <p>Users</p>
-                <p>50</p>
+                <p>{users && users.length}</p>
               </Link>
             </div>
           </div>
