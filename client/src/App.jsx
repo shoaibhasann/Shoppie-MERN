@@ -7,7 +7,7 @@ import Products from "./pages/Products";
 import Login from "./components/user/Login";
 import Register from "./components/user/Register";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserProfile } from "./redux/Userslice";
+import { clearError, getUserProfile } from "./redux/Userslice";
 import Profile from "./components/user/Profile";
 import UpdateProfile from "./components/user/UpdateProfile";
 import UpdatePassword from "./components/user/UpdatePassword";
@@ -26,6 +26,9 @@ import ProductContent from "./components/admin/ProductContent";
 import UserContent from "./components/admin/UserContent";
 import OrderContent from "./components/admin/OrderContent";
 import ProductListContent from "./components/admin/ProductListContent";
+import UpdateProduct from "./components/admin/UpdateProduct";
+import ManageOrder from "./components/admin/ManageOrder";
+import UserListContent from "./components/admin/UserListContent";
 
 
 
@@ -34,7 +37,11 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserProfile());
+    try {
+      dispatch(getUserProfile());
+    } catch (error) {
+      dispatch(clearError());
+    }
   }, []);
 
   return (
@@ -123,7 +130,19 @@ function App() {
 
         <Route
           exact
+          path="/admin/product/:id"
+          element={<PrivateRoute component={UpdateProduct} />}
+        />
+
+        <Route
+          exact
           path="/admin/users"
+          element={<PrivateRoute component={UserListContent} />}
+        />
+
+        <Route
+          exact
+          path="/admin/user/:id"
           element={<PrivateRoute component={UserContent} />}
         />
 
@@ -133,6 +152,11 @@ function App() {
           element={<PrivateRoute component={OrderContent} />}
         />
 
+        <Route
+          exact
+          path="/admin/order/:id"
+          element={<PrivateRoute component={ManageOrder} />}
+        />
       </Routes>
     </Router>
   );
