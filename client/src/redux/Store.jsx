@@ -10,7 +10,9 @@ import newOrderReducer from './OrderSlice.jsx';
 import myOrderReducer from './MyOrderSlice.jsx';
 import orderDetailReducer from './OrderDetailSlice.jsx';
 import newReviewReducer from './ReviewSlice.jsx';
-import adminReducer from './AdminSlice.jsx';
+import adminReducer from './admin/AdminSlice.jsx';
+import adminOrderReducer from './admin/AdminOrderSlice.jsx';
+import adminUsersReducer from './admin/AdminUserSlice.jsx';
 
 
 const store = configureStore({
@@ -39,6 +41,10 @@ const store = configureStore({
     newReview: newReviewReducer,
 
     admin: adminReducer,
+
+    adminOrder: adminOrderReducer,
+
+    adminUsers: adminUsersReducer,
     
   }
 });

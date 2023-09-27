@@ -14,7 +14,17 @@ import {
 } from "./AdminSlice";
 import axios from "axios";
 import { server } from "../../main";
-
+import {
+  allOrdersRequest,
+  allOrdersFail,
+  allOrdersSuccess,
+  updateOrderFail,
+  updateOrderRequest,
+  updateOrderSuccess,
+  deleteOrderFail,
+  deleteOrderRequest,
+  deleteOrderSuccess,
+} from "./AdminOrderSlice";
 
 
 // function to fetch all products with their details -- (Admin)
@@ -36,7 +46,7 @@ export function fetchAllProudcts() {
   };
 }
 
-// function to create a new product --(Admin)
+// function to create a new product -- (Admin)
 export function createProduct(productData) {
   const config = {
     headers: { "Content-Type": "multipart/form-data" },
@@ -59,7 +69,7 @@ export function createProduct(productData) {
   };
 }
 
-// function to delete product --(Admin)
+// function to delete product -- (Admin)
 export function deleteProduct(id) {
   const config = {
     headers: { "Content-Type": "application/json" },
@@ -81,21 +91,86 @@ export function deleteProduct(id) {
   };
 }
 
-// function to update product details --(Admin)
-export function updateProductDetails(id, productData){
-      const config = {
-        headers: { "Content-Type": "multipart/form-data" },
-        withCredentials: true,
-      };
+// function to update product details -- (Admin)
+export function updateProductDetails(id, productData) {
+  const config = {
+    headers: { "Content-Type": "multipart/form-data" },
+    withCredentials: true,
+  };
 
-      return async function updateProductDetailsThunk(dispatch,getState){
-        dispatch(updateProductRequest());
-        try {
-            const { data } = await axios.put(`${server}/products/admin/${id}`, productData, config);
+  return async function updateProductDetailsThunk(dispatch, getState) {
+    dispatch(updateProductRequest());
+    try {
+      const { data } = await axios.put(
+        `${server}/products/admin/${id}`,
+        productData,
+        config
+      );
 
-            dispatch(updateProductSuccess(data.success));
-        } catch (error) {
-            dispatch(updateProductFail(error.response.data.message));
-        }
-      }
+      dispatch(updateProductSuccess(data.success));
+    } catch (error) {
+      dispatch(updateProductFail(error.response.data.message));
+    }
+  };
+}
+
+// function to get all orders -- (Admin)
+export function fetchOrders() {
+  const config = {
+    headers: { "Content-Type": "application/json" },
+    withCredentials: true,
+  };
+
+  return async function fetchOrdersThunk(dispatch, getState) {
+    dispatch(allOrdersRequest);
+    try {
+      const { data } = await axios.get(`${server}/orders/all-orders`, config);
+
+      dispatch(allOrdersSuccess(data.orders));
+    } catch (error) {
+      dispatch(allOrdersFail(error.response.data.message));
+    }
+  };
+}
+
+// function to update order -- (Admin)
+export function updateOrderStatus(id, orderData) {
+  const config = {
+    headers: { "Content-Type": "application/json" },
+    withCredentials: true,
+  };
+
+  return async function updateOrderStatusThunk(dispatch, getState) {
+    dispatch(updateOrderRequest());
+    try {
+      const { data } = await axios.put(
+        `${server}/orders/${id}`,
+        orderData,
+        config
+      );
+
+      dispatch(updateOrderSuccess(data));
+    } catch (error) {
+      dispatch(updateOrderFail(error.response.data.message));
+    }
+  };
+}
+
+// function to delete order -- (Admin)
+export function deleteOrder(id) {
+  const config = {
+    headers: { "Content-Type": "application/json" },
+    withCredentials: true,
+  };
+
+  return async function deleteOrderThunk(dispatch, getState) {
+    dispatch(deleteOrderRequest(data));
+    try {
+      const { data } = await axios.delete(`${server}/orders/${id}`, config);
+
+      dispatch(deleteOrderSuccess());
+    } catch (error) {
+      dispatch(deleteOrderFail(error.response.data.message));
+    }
+  };
 }

@@ -43,9 +43,13 @@ export function login(email, password) {
   const config = {  headers: { "Content-Type": "application/json" }, withCredentials: true };
 
   return async function loginThunk(dispatch, getState) {
-    dispatch(setLoading(true));
+        dispatch(clearError());
+
+        dispatch(setLoading(true));
     try {
       const { data } = await axios.post(`${server}/login`, payload, config);
+
+      console.log(data);
 
       dispatch(setUser(data.user));
 
@@ -55,7 +59,8 @@ export function login(email, password) {
     } catch (error) {
       dispatch(setLoading(false));
       dispatch(setUser(null));
-      dispatch(setError(error.response.data));
+      dispatch(setError(error.response.data.message));
+      console.log(error);
     }
   };
 }
