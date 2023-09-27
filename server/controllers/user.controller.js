@@ -463,31 +463,46 @@ const getUserDetails = async (req, res, next) => {
 };
 
 // controller function to update user role -- (Admin)
-const updateRole = async(req,res,next) => {
+const updateRole = async (req, res, next) => {
   try {
-    const { role } = req.body;
+    console.log("request body", req.body);
+
+    const { name, email, role } = req.body;
     const { id } = req.params;
+
+    const updatedUserData = {
+      name,
+      email,
+      role,
+    };
 
     // Validate the provided role against allowed values (Admin, User)
     if (!["Admin", "User"].includes(role)) {
       return next(new AppError(400, "Invalid role value"));
     }
 
-    const user = await userModel.findByIdAndUpdate(id, { role }, {
+    const user = await userModel.findByIdAndUpdate(id, updatedUserData, {
       new: true,
       runValidators: true,
       useFindAndModify: false,
     });
 
+    if (!user) {
+      return next(new AppError(404, "User not found"));
+    }
+
+    console.log(user);
+
     res.status(200).json({
       success: true,
-      message: "Role updated successfully",
+      message: "User updated successfully",
     });
-
   } catch (error) {
+    console.error("Error in updateRole:", error);
     return next(new AppError(500, "Internal Server Error" || error.message));
   }
-}
+};
+
 
 // controller function to delete user -- (Admin)
 const deleteUser = async(req,res,next) => {
@@ -495,6 +510,11 @@ const deleteUser = async(req,res,next) => {
     const { id } = req.params;
     
     const user = await userModel.findByIdAndDelete(id);
+
+    
+    const imageId = user.avatar.public_id;
+
+    await cloudinary.v2.uploader.destroy(imageId);
 
     res.status(200).json({
       success: true,
