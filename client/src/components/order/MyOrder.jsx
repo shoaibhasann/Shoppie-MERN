@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { BiLinkExternal } from 'react-icons/bi';
 import '../../styles/MyOrder.css';
 import NoOrder from "./NoOrder";
+import { getStatusTextColor } from "../admin/OrderContent";
 
 
 function MyOrder() {
@@ -27,16 +28,6 @@ function MyOrder() {
   }, [dispatch, error]);
 
   const { userInfo } = useSelector((state) => state.user);
-
-const getStatusTextColor = (status) => {
-  if (status === "Processing") {
-    return "text-red-500"; // Use your desired Tailwind CSS class for red text color
-  } else if (status === "Delivered") {
-    return "text-green-500"; // Use your desired Tailwind CSS class for green text color
-  }
-  // Return a default class or empty string for other statuses
-  return "";
-};
 
 
   const columns = [
@@ -96,12 +87,10 @@ const getStatusTextColor = (status) => {
           id: order._id,
           status: order.paymentInfo?.orderStatus,
           itemQty: order.orderItems?.length,
-          amount: order.paymentInfo?.totalPrice,
+          amount: "₹ " + order.paymentInfo?.totalPrice,
         });
     })
   }
-
-  const headerRowClasses = "bg-blue-500 text-white"; 
 
   return (
     <>
@@ -119,7 +108,6 @@ const getStatusTextColor = (status) => {
                 rows={rows}
                 columns={columns}
                 pageSize={10}
-                headerClassName="custom-header-row"
               />
               <p className="myOrdersHeading marker:bg-gray-900 text-white p-4 text-center font-semibold tracking-wide text-xl">{`${userInfo.name}'s Orders`}</p>
             </>
