@@ -23,6 +23,7 @@ import { toast } from "react-toastify";
 import { productsReset } from "../../redux/admin/AdminSlice";
 import { fetchAllProudcts, fetchOrders } from "../../redux/admin/AdminAsyncActions";
 import { getAllUsers } from "../../redux/admin/AdminUserSlice";
+import { numberWithCommas } from "../../utils/Utility";
 
 ChartJS.register(
   CategoryScale,
@@ -56,6 +57,8 @@ function Dashboard() {
      dispatch(fetchOrders());
    }, [dispatch, error]);
 
+   // calculating product stock
+
    let outOfStock = 0;
 
    products && products.forEach((product) => {
@@ -63,6 +66,19 @@ function Dashboard() {
             outOfStock += 1;
           }
    });
+
+   // calculating total sales revenue
+   
+  let totalRevenue = 0;
+
+  orders &&
+    orders.forEach((order) => {
+      if (order.paymentInfo.orderStatus === "Delivered") {
+        totalRevenue += order.paymentInfo.totalPrice;
+      }
+    });
+
+  const formattedTotalRevenue = totalRevenue.toFixed(2);
 
 
   const options = {
@@ -79,11 +95,11 @@ function Dashboard() {
   };
 
   const data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    labels: ["Initial Revenue", "Revenue Generated"],
     datasets: [
       {
         label: "Total Sales Revenue",
-        data: [200, 400, 600, 800, 1000, 1200, 1400],
+        data: [0, totalRevenue],
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
       },
@@ -115,7 +131,7 @@ function Dashboard() {
   };
 
   return (
-    <div className="max-w-[1240px] mt-8 mx-auto flex flex-col lg:flex-row">
+    <div className="max-w-[1240px] my-8 mx-auto flex flex-col lg:flex-row">
       <Sidebar />
 
       <div className="bg-gray-100 lg:w-[calc(1240px-256px)]">
@@ -129,7 +145,7 @@ function Dashboard() {
                 <span className="text-gray-800 text-lg">
                   Total Sales Revenue
                 </span>{" "}
-                <br /> <span className="font-medium text-xl">₹2000</span>
+                <br /> <span className="font-medium text-xl">{"₹ " + numberWithCommas(formattedTotalRevenue)}</span>
               </p>
             </div>
             <div className="grid grid-cols-3 gap-4 mt-4">
@@ -164,7 +180,7 @@ function Dashboard() {
             <Line options={options} data={data} />
           </div>
 
-          <div className="mt-6 flex items-center justify-center max-h-[400px]">
+          <div className="mt-6 p-3 flex items-center justify-center max-h-[400px] border border-black">
             <Doughnut options={doughnutOptions} data={doughnutData} />
           </div>
         </div>
