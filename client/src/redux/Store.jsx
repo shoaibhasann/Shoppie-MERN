@@ -13,6 +13,7 @@ import newReviewReducer from './ReviewSlice.jsx';
 import adminReducer from './admin/AdminSlice.jsx';
 import adminOrderReducer from './admin/AdminOrderSlice.jsx';
 import adminUsersReducer from './admin/AdminUserSlice.jsx';
+import adminReviewReducer from './admin/AdminReviewSlice.jsx'
 
 
 const store = configureStore({
@@ -45,6 +46,8 @@ const store = configureStore({
     adminOrder: adminOrderReducer,
 
     adminUsers: adminUsersReducer,
+
+    adminReviews: adminReviewReducer,
     
   }
 });

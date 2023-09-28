@@ -148,12 +148,6 @@ function Sidebar() {
           </ListItemPrefix>
           <Link to="/admin/reviews">Reviews</Link>
         </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <PowerIcon className="h-5 w-5 mr-2" />
-          </ListItemPrefix>
-          Log Out
-        </ListItem>
       </List>
     </Card>
   );

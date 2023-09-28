@@ -18,7 +18,7 @@ function ReviewCard({ review }) {
   };
 
   return (
-    <div className="max-w-sm p-6 flex flex-col justify-around bg-slate-100 border border-gray-800 shadow h-[300px]">
+    <div className="max-w-sm p-6 flex flex-col justify-around bg-slate-100 border border-gray-800 shadow h-[350px]">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img

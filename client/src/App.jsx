@@ -29,11 +29,13 @@ import ProductListContent from "./components/admin/ProductListContent";
 import UpdateProduct from "./components/admin/UpdateProduct";
 import ManageOrder from "./components/admin/ManageOrder";
 import UserListContent from "./components/admin/UserListContent";
+import ReviewContent from "./components/admin/ReviewContent";
+import NotFound from "./components/layout/NotFound";
 
 
 
 function App() {
-  
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -157,6 +159,16 @@ function App() {
           path="/admin/order/:id"
           element={<PrivateRoute component={ManageOrder} />}
         />
+
+        <Route
+          exact
+          path="/admin/reviews"
+          element={<PrivateRoute component={ReviewContent} />}
+        />
+
+        <Route
+         path="*" 
+         element={<NotFound/>} />
       </Routes>
     </Router>
   );

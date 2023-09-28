@@ -60,7 +60,6 @@ export function login(email, password) {
       dispatch(setLoading(false));
       dispatch(setUser(null));
       dispatch(setError(error.response.data.message));
-      console.log(error);
     }
   };
 }
