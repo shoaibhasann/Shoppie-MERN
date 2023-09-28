@@ -312,14 +312,15 @@ const deleteReview = async (req, res, next) => {
       (review) => review._id.toString() !== id.toString()
     );
 
-    const totalRatings = product.reviews.reduce(
+    const totalRatings = reviews.reduce(
       (sum, review) => sum + review.rating,
       0
     );
 
-    let ratings = reviews.length > 0 ? totalRatings / reviews.length : 0;
+    const numberOfReviews = reviews.length;
 
-    let numberOfReviews = reviews.length;
+    // Calculate ratings as the average of ratings from remaining reviews
+    const ratings = numberOfReviews > 0 ? totalRatings / numberOfReviews : 0;
 
     await productModel.findByIdAndUpdate(
       productId,
@@ -343,6 +344,7 @@ const deleteReview = async (req, res, next) => {
     return next(new AppError(500, error.message || "Internal Server Error"));
   }
 };
+
 
 export {
   createProduct,
