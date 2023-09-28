@@ -208,15 +208,6 @@ function ProductDetailCard({ product }) {
                 <AiOutlineShoppingCart />
                 {product.stock >= 1 ? "Add to cart" : "Notify me"}
               </button>
-              <button
-                className={
-                  product.stock < 1
-                    ? "hidden"
-                    : "flex items-center justify-center gap-4 text-xl transition bg-[#ed0010] p-4 text-white font-bold mt-5 w-full border-2 border-transparent hover:text-[#ed0010] hover:bg-white hover:border-[#e50010]"
-                }
-              >
-                Buy now
-              </button>
             </div>
             <button
               onClick={() => setReviewModalOpen(true)}
