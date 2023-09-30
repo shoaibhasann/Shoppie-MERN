@@ -3,15 +3,17 @@ import { Link } from 'react-router-dom';
 
 function Hero() {
   return (
-    <div className="bg-[#f4eddd] mt-14 max-w-[1240px] h-[70vh] mx-auto flex flex-col items-center justify-center gap-12">
-      <p className="text-2xl md:text-4xl font-bold ">Welcome to Shoppie</p>
-      <h1 className="text-3xl md:text-5xl font-extrabold">
-        Find Amazing Products Below
-      </h1>
-      <div>
-        <Link to={'/products'}>
-          <button className="text-[#fff] text-xl bg-[#222222] px-8 py-4 border-2 border-transparent hover:border-[#222222] hover:bg-[#f4eddd] hover:text-[#222222] transition">
-            Explore Products
+    <div className="mt-10 bg-gradient-to-r from-[#d43f8d] to-[#0250c5] py-16 max-w-[1240px] mx-auto">
+      <div className="container mx-auto text-center">
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+          Discover Your Perfect Style
+        </h1>
+        <p className=" text-xl first:lg:text-xl text-white mb-8">
+          Explore our curated collection of fashion trends
+        </p>
+        <Link to={"/products"} className="flex justify-center space-x-4">
+          <button className="bg-white text-red-600 border hover:text-black selection:hover:border-2 hover:border-black py-2 px-6 font-semibold text-lg transition duration-300">
+            Shop Now
           </button>
         </Link>
       </div>

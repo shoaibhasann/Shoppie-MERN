@@ -10,7 +10,7 @@ function NotFound() {
         alt="Page Not Found"
         className="w-[250px]"
       />
-      <h1 className="text-4xl font-bold">Page Not Found</h1>
+      <h1 className="text-4xl font-bold">Page Not Found Or May Be Lost</h1>
       <Link
         to="/"
         className="flex items-center justify-center text-xl transition bg-[#ed0010] px-4 py-2 text-white font-bold  border-2 border-transparent hover:text-[#ed0010] hover:bg-white hover:border-[#e50010]"
