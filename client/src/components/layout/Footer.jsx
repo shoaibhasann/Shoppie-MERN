@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 function Footer() {
   return (
-    <footer className="w-full mt-12 flex flex-col lg:grid lg:grid-rows-[4fr_1fr] bg-black text-white">
+    <footer className="w-full flex flex-col lg:grid lg:grid-rows-[4fr_1fr] bg-black text-white">
       <div className="grid grid-cols-1 gap-10 lg:grid-cols-4 px-6 py-8 lg:p-8">
         <div className="flex flex-col items-start justify-center gap-5">
           <img className="w-24" src={Logo} alt="Logo" />
@@ -91,7 +91,7 @@ function Footer() {
           </ul>
         </div>
 
-        <div className="bg-gray-800  p-6 rounded-lg shadow-lg">
+        <div className="bg-gray-800 bg-opacity-50 p-6 rounded-lg shadow-lg">
           <h1 className="text-white text-xl">Newsletter</h1>
           <div className="mt-4">
             <p className="text-gray-300">

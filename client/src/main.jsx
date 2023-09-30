@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <ErrorBoundary>
     <Provider store={Store}>
       <ToastContainer position="top-right" autoClose={3000} theme="colored" />
-      <App />
+        <App />
     </Provider>
   </ErrorBoundary>
 );

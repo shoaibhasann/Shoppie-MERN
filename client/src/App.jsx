@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
 import Products from "./pages/Products";
 import Login from "./components/user/Login";
 import Register from "./components/user/Register";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { clearError, getUserProfile } from "./redux/Userslice";
 import Profile from "./components/user/Profile";
 import UpdateProfile from "./components/user/UpdateProfile";
@@ -31,6 +31,9 @@ import ManageOrder from "./components/admin/ManageOrder";
 import UserListContent from "./components/admin/UserListContent";
 import ReviewContent from "./components/admin/ReviewContent";
 import NotFound from "./components/layout/NotFound";
+import Footer from "./components/layout/Footer";
+import About from "./components/layout/About";
+import Contact from "./components/layout/Contact";
 
 
 
@@ -44,7 +47,14 @@ function App() {
     } catch (error) {
       dispatch(clearError());
     }
-  }, []);
+  }, [location]);
+
+  const hideFooterRoutes = [
+    "/login",
+    "/register",
+    "/password/forgot",
+    "/password/reset/:token",
+  ];
 
   return (
     <Router>
@@ -58,6 +68,8 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/password/forgot" element={<ForgotPassword />} />
+        <Route exact path="/about" element={<About />} />
+        <Route exact path="/contact" element={<Contact />} />
         <Route
           exact
           path="/password/reset/:token"
@@ -166,10 +178,9 @@ function App() {
           element={<PrivateRoute component={ReviewContent} />}
         />
 
-        <Route
-         path="*" 
-         element={<NotFound/>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
+      <Footer/>
     </Router>
   );
 }
