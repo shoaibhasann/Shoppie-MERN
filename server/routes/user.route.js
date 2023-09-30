@@ -14,6 +14,7 @@ import {
   updateRole,
 } from "../controllers/user.controller.js";
 import { authorizedRoles, isLoggedIn } from "../middlewares/auth.middleware.js";
+import createInquiry from "../controllers/inquiry.controller.js";
 
 const router = Router();
 
@@ -22,6 +23,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.post("/password/forgot", forgotPassword);
 router.put("/password/reset/:resetToken", resetPassword);
+router.post("/send-inquiry", createInquiry);
 
 // Private Routes (require authentication)
 router.put("/password/update", isLoggedIn, changePassword);
