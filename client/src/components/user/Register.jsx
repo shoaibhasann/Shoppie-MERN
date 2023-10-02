@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { clearError, register } from "../../redux/Userslice";
+import { clearError, register } from "../../redux/UserSlice";
 import Loader from "../layout/Loader";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { toast } from "react-toastify";

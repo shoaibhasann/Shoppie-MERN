@@ -7,7 +7,7 @@ import {
   resetProfile,
 } from "../../redux/ProfileSlice";
 import { toast } from "react-toastify";
-import { getUserProfile } from "../../redux/Userslice";
+import { getUserProfile } from "../../redux/UserSlice";
 import { useNavigate } from "react-router-dom";
 import MetaData from "../layout/MetaData";
 

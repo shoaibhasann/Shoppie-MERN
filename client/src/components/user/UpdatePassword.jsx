@@ -5,7 +5,7 @@ import { clearErrors, resetProfile, updatePassword } from "../../redux/ProfileSl
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Loader from "../layout/Loader";
-import { getUserProfile } from "../../redux/Userslice";
+import { getUserProfile } from "../../redux/UserSlice";
 import MetaData from "../layout/MetaData";
 
 function UpdateProfile() {

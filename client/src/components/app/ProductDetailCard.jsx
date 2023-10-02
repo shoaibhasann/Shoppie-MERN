@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   AiOutlinePlus,
   AiOutlineMinus,
@@ -11,8 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addItemsToCart } from "../../redux/CartSlice";
 import { toast } from "react-toastify";
 import ReviewModal from "./ReviewModal";
-import { newReviewReset } from "../../redux/ReviewSlice";
-import { useParams } from "react-router-dom";
+
 
 
 function ProductDetailCard({ product }) {

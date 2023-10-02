@@ -14,7 +14,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/Userslice";
+import { logout } from "../../redux/UserSlice";
 import { toast } from "react-toastify";
 
 function UserOptions({ user }) {

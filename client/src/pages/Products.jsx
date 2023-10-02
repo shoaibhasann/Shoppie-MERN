@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductCard from "../components/app/ProductCard";
 import MetaData from "../components/layout/MetaData";
-import { STATUSES, fetchProducts } from "../redux/ProductSlice";
 import Loader from "../components/layout/Loader";
 import { Link, useParams } from "react-router-dom";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { Slider, Rating } from "@mui/material";
 import { BsFilter } from 'react-icons/bs';
 import RejectedImage from '../assets/rejected.png'
+import { STATUSES, fetchProducts } from "../redux/ProductSlice";
 
 const Products = () => {
   const dispatch = useDispatch();

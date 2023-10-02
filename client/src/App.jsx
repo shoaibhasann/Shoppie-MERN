@@ -7,7 +7,7 @@ import Products from "./pages/Products";
 import Login from "./components/user/Login";
 import Register from "./components/user/Register";
 import { useDispatch } from "react-redux";
-import { clearError, getUserProfile } from "./redux/Userslice";
+import { clearError, getUserProfile } from "./redux/UserSlice";
 import Profile from "./components/user/Profile";
 import UpdateProfile from "./components/user/UpdateProfile";
 import UpdatePassword from "./components/user/UpdatePassword";
