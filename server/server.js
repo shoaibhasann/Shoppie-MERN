@@ -26,5 +26,5 @@ cloudinary.v2.config({
 // start the server
 app.listen(port, async() => {
     await connectDatabase();
-    console.log(`Server has started on port http://localhost:${port}`);
+    console.log(`Server has started on port http://localhost:${port} in ${process.env.NODE_ENV} mode`);
 });
