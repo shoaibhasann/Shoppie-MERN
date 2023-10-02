@@ -9,7 +9,7 @@ import Reviews from '../components/app/Reviews';
 import MetaData from '../components/layout/MetaData';
 import { toast } from 'react-toastify';
 import { newReviewReset } from '../redux/ReviewSlice';
-import { fetchProduct } from '../redux/ProductDetailSlice';
+import { fetchProduct } from '../redux/ProductDetailSlice.js';
 
 function ProductDetail() {
 
