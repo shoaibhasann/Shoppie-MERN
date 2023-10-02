@@ -6,11 +6,16 @@ import cloudinary from "cloudinary";
 import fs from "fs/promises";
 import generateDefaultAvatar from "../utils/avatar.js";
 import path from 'path';
+import dotenv from 'dotenv';
+
+// load enviroment variables
+dotenv.config();
 
 const cookieOptions = {
   maxAge: 7 * 24 * 60 * 60 * 1000, // Valid for 7 days
   httpOnly: true,
-  secure: true,
+  sameSite: process.env.NODE_ENV === 'Development' ? 'lax' : 'none',
+  secure: process.env.NODE_ENV === 'Development' ? false : true
 };
 
 
@@ -170,7 +175,8 @@ const logoutUser = (req, res, next) => {
   try {
     // Clear the JWT token in the cookie
     res.cookie("token", null, {
-      secure: true,
+      sameSite: process.env.NODE_ENV === 'Development' ? 'lax' : 'none',
+      secure: process.env.NODE_ENV === 'Development' ? false : true ,
       maxAge: 0,
       httpOnly: true,
     });
