@@ -1,4 +1,4 @@
-import * as dotenv from "dotenv";
+import dotenv from "dotenv";
 import app from "./app.js";
 import connectDatabase from "./config/db.js";
 import cloudinary from "cloudinary";
