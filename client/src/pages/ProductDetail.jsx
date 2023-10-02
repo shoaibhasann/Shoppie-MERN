@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { fetchProduct } from '../redux/productDetailSlice' 
 import { STATUSES } from '../redux/ProductSlice';
 import ErrorHandler from '../components/layout/ErrorHandler';
 import ProductDetailCard from '../components/app/ProductDetailCard';
@@ -10,6 +9,7 @@ import Reviews from '../components/app/Reviews';
 import MetaData from '../components/layout/MetaData';
 import { toast } from 'react-toastify';
 import { newReviewReset } from '../redux/ReviewSlice';
+import { fetchProduct } from '../redux/ProductDetailSlice';
 
 function ProductDetail() {
 
