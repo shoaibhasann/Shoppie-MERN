@@ -8,7 +8,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ErrorBoundary from "./utils/ErrorBoundary.jsx";
 
-export const server = "http://localhost:8080/api/v1";
+export const server = `${import.meta.env.VITE_BACKEND_URI}/api/v1`;
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ErrorBoundary>
