@@ -4,7 +4,7 @@ import ReceivedImage from '../../assets/received.png';
 
 function OrderSuccess() {
   return (
-    <div className="flex mt-10 h-[50vh] items-center flex-col justify-center gap-5">
+    <div className="flex my-10 h-[50vh] items-center flex-col justify-center gap-5">
       <div>
         <img className='w-[200px]' src={ReceivedImage} alt="Order Received" />
       </div>
