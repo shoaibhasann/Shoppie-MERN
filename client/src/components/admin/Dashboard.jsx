@@ -20,10 +20,10 @@ import {
 import { Line, Doughnut } from "react-chartjs-2";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { productsReset } from "../../redux/admin/AdminSlice";
-import { fetchAllProudcts, fetchOrders } from "../../redux/admin/AdminAsyncActions";
-import { getAllUsers } from "../../redux/admin/AdminUserSlice";
-import { numberWithCommas } from "../../utils/Utility";
+import { productsReset } from "../../redux/admin/AdminSlice.js";
+import { fetchAllProudcts, fetchOrders } from "../../redux/admin/AdminAsyncActions.js";
+import { getAllUsers } from "../../redux/admin/AdminUserSlice.js";
+import { numberWithCommas } from "../../utils/Utility.js";
 
 ChartJS.register(
   CategoryScale,
