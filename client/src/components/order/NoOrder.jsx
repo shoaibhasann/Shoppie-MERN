@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 function NoOrder(){
 
     return (
-      <div className="flex lg:mt-10 mt-7 bg-[#faf9f8] items-center flex-col justify-center lg:gap-7 gap-5">
+      <div className="flex lg:mt-10 my-10 bg-[#faf9f8] items-center flex-col justify-center lg:gap-7 gap-5">
         <img
           className="w-[250px]"
           src={NoOrderImage}
