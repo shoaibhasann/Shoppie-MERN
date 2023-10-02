@@ -1,4 +1,4 @@
-import * as dotenv from "dotenv";
+import dotenv from "dotenv";
 import express from "express";
 import productRoutes from "./routes/product.route.js";
 import userRoutes from "./routes/user.route.js";
@@ -29,7 +29,8 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: [process.env.FRONTEND_URI],
+    methods: ['POST', 'GET', 'PUT', 'DELETE'],
     credentials: true,
   })
 );
