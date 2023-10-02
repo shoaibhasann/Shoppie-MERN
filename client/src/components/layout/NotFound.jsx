@@ -4,7 +4,7 @@ import NotFoundImage from '../../assets/not-found.png'
 
 function NotFound() {
   return (
-    <div className="flex lg:mt-10 mt-7 bg-[#faf9f8] items-center flex-col justify-center gap-5">
+    <div className="flex lg:my-10 my-7 bg-[#faf9f8] items-center flex-col justify-center gap-5">
       <img
         src={NotFoundImage}
         alt="Page Not Found"
