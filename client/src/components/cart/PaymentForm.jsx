@@ -6,17 +6,17 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
-import MetaData from "../layout/MetaData";
-import CheckOutSteps from "./CheckOutSteps";
+import MetaData from "../layout/MetaData.jsx";
+import CheckOutSteps from "./CheckOutSteps.jsx";
 import { AiFillCreditCard } from "react-icons/ai";
 import { BsFillCalendarEventFill } from "react-icons/bs";
 import { MdVpnKey } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { server } from "../../main";
+import { server } from "../../main.jsx";
 import { toast } from "react-toastify";
-import { clearErrors, createNewOrder } from "../../redux/OrderSlice";
+import { clearErrors, createNewOrder } from "../../redux/OrderSlice.js";
 
 function PaymentForm() {
 

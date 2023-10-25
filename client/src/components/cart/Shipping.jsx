@@ -9,10 +9,10 @@ import {
 } from "react-icons/fa";
 import { Country, State } from "country-state-city"
 import { useDispatch, useSelector } from "react-redux";
-import MetaData from "../layout/MetaData";
-import CheckOutSteps from "./CheckOutSteps";
+import MetaData from "../layout/MetaData.jsx";
+import CheckOutSteps from "./CheckOutSteps.jsx";
 import { toast } from 'react-toastify';
-import { saveShippingInfo } from "../../redux/CartSlice";
+import { saveShippingInfo } from "../../redux/CartSlice.js";
 import { useNavigate } from 'react-router-dom';
 
 

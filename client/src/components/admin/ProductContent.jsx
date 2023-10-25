@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {  AiOutlinePlus } from "react-icons/ai";
-import MetaData from "../layout/MetaData";
-import Sidebar from "./SideBar";
+import MetaData from "../layout/MetaData.jsx";
+import Sidebar from "./Sidebar.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { clearAdminErrors, newProductFail, newProductReset } from "../../redux/admin/AdminSlice";
+import { clearAdminErrors, newProductFail, newProductReset } from "../../redux/admin/AdminSlice.js";
 import { toast } from "react-toastify";
-import { createProduct } from "../../redux/admin/AdminAsyncActions";
+import { createProduct } from "../../redux/admin/AdminAsyncActions.js";
 
 function ProductContent() {
 

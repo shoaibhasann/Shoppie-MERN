@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Loader from '../layout/Loader';
-import MetaData from '../layout/MetaData';
+import Loader from '../layout/Loader.jsx';
+import MetaData from '../layout/MetaData.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearErrors, clearMessage, forgotPassword } from '../../redux/ForgotPasswordSlice';
+import { clearErrors, clearMessage, forgotPassword } from '../../redux/ForgotPasswordSlice.js';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 

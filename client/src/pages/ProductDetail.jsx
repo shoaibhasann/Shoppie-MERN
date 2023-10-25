@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { STATUSES } from '../redux/ProductSlice';
-import ErrorHandler from '../components/layout/ErrorHandler';
-import ProductDetailCard from '../components/app/ProductDetailCard';
-import Loader from '../components/layout/Loader';
-import Reviews from '../components/app/Reviews';
-import MetaData from '../components/layout/MetaData';
+import { STATUSES } from '../redux/ProductSlice.js';
+import ErrorHandler from '../components/layout/ErrorHandler.jsx';
+import ProductDetailCard from '../components/app/ProductDetailCard.jsx';
+import Loader from '../components/layout/Loader.jsx';
+import Reviews from '../components/app/Reviews.jsx';
+import MetaData from '../components/layout/MetaData.jsx';
 import { toast } from 'react-toastify';
-import { newReviewReset } from '../redux/ReviewSlice';
+import { newReviewReset } from '../redux/ReviewSlice.js';
 import { fetchProduct } from '../redux/ProductDetailSlice.js';
 
 function ProductDetail() {

@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { clearErrors, getMyOrderDetails } from "../../redux/OrderDetailSlice";
-import { updateOrderStatus } from "../../redux/admin/AdminAsyncActions";
-import MetaData from "../layout/MetaData";
-import Loader from "../layout/Loader";
-import Sidebar from "./SideBar";
-import { numberWithCommas } from "../../utils/Utility";
-import { updateOrderReset } from "../../redux/admin/AdminOrderSlice";
+import { clearErrors, getMyOrderDetails } from "../../redux/OrderDetailSlice.js";
+import { updateOrderStatus } from "../../redux/admin/AdminAsyncActions.js";
+import MetaData from "../layout/MetaData.jsx";
+import Loader from "../layout/Loader.jsx";
+import Sidebar from "./Sidebar.jsx";
+import { numberWithCommas } from "../../utils/Utility.js";
+import { updateOrderReset } from "../../redux/admin/AdminOrderSlice.js";
 
 function ManageOrder() {
   const { id } = useParams();

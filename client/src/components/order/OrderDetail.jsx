@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { clearErrors, getMyOrderDetails } from "../../redux/OrderDetailSlice";
-import MetaData from "../layout/MetaData";
-import Loader from "../layout/Loader";
-import { numberWithCommas } from "../../utils/Utility";
+import { clearErrors, getMyOrderDetails } from "../../redux/OrderDetailSlice.js";
+import MetaData from "../layout/MetaData.jsx";
+import Loader from "../layout/Loader.jsx";
+import { numberWithCommas } from "../../utils/Utility.js";
 
 function OrderDetail() {
   const { id } = useParams();

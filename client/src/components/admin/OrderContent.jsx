@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import Sidebar from "./SideBar";
-import MetaData from "../layout/MetaData";
+import Sidebar from "./Sidebar.jsx";
+import MetaData from "../layout/MetaData.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-import { Button, useSelect } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import "../../styles/ProductListContent.css";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import Loader from "../layout/Loader";
-import { deleteOrder, fetchOrders } from "../../redux/admin/AdminAsyncActions";
-import { allOrdersReset } from "../../redux/admin/AdminOrderSlice";
-import { deleteProductReset } from "../../redux/admin/AdminSlice";
+import Loader from "../layout/Loader.jsx";
+import { deleteOrder, fetchOrders } from "../../redux/admin/AdminAsyncActions.js";
+import { allOrdersReset } from "../../redux/admin/AdminOrderSlice.js";
+import { deleteProductReset } from "../../redux/admin/AdminSlice.js";
 
 
 export const getStatusTextColor = (status) => {

@@ -7,6 +7,7 @@ import fs from "fs/promises";
 import generateDefaultAvatar from "../utils/avatar.js";
 import path from 'path';
 import dotenv from 'dotenv';
+import emailTemplate from "../utils/template.util.js";
 
 // load enviroment variables
 dotenv.config();
@@ -20,33 +21,24 @@ const cookieOptions = {
 
 
 // function to register new user
-const registerUser = async (req, res) => {
+const registerUser = async (req, res, next) => {
   try {
     
     const { name, email, password } = req.body;
 
     // Check if all fields are provided
     if (!name || !email || !password) {
-      return res.status(400).json({
-        success: false,
-        message: "All fields are required",
-      });
+      return next(new AppError("All fields are required", 400));
     }
 
     if (password.length < 8) {
-      return res.status(400).json({
-        success: false,
-        message: "Password should be greater than 8 characters",
-      });
+      return next(new AppError("Password should be greater than 8 characters", 400));
     }
 
     // Check if the user already exists
     const userExists = await userModel.findOne({ email });
     if (userExists) {
-      return res.status(400).json({
-        success: false,
-        message: "Email already exists",
-      });
+      return next(new AppError("Email already exists", 400));
     }
 
     // Create a new user
@@ -86,12 +78,9 @@ const registerUser = async (req, res) => {
       user.avatar.public_id = uploadResult.public_id;
       user.avatar.secure_url = uploadResult.secure_url;
       await user.save();
+
     } catch (error) {
-      console.error("Error during Cloudinary upload:", error);
-      return res.status(500).json({
-        success: false,
-        message: "Error during Cloudinary upload",
-      });
+      return next(new AppError("Error while cloudinary upload", 500));
     } finally {
       // Delete the temporary file
       await fs.unlink(tempFilePath);
@@ -114,11 +103,7 @@ const registerUser = async (req, res) => {
     });
 
   } catch (error) {
-    console.error("Internal Server Error:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Internal Server Error",
-    });
+    return next(new AppError(500, "Internal Server Error" || error.message));
   }
 };
 
@@ -138,7 +123,7 @@ const loginUser = async (req, res, next) => {
       return next(
         new AppError(
           401,
-          "The email address you entered is not associated with an account"
+          "Email address you entered is not associated with an account"
         )
       );
     }
@@ -194,7 +179,7 @@ const logoutUser = (req, res, next) => {
 // controller function to get user profile details
 const getProfile = async (req, res, next) => {
   try {
-    const userId = req.user.id;
+    const { id: userId } = req.user.id;
 
     const user = await userModel.findById(userId);
 
@@ -214,11 +199,9 @@ const updateProfile = async (req, res, next) => {
 
     const { name, email, avatar } = req.body;
 
-    // Extract user id from token
     const { id } = req.user;
 
     const user = await userModel.findById(id);
-
 
     // Update user full name
     if (name) {
@@ -295,32 +278,7 @@ const forgotPassword = async (req, res, next) => {
     // create forgot password url for the email
     const forgotPasswordURL = `${process.env.FRONTEND_URL}/password/reset/${resetToken}`;
 
-    const subject = "Shoppie Password Recovery";
-
-    // Create the content of the reset password email as an HTML link
-const emailStyles = `
-  <div style="background-color: #f5f5f5; padding: 20px; font-family: Arial, sans-serif;">
-    <div style="background-color: #ed0010; text-align: center; padding: 10px;">
-      <h1 style="font-size: 30px; font-weight:700;">Shoppie</h1>
-    </div>
-    <div style="background-color: white; padding: 20px; border-radius: 5px; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);">
-      <h1 style="color: #333; font-size: 24px; margin-bottom: 10px;">Dear ${emailExists.name},</h1>
-      <p style="color: #333;">You have requested to reset your password. Please click on the following link to reset your password:</p>
-      <a href="${forgotPasswordURL}" style="color: #ed0010; text-decoration: none;">${forgotPasswordURL}</a>
-      <p style="color: #333;">If you did not request this password reset, you can ignore this email.</p>
-      <p style="color: #333;">Best regards,</p>
-      <p style="color: #333;">Shoppie</p>
-    </div>
-  </div>
-`;
-
-const message = `
-  <html>
-    <body>
-      ${emailStyles}
-    </body>
-  </html>
-`;
+    const { subject, message } = emailTemplate(forgotPasswordURL, emailExists.name);
 
     try {
       // send reset password email to the user
@@ -331,6 +289,7 @@ const message = `
         message: `Email sent to ${emailExists.email} successfully`,
       });
     } catch (error) {
+
       emailExists.resetPasswordToken = undefined;
       emailExists.resetPasswordExpire = undefined;
       await emailExists.save();
@@ -385,6 +344,7 @@ const resetPassword = async (req, res, next) => {
       success: true,
       message: "Password changed successfully",
     });
+
   } catch (error) {
     return next(new AppError(500, "Internal Server Error" || error.message));
   }
@@ -471,7 +431,6 @@ const getUserDetails = async (req, res, next) => {
 // controller function to update user role -- (Admin)
 const updateRole = async (req, res, next) => {
   try {
-    console.log("request body", req.body);
 
     const { name, email, role } = req.body;
     const { id } = req.params;
@@ -497,14 +456,11 @@ const updateRole = async (req, res, next) => {
       return next(new AppError(404, "User not found"));
     }
 
-    console.log(user);
-
     res.status(200).json({
       success: true,
       message: "User updated successfully",
     });
   } catch (error) {
-    console.error("Error in updateRole:", error);
     return next(new AppError(500, "Internal Server Error" || error.message));
   }
 };

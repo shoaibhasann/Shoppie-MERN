@@ -16,7 +16,7 @@ const createProduct = async (req, res, next) => {
     }
 
     // Check if a product with the same name already exists
-    const existingProduct = await productModel.findOne({ name: name });
+    const existingProduct = await productModel.findOne({ name });
 
     if (existingProduct) {
       return next(new AppError(400, "A product with this name already exists"));
@@ -61,7 +61,6 @@ const createProduct = async (req, res, next) => {
       product,
     });
   } catch (error) {
-    console.error("Product creation error:", error);
     return next(new AppError(500, error.message || "Internal Server Error"));
   }
 };
@@ -240,18 +239,14 @@ const productReview = async (req, res, next) => {
 
     const product = await productModel.findById(productId);
 
-    let reviewed = false;
+    const existingReviewIndex = product.reviews.findIndex(review => review.user.toString() === id.toString());
 
-    for (const review of product.reviews) {
-      if (review.user.toString() === id.toString()) {
-        review.rating = rating;
-        review.comment = comment;
-        reviewed = true;
-        break;
-      }
-    }
+    if(existingReviewIndex !== -1){
 
-    if (!reviewed) {
+      product.reviews[existingReviewIndex].rating = rating;
+      product.reviews[existingReviewIndex].comment = comment;
+
+    } else {
       product.reviews.push(newReview);
       product.numberOfReviews = product.reviews.length;
     }

@@ -1,8 +1,8 @@
 import React from 'react'
-import MetaData from '../layout/MetaData'
-import CheckOutSteps from './CheckOutSteps'
+import MetaData from '../layout/MetaData.jsx'
+import CheckOutSteps from './CheckOutSteps.jsx'
 import { useSelector } from 'react-redux'
-import { numberWithCommas } from '../../utils/Utility';
+import { numberWithCommas } from '../../utils/Utility.js';
 import { Link, useNavigate } from 'react-router-dom';
 
 function ConfirmOrder() {

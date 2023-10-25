@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../layout/Loader";
+import Loader from "../layout/Loader.jsx";
 import { toast } from "react-toastify";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import MetaData from "../layout/MetaData";
-import { clearError, login } from "../../redux/UserSlice";
+import MetaData from "../layout/MetaData.jsx";
+import { clearError, login } from "../../redux/UserSlice.js";
 
 function Login() {
   const dispatch = useDispatch();

@@ -12,7 +12,6 @@ import {
 import {
   PresentationChartBarIcon,
   ShoppingBagIcon,
-  PowerIcon,
   UserGroupIcon,
   ChatBubbleOvalLeftIcon,
   ReceiptRefundIcon,

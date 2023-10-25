@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from 'axios';
-import { server } from "../../main";
+import { server } from "../../main.jsx";
 
 function Contact() {
 

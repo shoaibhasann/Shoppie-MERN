@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, resetProfile, updatePassword } from "../../redux/ProfileSlice";
+import { clearErrors, resetProfile, updatePassword } from "../../redux/ProfileSlice.js";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import Loader from "../layout/Loader";
-import { getUserProfile } from "../../redux/UserSlice";
-import MetaData from "../layout/MetaData";
+import Loader from "../layout/Loader.jsx";
+import { getUserProfile } from "../../redux/UserSlice.js";
+import MetaData from "../layout/MetaData.jsx";
 
 function UpdateProfile() {
 

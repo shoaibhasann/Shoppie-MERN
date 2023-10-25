@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Sidebar from "./SideBar";
+import Sidebar from "./Sidebar.jsx";
 import { Link } from "react-router-dom";
 import {
   ShoppingBagIcon,

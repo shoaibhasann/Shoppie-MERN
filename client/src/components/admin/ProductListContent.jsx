@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { DataGrid } from "@mui/x-data-grid";
-import Sidebar from './SideBar';
-import MetaData from '../layout/MetaData';
+import Sidebar from './Sidebar.jsx';
+import MetaData from '../layout/MetaData.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteProductReset, productsReset } from '../../redux/admin/AdminSlice';
+import { deleteProductReset, productsReset } from '../../redux/admin/AdminSlice.js';
 import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-tailwind/react';
 import '../../styles/ProductListContent.css';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai'
-import Loader from '../layout/Loader';
-import { deleteProduct, fetchAllProudcts } from '../../redux/admin/AdminAsyncActions';
+import Loader from '../layout/Loader.jsx';
+import { deleteProduct, fetchAllProudcts } from '../../redux/admin/AdminAsyncActions.js';
 
 
 function ProductListContent() {

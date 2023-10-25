@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import PaymentForm from "./PaymentForm";
-import { server } from "../../main";
+import PaymentForm from "./PaymentForm.jsx";
+import { server } from "../../main.jsx";
 
 function Payment() {
   const [stripeKey, setStripeKey] = useState("");

@@ -3,7 +3,7 @@ import { AiOutlineClose, AiOutlineMenu, AiOutlineSearch, AiOutlineShoppingCart }
 import Logo from "../../assets/logo.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import UserOptions from "../user/UserOptions";
+import UserOptions from "../user/UserOptions.jsx";
 
 const Navbar = () => {
   const [navOpen, setNavOpen] = useState(false);

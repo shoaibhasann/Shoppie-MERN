@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { numberWithCommas } from '../../utils/Utility';
+import { numberWithCommas } from '../../utils/Utility.js';
 import { useDispatch } from 'react-redux';
-import { removeFromCart } from '../../redux/CartSlice';
+import { removeFromCart } from '../../redux/CartSlice.js';
 import { RiDeleteBinLine } from 'react-icons/ri'
 
 function CartCard({item}) {

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import MetaData from "../layout/MetaData";
-import Sidebar from "./SideBar";
+import MetaData from "../layout/MetaData.jsx";
+import Sidebar from "./Sidebar.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate, useParams } from "react-router-dom";
-import { getCurrentUser, updateUserFail, updateUserReset, updateUserRole } from "../../redux/admin/AdminUserSlice";
+import { getCurrentUser, updateUserFail, updateUserReset, updateUserRole } from "../../redux/admin/AdminUserSlice.js";
 
 function UserContent() {
 

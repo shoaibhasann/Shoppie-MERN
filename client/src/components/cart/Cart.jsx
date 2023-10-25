@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import CartCard from './CartCard'
 import { useDispatch, useSelector } from 'react-redux';
-import EmptyCart from './EmptyCart';
+import EmptyCart from './EmptyCart.jsx';
 import {
   AiOutlinePlus,
   AiOutlineMinus,
 } from "react-icons/ai";
-import { numberWithCommas } from '../../utils/Utility';
-import { addItemsToCart } from '../../redux/CartSlice';
+import { numberWithCommas } from '../../utils/Utility.js';
+import { addItemsToCart } from '../../redux/CartSlice.js';
 import { useNavigate } from 'react-router-dom';
-import MetaData from '../layout/MetaData';
+import MetaData from '../layout/MetaData.jsx';
 
 function Cart() {
   const dispatch = useDispatch();

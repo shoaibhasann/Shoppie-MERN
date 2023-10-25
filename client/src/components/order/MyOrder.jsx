@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useDispatch, useSelector } from "react-redux";
-import MetaData from "../layout/MetaData";
-import Loader from "../layout/Loader";
+import MetaData from "../layout/MetaData.jsx";
+import Loader from "../layout/Loader.jsx";
 import { toast } from "react-toastify";
-import { clearErrors, getMyOrders } from "../../redux/MyOrderSlice";
+import { clearErrors, getMyOrders } from "../../redux/MyOrderSlice.js";
 import { Link } from "react-router-dom";
 import { BiLinkExternal } from 'react-icons/bi';
 import '../../styles/MyOrder.css';
-import NoOrder from "./NoOrder";
-import { getStatusTextColor } from "../admin/OrderContent";
+import NoOrder from "./NoOrder.jsx";
+import { getStatusTextColor } from "../admin/OrderContent.jsx";
 
 
 function MyOrder() {

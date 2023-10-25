@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import Sidebar from "./SideBar";
-import MetaData from "../layout/MetaData";
+import Sidebar from "./Sidebar.jsx";
+import MetaData from "../layout/MetaData.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { Button } from "@material-tailwind/react";
 import "../../styles/ProductListContent.css";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-import Loader from "../layout/Loader";
-import { deleteUser, deleteUserReset, getAllUsers } from "../../redux/admin/AdminUserSlice";
+import Loader from "../layout/Loader.jsx";
+import { deleteUser, deleteUserReset, getAllUsers } from "../../redux/admin/AdminUserSlice.js";
 
 const getRoleTextColor = (status) => {
   if (status === "User") {

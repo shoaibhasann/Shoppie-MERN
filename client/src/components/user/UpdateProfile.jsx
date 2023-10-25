@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Loader from "../layout/Loader";
+import Loader from "../layout/Loader.jsx";
 import {
   updateProfile,
   clearErrors,
   resetProfile,
-} from "../../redux/ProfileSlice";
+} from "../../redux/ProfileSlice.js";
 import { toast } from "react-toastify";
-import { getUserProfile } from "../../redux/UserSlice";
+import { getUserProfile } from "../../redux/UserSlice.js";
 import { useNavigate } from "react-router-dom";
-import MetaData from "../layout/MetaData";
+import MetaData from "../layout/MetaData.jsx";
 
 function UpdateProfile() {
   const { userInfo } = useSelector((state) => state.user);

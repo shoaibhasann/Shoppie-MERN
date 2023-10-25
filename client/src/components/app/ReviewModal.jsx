@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactStars from "react-rating-stars-component";
-import { useDispatch, useSelector } from "react-redux";
-import { addNewReview, newReviewReset } from "../../redux/ReviewSlice";
+import { useDispatch } from "react-redux";
+import { addNewReview } from "../../redux/ReviewSlice.js";
 import { toast } from "react-toastify";
 
 const maxCharacterLimit = 250;

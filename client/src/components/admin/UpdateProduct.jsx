@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlinePlus } from "react-icons/ai";
-import MetaData from "../layout/MetaData";
-import Sidebar from "./SideBar";
+import MetaData from "../layout/MetaData.jsx";
+import Sidebar from "./Sidebar.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { updateProductFail, updateProductReset } from "../../redux/admin/AdminSlice";
+import { updateProductFail, updateProductReset } from "../../redux/admin/AdminSlice.js";
 import { toast } from "react-toastify";
-import { updateProductDetails } from "../../redux/admin/AdminAsyncActions";
-import { fetchProduct } from "../../redux/ProductDetailSlice";
+import { updateProductDetails } from "../../redux/admin/AdminAsyncActions.js";
+import { fetchProduct } from "../../redux/ProductDetailSlice.js";
 import { useNavigate, useParams } from "react-router-dom";
 
 function UpdateProduct() {

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import MetaData from "../layout/MetaData";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { clearErrors, resetPassword, setSuccess } from "../../redux/ResetPasswordSlice";
+import { clearErrors, resetPassword, setSuccess } from "../../redux/ResetPasswordSlice.js";
 import { useNavigate, useParams } from "react-router-dom";
-import { setMessage } from "../../redux/ForgotPasswordSlice";
-import Loader from "../layout/Loader";
+import { setMessage } from "../../redux/ForgotPasswordSlice.js";
+import Loader from "../layout/Loader.jsx";
 import { toast } from "react-toastify";
 
 function ResetPassword() {

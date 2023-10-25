@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
-import { numberWithCommas } from "../../utils/Utility";
+import { numberWithCommas } from "../../utils/Utility.js";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemsToCart } from "../../redux/CartSlice";
+import { addItemsToCart } from "../../redux/CartSlice.js";
 import { toast } from "react-toastify";
 
 function ProductCard({ product }) {

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import Sidebar from "./SideBar";
-import MetaData from "../layout/MetaData";
+import Sidebar from "./Sidebar.jsx";
+import MetaData from "../layout/MetaData.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { Button } from "@material-tailwind/react";
 import "../../styles/ProductListContent.css";
 import { AiOutlineDelete } from "react-icons/ai";
-import { clearErrors, deleteReview, deleteReviewReset, fetchAllReviews } from "../../redux/admin/AdminReviewSlice";
+import { clearErrors, deleteReview, deleteReviewReset, fetchAllReviews } from "../../redux/admin/AdminReviewSlice.js";
 
 
 function ReviewContent() {

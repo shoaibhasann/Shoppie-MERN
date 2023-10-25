@@ -5,12 +5,12 @@ import {
   AiOutlineShoppingCart,
 } from "react-icons/ai";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
-import { numberWithCommas } from "../../utils/Utility";
+import { numberWithCommas } from "../../utils/Utility.js";
 import ReactStars from "react-rating-stars-component";
 import { useDispatch, useSelector } from "react-redux";
-import { addItemsToCart } from "../../redux/CartSlice";
+import { addItemsToCart } from "../../redux/CartSlice.js";
 import { toast } from "react-toastify";
-import ReviewModal from "./ReviewModal";
+import ReviewModal from "./ReviewModal.jsx";
 
 
 

@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import Loader from "../layout/Loader";
-import { formatDate } from "../app/ReviewCard";
+import Loader from "../layout/Loader.jsx";
+import { formatDate } from "../app/ReviewCard.jsx";
 import { Link } from "react-router-dom";
-import MetaData from "../layout/MetaData";
+import MetaData from "../layout/MetaData.jsx";
 
 function Profile() {
   const { userInfo, loading } = useSelector(
